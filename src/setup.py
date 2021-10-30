@@ -15,11 +15,11 @@ setup(
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
         install_requires=[
-            "requests"
-            "pandas"
-            "fsspec"
-            "gcsfs"
-            "google-cloud-storage"
+            "requests",
+            "pandas",
+            "fsspec",
+            "gcsfs",
+            "google-cloud-storage",
             "google-cloud-bigquery"
         ]
         

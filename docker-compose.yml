@@ -6,6 +6,6 @@ services:
         image: brocolidata/brocolib
         container_name: brocolib
         volumes:
-            - ./brocolib:/brocolib
+            - ./src:/src
         stdin_open: true
         tty: true
