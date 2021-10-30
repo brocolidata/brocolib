@@ -1,8 +1,8 @@
 {
-  "name": "Data Platform Terraform",
+  "name": "Brocolib",
   "dockerComposeFile": "../docker-compose.yml",
   "service": "brocolib",
-  "workspaceFolder": "/opt/workspace/environments",
+  "workspaceFolder": "/src",
   "shutdownAction": "stopCompose",
   "extensions": ["ms-python.python", "njpwerner.autodocstring"]
 }

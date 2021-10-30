@@ -2,6 +2,7 @@ setup.py
 brocolib/__init__.py
 brocolib/datalake.py
 brocolib/datawarehouse.py
+brocolib/dbt_utils.py
 brocolib/ingest.py
 brocolib/processing.py
 brocolib.egg-info/PKG-INFO
