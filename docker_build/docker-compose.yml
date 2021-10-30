@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+
+    brocolib:
+        image: brocolidata/brocolib
+        build:
+            context: .

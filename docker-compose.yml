@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+
+    brocolib:
+        image: brocolidata/brocolib
+        container_name: brocolib
+        volumes:
+            - ./src:/src
+        stdin_open: true
+        tty: true

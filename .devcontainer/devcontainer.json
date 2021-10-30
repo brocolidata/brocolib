@@ -1,0 +1,7 @@
+{
+  "name": "Data Platform Terraform",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "brocolib",
+  "workspaceFolder": "/opt/workspace/environments",
+  "shutdownAction": "stopCompose"
+}
