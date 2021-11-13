@@ -41,7 +41,7 @@ def run_dbt_model(model, project_dir, profiles_dir):
         "dbt", "run", 
         "--project-dir", project_dir,
         "--profiles-dir", profiles_dir,
-        "--models", f"+{model}+"
+        "--select", f"+{model}+"
     ]
     # ls_commands.extend(["--models", f"+{model}+"])
     # output = subprocess.run(ls_commands, stdout=subprocess.PIPE)
