@@ -1,5 +1,4 @@
 import subprocess
-import sys
 
 
 def run_dbt_model(model, project_dir, profiles_dir):
@@ -58,11 +57,10 @@ def run_subprocess(ls_commands):
     """
     out = ""
     err = ""
-    ls_executable = [sys.executable, *ls_commands]
     
     try:
         process = subprocess.Popen(
-            ls_executable,
+            ls_commands,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             universal_newlines=True,
