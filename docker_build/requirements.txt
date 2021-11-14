@@ -1,4 +1,5 @@
 pdoc3
+dbt
 requests
 pandas
 fsspec

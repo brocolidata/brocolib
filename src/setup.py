@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.3'
+VERSION = '0.0.4'
 DESCRIPTION = 'Brocoli Library'
 LONG_DESCRIPTION = 'Brocoli Library for Data Processing'
 
@@ -15,6 +15,7 @@ setup(
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
         install_requires=[
+            "dbt",
             "requests",
             "pandas",
             "fsspec",

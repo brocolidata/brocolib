@@ -1,3 +1,4 @@
+dbt
 fsspec
 gcsfs
 google-cloud-bigquery
