@@ -58,7 +58,7 @@ def run_subprocess(ls_commands):
     """
     out = ""
     err = ""
-    ls_executable = [sys.executable, ls_commands]
+    ls_executable = [sys.executable, *ls_commands]
     
     try:
         process = subprocess.Popen(
