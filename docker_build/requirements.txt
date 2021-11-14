@@ -1,0 +1,7 @@
+pdoc3
+requests
+pandas
+fsspec
+gcsfs
+google-cloud-storage
+google-cloud-bigquery
