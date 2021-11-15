@@ -1,65 +1,15 @@
+import os
+import shlex
 import subprocess
 
 
-def run_dbt_model(models, project_dir, profiles_dir):
-    """run dbt model provided as arg and return run log
-
-    Args:
-        model (str): dbt model name
-        project_dir (str): path to the dbt project_dir
-        profiles_dir (str): path to the dbt profiles_dir
-
-    Returns:
-        output (str): log of the dbt run
-    """
-    ls_commands = [
-        "dbt", "run", 
-        "--project-dir", project_dir,
-        "--profiles-dir", profiles_dir,
-        "--select"
-    ]
-    ls_commands += [f"source:stg.{model}+" for model in models]
-    output = run_subprocess(ls_commands)
-    return output
-
-
-# def stage_table(sources, project_dir, profiles_dir, logger):
-def stage_table(sources, project_dir, profiles_dir):
-    """stage tables from datalake to staging layer in dwh
-        and returns log
-
-    Args:
-        sources (list): list of tables to stage
-        project_dir (str): path to the dbt project_dir
-        profiles_dir (str): path to the dbt profiles_dir
-
-    Returns:
-        output (bytes): log of the staging
-    """
-    for source in sources:
-        ls_commands = [
-            "dbt", "run-operation",
-            "stage_external_sources", 
-            "--project-dir", project_dir,
-            "--profiles-dir", profiles_dir,
-            "--args", f"'select: stg.{source}'"
-        ]
-
-        output = run_subprocess(ls_commands)
-        print(f"staging output for {source} :")
-        print(output)
-        # logger.info(f"staging output for {source} :")
-        # logger.info(output)
-
-
-def run_subprocess(ls_commands):
-    """run command provided as arg and returns output
+def run_subprocess(ls_commands, working_dir, logger=None):
+    """Run command provided as arg in path provided as arg
 
     Args:
         ls_commands (list): list of string representing the bash command to run
-
-    Returns:
-        (bytes): output of the bash command
+        working_dir (str): path when you want to change directory to before execution
+        logger (logging.logger): (optional) for goblet `app.log`
     """
     out = ""
     err = ""
@@ -70,13 +20,64 @@ def run_subprocess(ls_commands):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             universal_newlines=True,
+            cwd=working_dir,
+            env=os.environ.copy()
         )
         out, err = process.communicate()
         
         if process.returncode != 0:
-            return f"{out}\n{err} failed"
+            msg = f"{out}\n{err} failed"
+            if logger:
+                logger.error(msg)
+            return msg
 
     except Exception as e:
+        if logger:
+            logger.error(str(e))
         return str(e)
+    
+    msg = f"{out}\n{err}"
+    if logger:
+        logger.info(msg)
+    return msg
 
-    return f"{out}\n{err}"
+
+def run_dbt_model(sources, project_dir, logger=None):
+    """Run `dbt run` and select child of sources provided as arg
+    using `"--select source:stg.SOURCE+`
+    See [Using Unions Set Operators for Node Selection](https://docs.getdbt.com/reference/node-selection/set-operators#unions)
+
+    Args:
+        sources (list): all sources that are parent of the branches that will be run
+        project_dir (str): path to the dbt project
+        logger (logging.logger): (optional) for goblet `app.log`
+    """
+    ls_commands = [
+        "dbt", "run",
+        "--select"
+    ]
+    ls_commands += [f"source:stg.{source}+" for source in sources]
+    if logger:
+        logger.info('Running dbt for', ', '.join(sources), '...')
+    _ = run_subprocess(ls_commands, project_dir, logger)
+
+
+def stage_table(sources, project_dir, logger=None):
+    """stage tables from datalake to staging layer in dwh
+
+    Args:
+        sources (list): list of tables to stage
+        project_dir (str): path to the dbt project
+        logger (logging.logger): (optional) for goblet `app.log`
+    """
+    for source in sources:
+        ls_commands = [
+            "dbt", 
+            "run-operation", 
+            "stage_external_sources",
+        ]
+        ls_commands += shlex.split(f"--args \"select: stg.{source}\"")
+        if logger:
+            logger.info('Staging', source, '...')
+        _ = run_subprocess(ls_commands, project_dir, logger)
+
