@@ -23,7 +23,8 @@ def run_dbt_model(models, project_dir, profiles_dir):
     return output
 
 
-def stage_table(sources, project_dir, profiles_dir, logger):
+# def stage_table(sources, project_dir, profiles_dir, logger):
+def stage_table(sources, project_dir, profiles_dir):
     """stage tables from datalake to staging layer in dwh
         and returns log
 
@@ -45,8 +46,10 @@ def stage_table(sources, project_dir, profiles_dir, logger):
         ]
 
         output = run_subprocess(ls_commands)
-        logger.info(f"staging output for {source} :")
-        logger.info(output)
+        print(f"staging output for {source} :")
+        print(output)
+        # logger.info(f"staging output for {source} :")
+        # logger.info(output)
 
 
 def run_subprocess(ls_commands):
