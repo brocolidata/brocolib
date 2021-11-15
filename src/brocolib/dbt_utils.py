@@ -57,8 +57,6 @@ def run_dbt_model(sources, project_dir, logger=None):
         "--select"
     ]
     ls_commands += [f"source:stg.{source}+" for source in sources]
-    if logger:
-        logger.info('Running dbt for', ', '.join(sources), '...')
     _ = run_subprocess(ls_commands, project_dir, logger)
 
 
@@ -77,7 +75,5 @@ def stage_table(sources, project_dir, logger=None):
             "stage_external_sources",
         ]
         ls_commands += shlex.split(f"--args \"select: stg.{source}\"")
-        if logger:
-            logger.info('Staging', source, '...')
         _ = run_subprocess(ls_commands, project_dir, logger)
 
