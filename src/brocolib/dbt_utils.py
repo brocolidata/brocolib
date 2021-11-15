@@ -41,7 +41,7 @@ def stage_table(sources, project_dir, profiles_dir, logger):
             "stage_external_sources", 
             "--project-dir", project_dir,
             "--profiles-dir", profiles_dir,
-            "--args", f"\"select: stg.{source}\""
+            "--args", f"'select: stg.{source}'"
         ]
 
         output = run_subprocess(ls_commands)
