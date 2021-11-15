@@ -21,7 +21,8 @@ def run_subprocess(ls_commands, working_dir, logger=None):
             stderr=subprocess.PIPE,
             universal_newlines=True,
             cwd=working_dir,
-            env=os.environ.copy()
+            env=os.environ.copy(),
+            encoding='utf-8'
         )
         out, err = process.communicate()
         
