@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.5'
+VERSION = '0.0.6'
 DESCRIPTION = 'Brocoli Library'
 LONG_DESCRIPTION = 'Brocoli Library for Data Processing'
 

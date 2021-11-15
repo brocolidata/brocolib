@@ -1,7 +1,7 @@
 import subprocess
 
 
-def run_dbt_model(model, project_dir, profiles_dir):
+def run_dbt_model(models, project_dir, profiles_dir):
     """run dbt model provided as arg and return run log
 
     Args:
@@ -16,34 +16,37 @@ def run_dbt_model(model, project_dir, profiles_dir):
         "dbt", "run", 
         "--project-dir", project_dir,
         "--profiles-dir", profiles_dir,
-        "--select", f"+{model}+"
+        "--select"
     ]
+    ls_commands += [f"source:stg.{model}+" for model in models]
     output = run_subprocess(ls_commands)
     return output
 
 
-def stage_table(table, project_dir, profiles_dir):
-    """stage table from datalake to staging layer in dwh
+def stage_table(sources, project_dir, profiles_dir, logger):
+    """stage tables from datalake to staging layer in dwh
         and returns log
 
     Args:
-        table (str): table to stage
+        sources (list): list of tables to stage
         project_dir (str): path to the dbt project_dir
         profiles_dir (str): path to the dbt profiles_dir
 
     Returns:
         output (bytes): log of the staging
     """
-    ls_commands = [
-        "dbt", "run-operation",
-        "stage_external_sources", 
-        "--project-dir", project_dir,
-        "--profiles-dir", profiles_dir,
-        "--args", f"\"select: {table}\""
-    ]
+    for source in sources:
+        ls_commands = [
+            "dbt", "run-operation",
+            "stage_external_sources", 
+            "--project-dir", project_dir,
+            "--profiles-dir", profiles_dir,
+            "--args", f"\"select: stg.{source}\""
+        ]
 
-    output = run_subprocess(ls_commands)
-    return output
+        output = run_subprocess(ls_commands)
+        logger.info(f"staging output for {source} :")
+        logger.info(output)
 
 
 def run_subprocess(ls_commands):
