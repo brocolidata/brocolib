@@ -57,9 +57,9 @@ def run_dbt_model(sources, project_dir, logger=None):
         "--select"
     ]
     ls_commands += [f"source:stg.{source}+" for source in sources]
-    logger.info('START dbt run for', ','.join(sources))
+    logger.info(f'START dbt run for {str(sources)}')
     _ = run_subprocess(ls_commands, project_dir, logger)
-    logger.info('END dbt run for', ','.join(sources))
+    logger.info(f'END dbt run for {str(sources)}')
 
 def stage_table(sources, project_dir, logger=None):
     """stage tables from datalake to staging layer in dwh
@@ -76,6 +76,6 @@ def stage_table(sources, project_dir, logger=None):
             "stage_external_sources",
         ]
         ls_commands += shlex.split(f"--args \"select: stg.{source}\"")
-        logger.info('START staging', source)
+        logger.info(f'START staging {source}')
         _ = run_subprocess(ls_commands, project_dir, logger)
-        logger.info('END staging', source)
+        logger.info(f'END staging {source}')
