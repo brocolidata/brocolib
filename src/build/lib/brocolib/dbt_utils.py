@@ -37,7 +37,7 @@ def run_subprocess(ls_commands, working_dir, logger=None):
             logger.error(str(e))
         return str(e)
     
-    msg = f"{out}\n{err}"
+    msg = out
     if logger:
         logger.info(msg)
     return msg
