@@ -31,10 +31,3 @@ Open a terminal inside the container and run
 ```
 python3 setup.py sdist bdist_wheel
 ```
-
-## Documentation website
-Make sure yoy are in `/src` and run 
-```
-pdoc --http 0.0.0.0:80 brocolib
-```
-
