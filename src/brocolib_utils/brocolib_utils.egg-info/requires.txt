@@ -1,5 +1,0 @@
-diagrams
-gspread
-oauth2client
-pandas
-ruamel.yaml
