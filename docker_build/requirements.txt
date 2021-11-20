@@ -6,3 +6,8 @@ fsspec
 gcsfs
 google-cloud-storage
 google-cloud-bigquery
+SQLAlchemy
+diagrams
+gspread
+oauth2client
+ruamel.yaml

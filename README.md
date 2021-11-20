@@ -27,6 +27,8 @@ docker compose -f docker_build/docker-compose.yml build
 3. Open a Remote Window  *(click on blue button left-down corner and click "Reopen in Container)*
 
 ## Rebuild brocolib source distribution+wheel.
+**Prerequisites** : Make sure all packages mentioned in *src/\*/setup.py* (in `install_requires`) are also in *docker_build/requirements.txt* and that the Docker image is fresh.
+
 Open a terminal inside the container and run 
 ```
 python3 setup.py sdist bdist_wheel
