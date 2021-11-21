@@ -14,14 +14,10 @@ RUN apt-get -y update && apt-get -y upgrade \
         jq \
     && pip install --upgrade pip
 
+ENV PYTHONPATH "/src"
+ENV PYTHONPATH "${PYTHONPATH}:/src/extract_load"
+ENV PYTHONPATH "${PYTHONPATH}:/src/transform"
+ENV PYTHONPATH "${PYTHONPATH}:/src/utils:/src/utils/brocolib_utils"
+
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
-
-RUN mkdir -p /src
-# RUN rm /var/cache/apk/*
-
-WORKDIR /src
-# RUN mkdir devops
-# ADD devops ./devops
-# ADD modules ./modules
-# # CMD echo "Hello Amir this is a container used for Terraform and Nomad"
