@@ -1,8 +1,15 @@
-pdoc3
+portray
+psycopg2-binary
 dbt
 requests
 pandas
 fsspec
 gcsfs
+google-api-python-client
 google-cloud-storage
 google-cloud-bigquery
+SQLAlchemy
+diagrams
+gspread
+oauth2client
+ruamel.yaml

@@ -1,0 +1,6 @@
+diagrams
+google-api-python-client
+gspread
+oauth2client
+pandas
+ruamel.yaml

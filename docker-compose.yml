@@ -7,5 +7,9 @@ services:
         container_name: brocolib
         volumes:
             - ./src:/src
+            - ./credentials:/credentials
+        environment:
+          - GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
+        working_dir: /src
         stdin_open: true
         tty: true
