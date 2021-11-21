@@ -33,3 +33,13 @@ Open a terminal inside the container and run
 ```
 python3 setup.py sdist bdist_wheel
 ```
+
+## Run documentation website
+*(does not work for brocolib_utils yet)*
+```
+portray server -m brocolib_extract_load
+```
+**or**
+```
+portray server -m brocolib_transform
+```
