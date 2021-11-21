@@ -19,7 +19,8 @@ setup(
             "gspread",
             "pandas",
             "oauth2client",
-            "ruamel.yaml"
+            "ruamel.yaml",
+            "google-api-python-client"
         ]
         
         # keywords=['python', 'first package'],

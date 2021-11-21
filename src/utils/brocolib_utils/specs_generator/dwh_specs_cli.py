@@ -1,6 +1,6 @@
 import argparse
 import tempfile
-from diagram_generator import generate_diagram, send_image_to_drive
+from .diagram_generator import generate_diagram, send_image_to_drive
 from brocolib_utils.settings import get_project_settings
 
 

@@ -1,13 +1,10 @@
 # importing the required libraries
 import diagrams as diag
 from diagrams.custom import Custom
-import pandas as pd
-from oauth2client.service_account import ServiceAccountCredentials
 from googleapiclient.http import MediaFileUpload
 from googleapiclient.discovery import build
 
-from brocolib_utils.drive import get_creds
-from brocolib_utils.drive import sheet_to_df, clean_columns_name, get_sheet_title, explode_sources
+from brocolib_utils.drive.sheets import sheet_to_df, clean_columns_name, get_sheet_title, explode_sources
 from brocolib_utils.settings import DBT_MODELS_SHEET_NAME
 
 TABLE_ICON_FILE_PATH = "/brocolib_dbt/brocolib/specs_generator/database_table_icon.jpeg"

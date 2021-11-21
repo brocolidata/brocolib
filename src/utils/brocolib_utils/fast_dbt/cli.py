@@ -1,9 +1,7 @@
 import argparse
-import yaml
-from os import set_blocking
 from brocolib_utils.settings import (ALL_FIELDS_SHEET_NAME, SOURCES_SHEET_NAME, 
                                 get_project_settings, DBT_MODELS_PATH)
-from brocolib_utils.drive import sheet_to_df, clean_columns_name
+from brocolib_utils.drive.sheets import sheet_to_df, clean_columns_name
 from brocolib_utils.fast_dbt.generator import (get_loaded_sources, init_dbt_sources, 
                                 generate_loaded_tables_specs, 
                                 dict_to_yaml)
