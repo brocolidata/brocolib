@@ -60,8 +60,6 @@ def generate_loaded_tables_specs(loaded_sources, fields_dataframe, source_datafr
             # dc_table["external"]["options"] = OrderedDict()
             dc_table["external"]["options"] = {}
             dc_table["external"]["options"]["format"] = getattr(source,FILE_FORMAT_COL)
-            dc_table["external"]["options"]["allow_quoted_newlines"] = True
-            dc_table["external"]["options"]["skip_leading_rows"] = skip_leading_rows
             dc_table["external"]["options"]["hive_partition_uri_prefix"] = DoubleQuotedScalarString(f"{getattr(source,GCS_PREFIX_COL)}")
     
             # dc_table["external"]["partitions"] = [{"name":"year","data_type":"integer"}, 
