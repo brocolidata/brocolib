@@ -1,6 +1,7 @@
 fsspec
 gcsfs
 google-cloud-bigquery
+google-cloud-pubsub
 google-cloud-storage
 pandas
 requests

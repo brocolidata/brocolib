@@ -20,7 +20,8 @@ setup(
             "fsspec",
             "gcsfs",
             "google-cloud-storage",
-            "google-cloud-bigquery"
+            "google-cloud-bigquery",
+            "google-cloud-pubsub"
         ]
         
         # keywords=['python', 'first package'],
