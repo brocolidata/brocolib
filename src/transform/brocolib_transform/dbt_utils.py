@@ -30,17 +30,17 @@ def run_subprocess(ls_commands, working_dir, logger=None):
             msg = f"{out}\n{err} failed"
             if logger:
                 logger.error(msg)
-            return msg
+            return msg, False
 
     except Exception as e:
         if logger:
             logger.error(str(e))
-        return str(e)
+        return str(e), False
     
     msg = out
     if logger:
         logger.info(msg)
-    return msg
+    return msg, True
 
 
 def run_dbt_model(sources, project_dir, logger=None):
@@ -59,8 +59,12 @@ def run_dbt_model(sources, project_dir, logger=None):
     ]
     ls_commands += [f"source:stg.{source}+" for source in sources]
     logger.info(f'START dbt run for {str(sources)}')
-    _ = run_subprocess(ls_commands, project_dir, logger)
-    logger.info(f'END dbt run for {str(sources)}')
+    _, dbt_run_ok = run_subprocess(ls_commands, project_dir, logger)
+    if dbt_run_ok:
+        logger.info(f'END dbt run successful for {str(sources)}')
+    else:
+        logger.error(f'END dbt run failed for {str(sources)}')
+
 
 def stage_table(sources, project_dir, logger=None):
     """stage tables from datalake to staging layer in dwh
@@ -70,6 +74,7 @@ def stage_table(sources, project_dir, logger=None):
         project_dir (str): path to the dbt project
         logger (logging.logger): (optional) for goblet `app.log`
     """
+    staging_successful = True
     for source in sources:
         ls_commands = [
             "dbt", 
@@ -78,5 +83,13 @@ def stage_table(sources, project_dir, logger=None):
         ]
         ls_commands += shlex.split(f"--args \"select: stg.{source}\"")
         logger.info(f'START staging {source}')
-        _ = run_subprocess(ls_commands, project_dir, logger)
-        logger.info(f'END staging {source}')
+        _, sources_are_staged = run_subprocess(ls_commands, project_dir, logger)
+        if sources_are_staged:
+            logger.info(f'END staging successful for {source}')
+        else:
+            logger.error(f'END staging successful for {source}')
+            staging_successful = False
+    if staging_successful:
+        return True
+    else:
+        return False
