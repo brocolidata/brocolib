@@ -46,35 +46,31 @@ def init_dbt_sources(sources_dataframe, database, loader=None,version=2):
     return dc_dbt_sources
 
 
-def generate_loaded_tables_specs(loaded_sources, fields_dataframe, source_dataframe, init_dbt_sources_dict, skip_leading_rows=1):
-    # ls_tables_dics = []
+def generate_loaded_tables_specs(loaded_sources, fields_dataframe, source_dataframe, init_dbt_sources_dict):
     for source in source_dataframe.itertuples():
         if getattr(source,TABLE_NAME_COL) in loaded_sources:
             dc_table = {}
-            # dc_table = OrderedDict()
             dc_table["name"] = getattr(source,TABLE_NAME_COL)
             dc_table["description"] = DoubleQuotedScalarString(f"{getattr(source,DESCRIPTION_COL)}")
-            # dc_table["external"] = OrderedDict()
             dc_table["external"] = {}
             dc_table["external"]["location"] = DoubleQuotedScalarString(f"{getattr(source,GCS_PREFIX_COL)}*")
-            # dc_table["external"]["options"] = OrderedDict()
             dc_table["external"]["options"] = {}
             dc_table["external"]["options"]["format"] = getattr(source,FILE_FORMAT_COL)
             dc_table["external"]["options"]["hive_partition_uri_prefix"] = DoubleQuotedScalarString(f"{getattr(source,GCS_PREFIX_COL)}")
     
             # dc_table["external"]["partitions"] = [{"name":"year","data_type":"integer"}, 
             #                                       {"name":"month","data_type":"integer"}]
-            dc_table["columns"] = []            
-                
-            loaded_table_filter = (fields_dataframe[TABLE_NAME_COL] == source.table_name)
-            df_loaded_table = fields_dataframe[loaded_table_filter]
-
-            for field in df_loaded_table.itertuples():
-                dc_field = dict()
-                dc_field["name"] = getattr(field, FIELD_NAME_COL)
-                dc_field["data_type"] = MAPPING_TYPES.get(field.field_type)
-                # dc_field["description"] = f"{getattr(field, FIELD_DESCRIPTION_COL)}"
-    
+                   
+            if FILE_FORMAT_COL.lower() == "parquet":
+                loaded_table_filter = (fields_dataframe[TABLE_NAME_COL] == source.table_name)
+                df_loaded_table = fields_dataframe[loaded_table_filter]
+                dc_table["columns"] = []     
+                for field in df_loaded_table.itertuples():
+                    dc_field = dict()
+                    dc_field["name"] = getattr(field, FIELD_NAME_COL)
+                    dc_field["data_type"] = MAPPING_TYPES.get(field.field_type)
+                    # dc_field["description"] = f"{getattr(field, FIELD_DESCRIPTION_COL)}"
+        
                 dc_table["columns"].append(dc_field)
             for index, source_dc in enumerate(init_dbt_sources_dict["sources"]):
                 if source_dc["name"] == getattr(source,SOURCE_DATASET_COL):

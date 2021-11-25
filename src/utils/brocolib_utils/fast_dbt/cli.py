@@ -45,9 +45,6 @@ dbt_sources_dict = generate_loaded_tables_specs(
     init_dbt_sources_dict=init_dbt_sources_dict
 )
 
-# yaml.add_representer(OrderedDict, represent_ordereddict)
-# yaml.add_representer(str, quoted_presenter)
-
 
 dict_to_yaml(yaml_dict=dbt_sources_dict, yaml_file_path=f"{DBT_MODELS_PATH}/stg.yml")
 
