@@ -61,17 +61,6 @@ def generate_loaded_tables_specs(loaded_sources, fields_dataframe, source_datafr
             # dc_table["external"]["partitions"] = [{"name":"year","data_type":"integer"}, 
             #                                       {"name":"month","data_type":"integer"}]
                    
-            if FILE_FORMAT_COL.lower() == "parquet":
-                loaded_table_filter = (fields_dataframe[TABLE_NAME_COL] == source.table_name)
-                df_loaded_table = fields_dataframe[loaded_table_filter]
-                dc_table["columns"] = []     
-                for field in df_loaded_table.itertuples():
-                    dc_field = dict()
-                    dc_field["name"] = getattr(field, FIELD_NAME_COL)
-                    dc_field["data_type"] = MAPPING_TYPES.get(field.field_type)
-                    # dc_field["description"] = f"{getattr(field, FIELD_DESCRIPTION_COL)}"
-        
-                dc_table["columns"].append(dc_field)
             for index, source_dc in enumerate(init_dbt_sources_dict["sources"]):
                 if source_dc["name"] == getattr(source,SOURCE_DATASET_COL):
                     init_dbt_sources_dict["sources"][index]["tables"].append(dc_table)
