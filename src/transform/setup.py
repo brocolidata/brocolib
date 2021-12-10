@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.2'
+VERSION = '0.0.3'
 DESCRIPTION = 'Data Transformation Brocoli Library'
 LONG_DESCRIPTION = 'Brocoli Library for Data Transformation'
 
@@ -15,7 +15,7 @@ setup(
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
         install_requires=[
-            "dbt"
+            "dbt-bigquery"
         ]
         
         # keywords=['python', 'first package'],
