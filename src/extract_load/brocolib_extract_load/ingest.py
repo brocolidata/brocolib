@@ -1,7 +1,7 @@
 import pandas as pd
 import requests as rq
 
-def extract(url, source_type, nested_key=None):
+def extract(url, source_type, params={}, nested_key=None):
   '''
   Function to extract data
     - read json from url
@@ -10,6 +10,7 @@ def extract(url, source_type, nested_key=None):
   Parameters:
     url (str): url of the data source      
     source_type (str): type of the data to fetch
+    params (dict) : request parameters
 
   Returns:
      (pandas.DataFrame): Dataframe created from source
@@ -21,11 +22,13 @@ def extract(url, source_type, nested_key=None):
 
   if source_type == 'json':
     if nested_key:
-      response = rq.get(url)
+      response = rq.get(url, params=params)
       data = response.json()[nested_key]
       return pd.DataFrame(data)
     else:
-      return pd.read_json(url)
+      response = rq.get(url, params=params)
+      data = response.json()
+      return pd.DataFrame(data)
   
   else:
     raise NotImplementedError("sources available: json")
