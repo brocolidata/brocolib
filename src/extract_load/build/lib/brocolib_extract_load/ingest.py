@@ -1,6 +1,7 @@
 import pandas as pd
+import requests as rq
 
-def extract(url, source_type):
+def extract(url, source_type, nested_key=None):
   '''
   Function to extract data
     - read json from url
@@ -19,7 +20,12 @@ def extract(url, source_type):
   source_type = source_type.lower()
 
   if source_type == 'json':
-    return pd.read_json(url)
+    if nested_key:
+      response = rq.get(url)
+      data = response.json()[nested_key]
+      return pd.DataFrame(data)
+    else:
+      return pd.read_json(url)
   
   else:
     raise NotImplementedError("sources available: json")
