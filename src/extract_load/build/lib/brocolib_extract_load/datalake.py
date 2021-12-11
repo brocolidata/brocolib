@@ -18,7 +18,7 @@ def dataframe_to_bucket(dataframe, bucket_name, blob_name, file_type):
   Returns:
     gcs_path (str): GCS path where the blob is uploaded
   '''
-  gcs_path_temp = f"gs://{bucket_name}/{blob_name}/{{file_extension}}"
+  gcs_path_temp = f"gs://{bucket_name}/{blob_name}.{{file_extension}}"
   if file_type.lower() == 'csv':
     gcs_path = gcs_path_temp.format(file_extension="csv")
     dataframe.to_csv(gcs_path,index=False)

@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.4'
+VERSION = '0.0.5'
 DESCRIPTION = 'Extract & Load Brocoli Library'
 LONG_DESCRIPTION = 'Brocoli Library for Data Extraction & Load'
 
@@ -17,6 +17,7 @@ setup(
         install_requires=[
             "requests",
             "pandas",
+            "fastparquet",
             "fsspec",
             "gcsfs",
             "google-cloud-storage",
