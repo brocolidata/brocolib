@@ -83,7 +83,7 @@ class ExternalTable:
         month =  now.month
         day = now.day
 
-        return f"{'/'.join(self.subfolders)}/{self.file_name}/year={year}/month={month}/{self.file_name}_{str(day)}"
+        return f"{self.subfolders}/{self.file_name}/year={year}/month={month}/{self.file_name}_{str(day)}"
     
     def to_datalake(self, df, logger=None):
 
