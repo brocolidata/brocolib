@@ -1,4 +1,6 @@
 from google.cloud import pubsub_v1
+import json
+
 
 def publish_message_toPubSub(project_id, topic_id, message, logger):
 
@@ -9,3 +11,13 @@ def publish_message_toPubSub(project_id, topic_id, message, logger):
         logger.info(future.result())
     
     return future.result()
+
+
+def publish_message(sources, dbt_topic, gcp_project, logger=None):
+    message = {"sources":sources}
+    publish_message_toPubSub(
+        project_id=gcp_project,
+        topic_id=dbt_topic,
+        message=json.dumps(message).encode("utf-8"),
+        logger=logger
+    )
