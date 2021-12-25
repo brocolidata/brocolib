@@ -60,21 +60,20 @@ def bucket_to_dataframe(bucket_name, blob_name, file_type):
 class ExternalTable:
     def __init__(
         self, 
-        gcs_path, 
-        subfolders_levels, 
-        partitionning_levels,
+        bucket_name,
+        partitionning_keys,
+        bucket_file,
+        bucket_directory ,
         logger=None
     ):
-        path_list = gcs_path.split('/')
-        self.bucket = path_list[2]
-        self.subfolders_levels = subfolders_levels
-        self.partitionning_levels = partitionning_levels
-        self.subfolders = path_list[3:3+subfolders_levels]
-        self.source_name = self.subfolders[-1]
-        self.file_name = path_list[-1]
-        self.partion_args = path_list[-1-partitionning_levels:-1]
+    
+        self.bucket_name = bucket_name
+        self.partitionning_keys = partitionning_keys
+        self.subfolders = bucket_directory
+        self.source_name = bucket_file
+        self.file_name = bucket_file
         self.logger = logger if logger else None
-        self.blob_name = None
+        self.blob_name = self.format_filename()
         self.gcs_path = None
 
 
@@ -82,12 +81,15 @@ class ExternalTable:
         now = datetime.now()
         year =  now.year
         month =  now.month
-        self.blob_name = f"{'/'.join(self.subfolders)}/{self.file_name}/year={year}/month={month}/{self.file_name}"
+        day = now.day
+
+        return f"{'/'.join(self.subfolders)}/{self.file_name}/year={year}/month={month}/{self.file_name}_{str(day)}"
     
-    def to_datalake(self, df, datalake_bucket, logger=None):
+    def to_datalake(self, df, logger=None):
+
         self.gcs_path = dataframe_to_bucket(
             dataframe=df, 
-            bucket_name=datalake_bucket, 
+            bucket_name=self.bucket_name, 
             blob_name=self.blob_name, 
             file_type="parquet",
             logger=logger
