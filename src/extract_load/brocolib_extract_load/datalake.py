@@ -1,5 +1,5 @@
 import pandas as pd
-from pubsub import publish_message
+from .pubsub import publish_message
 from datetime import datetime
 
 def dataframe_to_bucket(dataframe, bucket_name, blob_name, file_type, logger=None):
