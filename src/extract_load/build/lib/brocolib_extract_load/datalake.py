@@ -103,5 +103,6 @@ class ExternalTable:
         publish_message(
             source=[self.source_name],
             dbt_topic=self.dbt_topic,
-            gcp_project=self.gcp_project
-            logger=self.logger)
+            gcp_project=self.gcp_project,
+            logger=self.logger
+        )
