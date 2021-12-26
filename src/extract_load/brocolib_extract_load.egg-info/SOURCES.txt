@@ -2,6 +2,7 @@ setup.py
 brocolib_extract_load/__init__.py
 brocolib_extract_load/datalake.py
 brocolib_extract_load/datawarehouse.py
+brocolib_extract_load/goblet_utils.py
 brocolib_extract_load/ingest.py
 brocolib_extract_load/processing.py
 brocolib_extract_load/pubsub.py
