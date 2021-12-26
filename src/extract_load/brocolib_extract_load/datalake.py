@@ -63,7 +63,9 @@ class ExternalTable:
         bucket_name,
         partitionning_keys,
         bucket_file,
-        bucket_directory ,
+        bucket_directory,
+        dbt_topic,
+        gcp_project,
         logger=None
     ):
     
@@ -72,6 +74,8 @@ class ExternalTable:
         self.subfolders = bucket_directory
         self.source_name = bucket_file
         self.file_name = bucket_file
+        self.dbt_topic = dbt_topic
+        self.gcp_project = gcp_project
         self.logger = logger if logger else None
         self.blob_name = self.format_filename()
         self.gcs_path = None
@@ -96,4 +100,8 @@ class ExternalTable:
         )
 
     def publish_message(self):
-        publish_message([self.source_name], self.logger)
+        publish_message(
+            source=[self.source_name],
+            dbt_topic=self.dbt_topic,
+            gcp_project=self.gcp_project
+            logger=self.logger)
