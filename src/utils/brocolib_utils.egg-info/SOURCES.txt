@@ -6,6 +6,8 @@ brocolib_utils.egg-info/SOURCES.txt
 brocolib_utils.egg-info/dependency_links.txt
 brocolib_utils.egg-info/requires.txt
 brocolib_utils.egg-info/top_level.txt
+brocolib_utils/datalake/__init__.py
+brocolib_utils/datalake/datalake.py
 brocolib_utils/drive/__init__.py
 brocolib_utils/drive/credentials.py
 brocolib_utils/drive/sheets.py

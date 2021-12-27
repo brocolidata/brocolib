@@ -10,6 +10,9 @@ services:
             - ./credentials:/credentials
         environment:
           - GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
+          - DATALAKE_BUCKET=$DATALAKE_BUCKET
+          - PROJECT_ID=$PROJECT_ID
+          - DEFAULT_GCS_PARTITIONNING_KEYS=$DEFAULT_GCS_PARTITIONNING_KEYS
         working_dir: /src
         stdin_open: true
         tty: true
