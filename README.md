@@ -29,7 +29,7 @@ docker compose -f docker_build/docker-compose.yml build
 ## Build Source without running the dev container
 Run the following command *(replace `DIR` by either `extract_load`, `transform` or `utils`)*
 ```
-docker compose run -w /src/DIR brocolib python3 setup.py sdist bdist_wheel
+docker compose run -w --rm /src/DIR brocolib python3 setup.py sdist bdist_wheel
 ```
 
 ## Brocolib Development
