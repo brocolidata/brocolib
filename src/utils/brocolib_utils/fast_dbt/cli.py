@@ -10,8 +10,6 @@ from brocolib_utils.datalake import get_sources
 
 from collections import OrderedDict
 
-from utils.brocolib_utils import datalake
-
 # Create the parser
 my_parser = argparse.ArgumentParser(description='Generate diagrams for a DWH spec')
 
