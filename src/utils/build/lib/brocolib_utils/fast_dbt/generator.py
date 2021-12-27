@@ -52,7 +52,7 @@ def generate_loaded_tables_specs(loaded_sources, init_dbt_sources_dict):
         dc_table["name"] = table
         dc_table["description"] = f"Description for {table}"
         dc_table["external"] = {}
-        dc_table["external"]["location"] = DoubleQuotedScalarString(f"{path}/*")
+        dc_table["external"]["location"] = DoubleQuotedScalarString(f"{path}*")
         dc_table["external"]["options"] = {}
         dc_table["external"]["options"]["format"] = "parquet"
         dc_table["external"]["options"]["hive_partition_uri_prefix"] = DoubleQuotedScalarString(path)
@@ -61,7 +61,6 @@ def generate_loaded_tables_specs(loaded_sources, init_dbt_sources_dict):
         #                                       {"name":"month","data_type":"integer"}]
                 
         init_dbt_sources_dict["sources"][0]["tables"].append(dc_table)
-        
     return init_dbt_sources_dict
 
 

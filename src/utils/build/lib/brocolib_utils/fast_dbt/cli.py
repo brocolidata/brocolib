@@ -1,4 +1,5 @@
 import os
+import json
 import argparse
 from brocolib_utils.settings import (ALL_FIELDS_SHEET_NAME, SOURCES_SHEET_NAME, 
                                 get_project_settings, DBT_MODELS_PATH)
@@ -15,7 +16,8 @@ my_parser = argparse.ArgumentParser(description='Generate diagrams for a DWH spe
 
 datalake_bucket = os.environ.get('DATALAKE_BUCKET')
 gcp_project = os.environ.get('PROJECT_ID')
-first_partition_key = os.environ.get('DEFAULT_GCS_PARTITIONNING_KEYS')[0]
+DEFAULT_GCS_PARTITIONNING_KEYS = json.loads(os.environ.get('DEFAULT_GCS_PARTITIONNING_KEYS'))
+first_partition_key = DEFAULT_GCS_PARTITIONNING_KEYS[0]
 sources_dict = get_sources(
     gcp_project=gcp_project,
     datalake_bucket=datalake_bucket,
