@@ -63,6 +63,7 @@ class ExternalTable:
         bucket_name,
         partition_keys,
         bucket_file,
+        bucket_table_directory,
         bucket_directory,
         dbt_topic,
         gcp_project,
@@ -72,6 +73,7 @@ class ExternalTable:
         self.partition_keys = partition_keys
         self.subfolders = bucket_directory
         self.source_name = bucket_file
+        self.bucket_table_directory = bucket_table_directory
         self.file_name = bucket_file
         self.dbt_topic = dbt_topic
         self.gcp_project = gcp_project
@@ -94,8 +96,7 @@ class ExternalTable:
 
     def format_filename(self):
         now = datetime.now()
-        # return f"{self.subfolders}/{self.file_name}/year={year}/month={month}"
-        path_prefix=self.add_partition_keys(f"{self.subfolders}/{self.file_name}")
+        path_prefix=self.add_partition_keys(f"{self.subfolders}/{self.bucket_table_directory}")
         
         return f"{path_prefix}/{self.file_name}_{str(now.day)}"
     
