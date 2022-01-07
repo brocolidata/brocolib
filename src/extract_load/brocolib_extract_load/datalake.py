@@ -61,7 +61,7 @@ class ExternalTable:
     def __init__(
         self, 
         bucket_name,
-        partitionning_keys,
+        partition_keys,
         bucket_file,
         bucket_directory,
         dbt_topic,
@@ -69,7 +69,7 @@ class ExternalTable:
         logger=None
     ):
         self.bucket_name = bucket_name
-        self.partitionning_keys = partitionning_keys
+        self.partition_keys = partition_keys
         self.subfolders = bucket_directory
         self.source_name = bucket_file
         self.file_name = bucket_file
@@ -79,12 +79,25 @@ class ExternalTable:
         self.blob_name = self.format_filename()
         self.gcs_path = None
 
+    def add_partition_keys(self, path_prefix):
+        now = datetime.now()
+       
+        for key, value in self.partition_keys.items():
+            if key=="year":
+                value = now.year
+            elif key=="month":
+                value = now.month
+            
+            path_prefix += f"/{key}={value}"
+        return path_prefix
+
+
     def format_filename(self):
         now = datetime.now()
-        year =  now.year
-        month =  now.month
-        day = now.day
-        return f"{self.subfolders}/{self.file_name}/year={year}/month={month}/{self.file_name}_{str(day)}"
+        # return f"{self.subfolders}/{self.file_name}/year={year}/month={month}"
+        path_prefix=self.add_partition_keys(f"{self.subfolders}/{self.file_name}")
+        
+        return f"{path_prefix}/{self.file_name}_{str(now.day)}"
     
     def to_datalake(self, df, logger=None):
         self.gcs_path = dataframe_to_bucket(
