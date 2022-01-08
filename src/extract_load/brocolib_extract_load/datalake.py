@@ -72,7 +72,7 @@ class ExternalTable:
         self.bucket_name = bucket_name
         self.partition_keys = partition_keys
         self.subfolders = bucket_directory
-        self.source_name = bucket_file
+        self.source_name = bucket_table_directory
         self.bucket_table_directory = bucket_table_directory
         self.file_name = bucket_file
         self.dbt_topic = dbt_topic
