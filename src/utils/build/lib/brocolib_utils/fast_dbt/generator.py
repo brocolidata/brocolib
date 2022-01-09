@@ -27,44 +27,40 @@ def get_loaded_sources(dataframe):
     return ls_loaded
 
 
-def init_dbt_sources(sources_dataframe, database, loader=None,version=2):
+def init_dbt_sources(database, loader=None, version=2):
     # dc_dbt_sources = OrderedDict()
     dc_dbt_sources = {}
     dc_dbt_sources["version"]=version
     dc_dbt_sources["sources"]=[]
     
-    for source in getattr(sources_dataframe, SOURCE_DATASET_COL).unique():
+    # for source in getattr(sources_dataframe, SOURCE_DATASET_COL).unique():
         # dc_source = OrderedDict()
-        dc_source = {}
-        dc_source["name"] = source
-        dc_source["database"] = database
-        dc_source["loader"] = "gcloud storage"
-        dc_source["tables"] = []
+    dc_source = {}
+    dc_source["name"] = "stg"
+    dc_source["database"] = database
+    dc_source["loader"] = "gcloud storage"
+    dc_source["tables"] = []
 
-        dc_dbt_sources["sources"].append(dict(dc_source))
+    dc_dbt_sources["sources"].append(dict(dc_source))
     
     return dc_dbt_sources
 
 
-def generate_loaded_tables_specs(loaded_sources, fields_dataframe, source_dataframe, init_dbt_sources_dict):
-    for source in source_dataframe.itertuples():
-        if getattr(source,TABLE_NAME_COL) in loaded_sources:
-            dc_table = {}
-            dc_table["name"] = getattr(source,TABLE_NAME_COL)
-            dc_table["description"] = DoubleQuotedScalarString(f"{getattr(source,DESCRIPTION_COL)}")
-            dc_table["external"] = {}
-            dc_table["external"]["location"] = DoubleQuotedScalarString(f"{getattr(source,GCS_PREFIX_COL)}*")
-            dc_table["external"]["options"] = {}
-            dc_table["external"]["options"]["format"] = getattr(source,FILE_FORMAT_COL)
-            dc_table["external"]["options"]["hive_partition_uri_prefix"] = DoubleQuotedScalarString(f"{getattr(source,GCS_PREFIX_COL)}")
-    
-            # dc_table["external"]["partitions"] = [{"name":"year","data_type":"integer"}, 
-            #                                       {"name":"month","data_type":"integer"}]
-                   
-            for index, source_dc in enumerate(init_dbt_sources_dict["sources"]):
-                if source_dc["name"] == getattr(source,SOURCE_DATASET_COL):
-                    init_dbt_sources_dict["sources"][index]["tables"].append(dc_table)
-        
+def generate_loaded_tables_specs(loaded_sources, init_dbt_sources_dict):
+    for table, path in loaded_sources.items():
+        dc_table = {}
+        dc_table["name"] = table
+        dc_table["description"] = f"Description for {table}"
+        dc_table["external"] = {}
+        dc_table["external"]["location"] = DoubleQuotedScalarString(f"{path}*")
+        dc_table["external"]["options"] = {}
+        dc_table["external"]["options"]["format"] = "parquet"
+        dc_table["external"]["options"]["hive_partition_uri_prefix"] = DoubleQuotedScalarString(path)
+
+        # dc_table["external"]["partitions"] = [{"name":"year","data_type":"integer"}, 
+        #                                       {"name":"month","data_type":"integer"}]
+                
+        init_dbt_sources_dict["sources"][0]["tables"].append(dc_table)
     return init_dbt_sources_dict
 
 

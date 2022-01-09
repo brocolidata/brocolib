@@ -82,6 +82,7 @@ def stage_table(sources, project_dir, logger=None):
             "stage_external_sources",
         ]
         ls_commands += shlex.split(f"--args \"select: stg.{source}\"")
+        ls_commands += shlex.split(f"--vars \"ext_full_refresh: true\"")
         logger.info(f'START staging {source}')
         _, sources_are_staged = run_subprocess(ls_commands, project_dir, logger)
         if sources_are_staged:

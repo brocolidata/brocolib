@@ -1,3 +1,5 @@
+import os
+import json
 import argparse
 from brocolib_utils.settings import (ALL_FIELDS_SHEET_NAME, SOURCES_SHEET_NAME, 
                                 get_project_settings, DBT_MODELS_PATH)
@@ -5,43 +7,32 @@ from brocolib_utils.drive.sheets import sheet_to_df, clean_columns_name
 from brocolib_utils.fast_dbt.generator import (get_loaded_sources, init_dbt_sources, 
                                 generate_loaded_tables_specs, 
                                 dict_to_yaml)
+from brocolib_utils.datalake import get_sources
 
 from collections import OrderedDict
 
 # Create the parser
 my_parser = argparse.ArgumentParser(description='Generate diagrams for a DWH spec')
 
-# Add the arguments
-my_parser.add_argument(
-    'sheet_url',
-    metavar='sheet_url',
-    type=str,
-    help='Google Sheets URl'
+datalake_bucket = os.environ.get('DATALAKE_BUCKET')
+gcp_project = os.environ.get('PROJECT_ID')
+DEFAULT_GCS_PARTITIONNING_KEYS = json.loads(os.environ.get('DEFAULT_GCS_PARTITIONNING_KEYS'))
+first_partition_key = DEFAULT_GCS_PARTITIONNING_KEYS[0]
+sources_dict = get_sources(
+    gcp_project=gcp_project,
+    datalake_bucket=datalake_bucket,
+    first_partition_key=first_partition_key
 )
 
-
-
-# Execute the parse_args() method
-args = my_parser.parse_args()
-sheet_url = args.sheet_url
-
-
-df_fields = sheet_to_df(sheet_url, ALL_FIELDS_SHEET_NAME)
-df_fields = clean_columns_name(df_fields)
-df_dbt = sheet_to_df(sheet_url, SOURCES_SHEET_NAME)
-df_dbt = clean_columns_name(df_dbt)
-loaded_sources = get_loaded_sources(df_dbt)
-project_settings_dict = get_project_settings(sheet_url)
 init_dbt_sources_dict = init_dbt_sources(
-    sources_dataframe=df_dbt,
-    database=project_settings_dict["back_project"], 
+    database=gcp_project, 
     loader=None, 
     version=2
 )
+
+
 dbt_sources_dict = generate_loaded_tables_specs(
-    loaded_sources=loaded_sources,
-    fields_dataframe=df_fields, 
-    source_dataframe=df_dbt, 
+    loaded_sources=sources_dict,
     init_dbt_sources_dict=init_dbt_sources_dict
 )
 

@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.4'
+VERSION = '0.0.8'
 DESCRIPTION = 'Utils Brocoli Library'
 LONG_DESCRIPTION = 'Brocoli Collection of high level APIs'
 
@@ -20,7 +20,8 @@ setup(
             "pandas",
             "oauth2client",
             "ruamel.yaml",
-            "google-api-python-client"
+            "google-api-python-client",
+            "google-cloud-storage"
         ]
         
         # keywords=['python', 'first package'],

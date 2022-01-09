@@ -24,7 +24,13 @@ docker compose -f docker_build/docker-compose.yml build
 ## Quickstart
 1. Rename **.env.example** to **.env** and replace dummy values with yours
 2. Run the **Development start** process to create the image
-3. Open a Remote Window  *(click on blue button left-down corner and click "Reopen in Container)*
+3. Either **Build Source without running the dev container** (below) or **Open a Remote Window**  *(click on blue button left-down corner and click "Reopen in Container)*
+
+## Build Source without running the dev container
+Run the following command *(replace `DIR` by either `extract_load`, `transform` or `utils`)*
+```
+docker compose run --rm -w /src/DIR brocolib python3 setup.py sdist bdist_wheel
+```
 
 ## Brocolib Development
 See [Brocolib Development](/src/README.md)
