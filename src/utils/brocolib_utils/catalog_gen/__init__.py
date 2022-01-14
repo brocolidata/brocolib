@@ -1,0 +1,1 @@
+import dbt_catalog
