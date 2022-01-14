@@ -14,3 +14,4 @@ diagrams
 gspread
 oauth2client
 ruamel.yaml
+pytest-mock
