@@ -1,1 +1,1 @@
-import dbt_catalog
+import .dbt_catalog
