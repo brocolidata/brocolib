@@ -1,4 +1,4 @@
-![Brocoli Logo](brocoli_logo.png)
+![Brocolib Logo](brocolib_github_banner.png)
 # **brocolib**
 Brocoli Library for Data Processing
 
