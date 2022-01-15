@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from google.cloud import storage
 import shlex
 import subprocess
@@ -22,6 +23,17 @@ def get_dbt_populated_index(target_folder):
         
     with open(manifest_path, 'r') as f:
         json_manifest = json.loads(f.read())
+
+    IGNORE_PROJECTS = [
+        'dbt', 'dbt_bigquery', 'dbt_external_tables', 'dbt_utils', 
+        'codegen'
+    ]
+    for element_type in ['nodes', 'sources', 'macros', 'parent_map', 'child_map']:  # navigate into manifest
+        # We transform to list to not change dict size during iteration, we use default value {} to handle KeyError
+        for key in list(json_manifest.get(element_type, {}).keys()):  
+            for ignore_project in IGNORE_PROJECTS:
+                if re.match(fr'^.*\.{ignore_project}\.', key):  # match with string that start with '*.<ignore_project>.'
+                    del json_manifest[element_type][key]  # delete element
 
     with open(catalog_path, 'r') as f:
         json_catalog = json.loads(f.read())
