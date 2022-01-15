@@ -27,9 +27,9 @@ docker compose -f docker_build/docker-compose.yml build
 3. Either **Build Source without running the dev container** (below) or **Open a Remote Window**  *(click on blue button left-down corner and click "Reopen in Container)*
 
 ## Build Source without running the dev container (WARNING BELOW)
-Run the following command *(replace `DIR` by either `extract_load`, `transform` or `utils`)*
+Run the following command *(replace `DIRECTORY` by either `extract_load`, `transform` or `utils`)*
 ```
-docker compose run --rm -w /src/DIR brocolib rm -rf dist && python3 setup.py sdist bdist_wheel
+docker compose run --rm  brocolib bash build.sh DIRECTORY
 ```
 **WARNING: when we start to have risks of breaking changes in production, remove `rm -rf` in the code above in order to keep old versions when creating new ones**
 

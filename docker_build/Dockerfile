@@ -18,6 +18,7 @@ ENV PYTHONPATH "/src"
 ENV PYTHONPATH "${PYTHONPATH}:/src/extract_load"
 ENV PYTHONPATH "${PYTHONPATH}:/src/transform"
 ENV PYTHONPATH "${PYTHONPATH}:/src/utils:/src/utils/brocolib_utils"
+ENV PATH "${PATH}:/src"
 
 COPY requirements.txt .
 RUN pip3 install -r requirements.txt
