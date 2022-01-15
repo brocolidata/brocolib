@@ -5,13 +5,13 @@ import shlex
 import subprocess
 
 
-def get_dbt_populated_index():
+def get_dbt_populated_index(target_folder):
 
     print('Populating index.html ...')
-    TARGET_FOLDER_PATH = '/tmp/target'
-    index_path = os.path.join(TARGET_FOLDER_PATH, 'index.html')
-    manifest_path = os.path.join(TARGET_FOLDER_PATH, 'manifest.json')
-    catalog_path = os.path.join(TARGET_FOLDER_PATH, 'catalog.json')
+    target_folder = target_folder if target_folder else '/tmp/target'
+    index_path = os.path.join(target_folder, 'index.html')
+    manifest_path = os.path.join(target_folder, 'manifest.json')
+    catalog_path = os.path.join(target_folder, 'catalog.json')
     search_str = 'o=[i("manifest","manifest.json"+t),i("catalog","catalog.json"+t)]'
 
     with open(index_path, 'r') as f:
@@ -31,20 +31,21 @@ def get_dbt_populated_index():
 
 
 def upload_populated_index(
-    gcp_project="brocoli-internal-front",
-    bucket="brocoli.tech",
-    file_name="index3.html",
-    read_group="administrators@brocoli.tech"
+    content,
+    file_name='index.html'
 ):  
-    generate_dbt_docs()
-    
+    bucket = os.environ.get('DBT_DOCS_BUCKET')
+    gcp_project = os.environ.get('FRONT_PROJECT_ID')
+    read_group = os.environ.get('DBT_DOCS_READ_GROUP')
+
     print('Loading index.html to GCS ...')
     storage_client = storage.Client(project=gcp_project)
     bucket = storage_client.bucket(bucket)
     blob = bucket.blob(file_name)
-    content = get_dbt_populated_index()
     blob.upload_from_string(content, content_type='text/html')
     print('Successfully loaded index.html to GCS')
+   
+    # Manage ACL
     acl = blob.acl
     acl.reload()
     acl.group(read_group).grant_read()
@@ -105,8 +106,33 @@ def generate_dbt_docs():
         print(f'Failed run dbt docs generate')
 
 
+def run_dbt_debug():
+    """
+    Run `dbt debug `
+    """
+    ls_commands = [
+        "dbt", "debug"
+    ]
+    project_dir = os.environ.get('DBT_PATH')
+    print(f'Starting dbt debug ...')
+    _, dbt_run_ok = run_subprocess(ls_commands, project_dir)
+    if dbt_run_ok:
+        print(f'Successfully run dbt debug')
+    else:
+        print(f'Failed while trying to run dbt debug')
 
 
-
-if __name__ == "__main__":
-    upload_populated_index()
+def run_dbt_deps():
+    """
+    Run `dbt debug `
+    """
+    ls_commands = [
+        "dbt", "deps"
+    ]
+    project_dir = os.environ.get('DBT_PATH')
+    print(f'Starting dbt deps  ...')
+    _, dbt_run_ok = run_subprocess(ls_commands, project_dir)
+    if dbt_run_ok:
+        print(f'Successfully run dbt deps')
+    else:
+        print(f'Failed while trying to run dbt deps')
