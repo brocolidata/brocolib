@@ -39,7 +39,7 @@ def upload_populated_index(
 
     print('Loading index.html to GCS ...')
     storage_client = storage.Client(project=gcp_project)
-    bucket = storage_client.bucket(bucket)
+    bucket = storage_client.get_bucket(bucket)
     blob = bucket.blob(file_name)
     blob.upload_from_string(content, content_type='text/html')
     print('Successfully loaded index.html to GCS')
