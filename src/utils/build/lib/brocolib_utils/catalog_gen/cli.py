@@ -1,3 +1,5 @@
+from email.policy import default
+import os
 import argparse
 from brocolib_utils.catalog_gen.dbt_catalog import (generate_dbt_docs, get_dbt_populated_index, run_dbt_debug,
     run_dbt_deps)
@@ -6,41 +8,45 @@ from brocolib_utils.catalog_gen.dbt_catalog import (generate_dbt_docs, get_dbt_p
 
 my_parser = argparse.ArgumentParser(description='List the content of a folder')
 
-my_parser.add_argument('--profile-path', action='store', type=str)
-my_parser.add_argument('--project-path', action='store', type=str)
 
 my_parser.add_argument(
-    'profile-path',
+    '--profile-path',
     metavar='profile_path',
     type=str,
-    help='dbt project path'
+    help='dbt project path',
+    default=os.environ.get('DBT_PROFILES_DIR')
+)
 
 my_parser.add_argument(
-    'project-path',
+    '--project-path',
     metavar='project_path',
     type=str,
-    help='dbt profile path'
+    help='dbt profile path',
+    default=os.environ.get('DBT_PATH')
 )
 
 my_parser.add_argument(
-    'target-path',
+    '--target-path',
     metavar='target_path',
     type=str,
-    help='dbt target path'
+    help='dbt target path',
+    default='/tmp/target'
 )
 
 my_parser.add_argument(
-    'debug',
+    '--debug',
     metavar='debug',
     type=bool,
-    help='enable debug'
+    help='enable debug',
+    default=False
 )
 
 my_parser.add_argument(
-    'ci',
+    '--ci',
     metavar='is_ci',
     type=bool,
-    help='if the runtime is a CI/CD pipeline'
+    help='if the runtime is a CI/CD pipeline',
+    default=False
 )
 
 args = my_parser.parse_args()
