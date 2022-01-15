@@ -8,7 +8,6 @@ import subprocess
 def get_dbt_populated_index(target_folder):
 
     print('Populating index.html ...')
-    target_folder = target_folder if target_folder else '/tmp/target'
     index_path = os.path.join(target_folder, 'index.html')
     manifest_path = os.path.join(target_folder, 'manifest.json')
     catalog_path = os.path.join(target_folder, 'catalog.json')
