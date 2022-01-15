@@ -10,22 +10,6 @@ my_parser = argparse.ArgumentParser(description='List the content of a folder')
 
 
 my_parser.add_argument(
-    '--profile-path',
-    dest='profile_path',
-    type=str,
-    help='dbt project path',
-    default=os.environ.get('DBT_PROFILES_DIR')
-)
-
-my_parser.add_argument(
-    '--project-path',
-    dest='project_path',
-    type=str,
-    help='dbt profile path',
-    default=os.environ.get('DBT_PATH')
-)
-
-my_parser.add_argument(
     '--target-path',
     dest='target_path',
     type=str,
@@ -51,8 +35,6 @@ my_parser.add_argument(
 
 args = my_parser.parse_args()
 
-project_path = args.project_path
-profile_path = args.profile_path
 target_path = args.target_path
 is_CI = args.is_CI
 debug = args.debug
