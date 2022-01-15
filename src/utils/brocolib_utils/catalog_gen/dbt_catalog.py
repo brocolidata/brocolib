@@ -7,7 +7,7 @@ import subprocess
 DBT_DOCS_BUCKET = os.environ.get('DBT_DOCS_BUCKET')
 GCP_PROJECT = os.environ.get('FRONT_PROJECT_ID')
 DBT_DOCS_READ_GROUP = os.environ.get('DBT_DOCS_READ_GROUP')
-DBT_PROJECT_DIR = os.environ.get('DBT_PROJECT_DIR')
+DBT_PROJECT_DIR = os.environ.get('DBT_PATH')
 
 def get_dbt_populated_index(target_folder):
 
