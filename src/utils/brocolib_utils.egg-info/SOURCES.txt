@@ -7,6 +7,7 @@ brocolib_utils.egg-info/dependency_links.txt
 brocolib_utils.egg-info/requires.txt
 brocolib_utils.egg-info/top_level.txt
 brocolib_utils/catalog_gen/__init__.py
+brocolib_utils/catalog_gen/cli.py
 brocolib_utils/catalog_gen/dbt_catalog.py
 brocolib_utils/datalake/__init__.py
 brocolib_utils/datalake/datalake.py
