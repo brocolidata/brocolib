@@ -1,12 +1,9 @@
 import os
 import json
 import argparse
-from brocolib_utils.settings import (ALL_FIELDS_SHEET_NAME, SOURCES_SHEET_NAME, 
-                                get_project_settings, DBT_MODELS_PATH)
-from brocolib_utils.drive.sheets import sheet_to_df, clean_columns_name
-from brocolib_utils.fast_dbt.generator import (get_loaded_sources, init_dbt_sources, 
-                                generate_loaded_tables_specs, 
-                                dict_to_yaml)
+from brocolib_utils.settings import DBT_MODELS_PATH
+from brocolib_utils.fast_dbt.generator import (init_dbt_sources, 
+    generate_loaded_tables_specs, dict_to_yaml)
 from brocolib_utils.datalake import get_sources
 
 from collections import OrderedDict
@@ -14,18 +11,18 @@ from collections import OrderedDict
 # Create the parser
 my_parser = argparse.ArgumentParser(description='Generate diagrams for a DWH spec')
 
-datalake_bucket = os.environ.get('DATALAKE_BUCKET')
-gcp_project = os.environ.get('PROJECT_ID')
+DATALAKE_BUCKET = os.environ.get('DATALAKE_BUCKET')
+GCP_PROJECT = os.environ.get('BACK_PROJECT_ID')
 DEFAULT_GCS_PARTITIONNING_KEYS = json.loads(os.environ.get('DEFAULT_GCS_PARTITIONNING_KEYS'))
 first_partition_key = DEFAULT_GCS_PARTITIONNING_KEYS[0]
 sources_dict = get_sources(
-    gcp_project=gcp_project,
-    datalake_bucket=datalake_bucket,
+    gcp_project=GCP_PROJECT,
+    datalake_bucket=DATALAKE_BUCKET,
     first_partition_key=first_partition_key
 )
 
 init_dbt_sources_dict = init_dbt_sources(
-    database=gcp_project, 
+    database=GCP_PROJECT, 
     loader=None, 
     version=2
 )

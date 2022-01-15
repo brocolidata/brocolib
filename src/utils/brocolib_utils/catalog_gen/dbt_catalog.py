@@ -4,6 +4,10 @@ from google.cloud import storage
 import shlex
 import subprocess
 
+DBT_DOCS_BUCKET = os.environ.get('DBT_DOCS_BUCKET')
+GCP_PROJECT = os.environ.get('FRONT_PROJECT_ID')
+DBT_DOCS_READ_GROUP = os.environ.get('DBT_DOCS_READ_GROUP')
+DBT_PROJECT_DIR = os.environ.get('DBT_PROJECT_DIR')
 
 def get_dbt_populated_index(target_folder):
 
@@ -33,13 +37,10 @@ def upload_populated_index(
     content,
     file_name='index.html'
 ):  
-    bucket = os.environ.get('DBT_DOCS_BUCKET')
-    gcp_project = os.environ.get('FRONT_PROJECT_ID')
-    read_group = os.environ.get('DBT_DOCS_READ_GROUP')
-
+    
     print('Loading index.html to GCS ...')
-    storage_client = storage.Client(project=gcp_project)
-    bucket = storage_client.get_bucket(bucket)
+    storage_client = storage.Client(project=GCP_PROJECT)
+    bucket = storage_client.get_bucket(DBT_DOCS_BUCKET)
     blob = bucket.blob(file_name)
     blob.upload_from_string(content, content_type='text/html')
     print('Successfully loaded index.html to GCS')
@@ -47,7 +48,7 @@ def upload_populated_index(
     # Manage ACL
     acl = blob.acl
     acl.reload()
-    acl.group(read_group).grant_read()
+    acl.group(DBT_DOCS_READ_GROUP).grant_read()
     acl.save()
     blob.acl.save(acl=acl)
     print('Added ACL to index.html')
@@ -96,9 +97,8 @@ def generate_dbt_docs():
     ls_commands = [
         "dbt", "docs", "generate"
     ]
-    project_dir = os.environ.get('DBT_PATH')
     print(f'Starting dbt docs generate ...')
-    _, dbt_run_ok = run_subprocess(ls_commands, project_dir)
+    _, dbt_run_ok = run_subprocess(ls_commands, DBT_PROJECT_DIR)
     if dbt_run_ok:
         print(f'Successfully run dbt docs generate')
     else:
@@ -112,9 +112,8 @@ def run_dbt_debug():
     ls_commands = [
         "dbt", "debug"
     ]
-    project_dir = os.environ.get('DBT_PATH')
     print(f'Starting dbt debug ...')
-    _, dbt_run_ok = run_subprocess(ls_commands, project_dir)
+    _, dbt_run_ok = run_subprocess(ls_commands, DBT_PROJECT_DIR)
     if dbt_run_ok:
         print(f'Successfully run dbt debug')
     else:
@@ -128,9 +127,8 @@ def run_dbt_deps():
     ls_commands = [
         "dbt", "deps"
     ]
-    project_dir = os.environ.get('DBT_PATH')
     print(f'Starting dbt deps  ...')
-    _, dbt_run_ok = run_subprocess(ls_commands, project_dir)
+    _, dbt_run_ok = run_subprocess(ls_commands, DBT_PROJECT_DIR)
     if dbt_run_ok:
         print(f'Successfully run dbt deps')
     else:
