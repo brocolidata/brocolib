@@ -19,7 +19,7 @@ my_parser.add_argument(
 
 my_parser.add_argument(
     '--debug',
-    dest='debug'
+    dest='debug',
     type=bool,
     help='enable debug',
     action="store_true"
@@ -27,7 +27,7 @@ my_parser.add_argument(
 
 my_parser.add_argument(
     '--ci',
-    dest='is_CI'
+    dest='is_CI',
     type=bool,
     help='if the runtime is a CI/CD pipeline',
     action="store_true"
