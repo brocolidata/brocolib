@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.15'
+VERSION = '0.0.16'
 DESCRIPTION = 'Utils Brocoli Library'
 LONG_DESCRIPTION = 'Brocoli Collection of high level APIs'
 

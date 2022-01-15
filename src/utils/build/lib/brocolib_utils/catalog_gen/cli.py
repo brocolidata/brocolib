@@ -38,7 +38,7 @@ my_parser.add_argument(
     metavar='debug',
     type=bool,
     help='enable debug',
-    default=False
+    action="store_true"
 )
 
 my_parser.add_argument(
@@ -46,7 +46,7 @@ my_parser.add_argument(
     metavar='is_ci',
     type=bool,
     help='if the runtime is a CI/CD pipeline',
-    default=False
+    action="store_true"
 )
 
 args = my_parser.parse_args()
