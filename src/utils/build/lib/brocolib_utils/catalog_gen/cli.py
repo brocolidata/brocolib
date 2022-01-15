@@ -11,7 +11,7 @@ my_parser = argparse.ArgumentParser(description='List the content of a folder')
 
 my_parser.add_argument(
     '--profile-path',
-    metavar='profile_path',
+    dest='profile_path',
     type=str,
     help='dbt project path',
     default=os.environ.get('DBT_PROFILES_DIR')
@@ -19,7 +19,7 @@ my_parser.add_argument(
 
 my_parser.add_argument(
     '--project-path',
-    metavar='project_path',
+    dest='project_path',
     type=str,
     help='dbt profile path',
     default=os.environ.get('DBT_PATH')
@@ -27,7 +27,7 @@ my_parser.add_argument(
 
 my_parser.add_argument(
     '--target-path',
-    metavar='target_path',
+    dest='target_path',
     type=str,
     help='dbt target path',
     default='/tmp/target'
@@ -35,7 +35,7 @@ my_parser.add_argument(
 
 my_parser.add_argument(
     '--debug',
-    metavar='debug',
+    dest='debug'
     type=bool,
     help='enable debug',
     action="store_true"
@@ -43,7 +43,7 @@ my_parser.add_argument(
 
 my_parser.add_argument(
     '--ci',
-    metavar='is_ci',
+    dest='is_CI'
     type=bool,
     help='if the runtime is a CI/CD pipeline',
     action="store_true"
@@ -54,7 +54,7 @@ args = my_parser.parse_args()
 project_path = args.project_path
 profile_path = args.profile_path
 target_path = args.target_path
-is_CI = args.ci
+is_CI = args.is_CI
 debug = args.debug
 
 if is_CI:
