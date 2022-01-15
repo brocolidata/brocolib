@@ -21,6 +21,12 @@ def get_dbt_populated_index(target_folder):
     with open(index_path, 'r') as f:
         content_index = f.read()
         
+        # select "Database" tab by default
+        content_index = content_index.replace('{e.nav_selected="project"}', '{e.nav_selected="database"}')
+
+        # hide "Project" tab
+        content_index = content_index.replace('<div class="switch ">', '<div class="switch " hidden>')
+
     with open(manifest_path, 'r') as f:
         json_manifest = json.loads(f.read())
 
