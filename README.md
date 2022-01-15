@@ -26,11 +26,12 @@ docker compose -f docker_build/docker-compose.yml build
 2. Run the **Development start** process to create the image
 3. Either **Build Source without running the dev container** (below) or **Open a Remote Window**  *(click on blue button left-down corner and click "Reopen in Container)*
 
-## Build Source without running the dev container
+## Build Source without running the dev container (WARNING BELOW)
 Run the following command *(replace `DIR` by either `extract_load`, `transform` or `utils`)*
 ```
-docker compose run --rm -w /src/DIR brocolib python3 setup.py sdist bdist_wheel
+docker compose run --rm -w /src/DIR brocolib rm -rf dist && python3 setup.py sdist bdist_wheel
 ```
+**WARNING: when we start to have risks of breaking changes in production, remove `rm -rf` in the code above in order to keep old versions when creating new ones**
 
 ## Brocolib Development
 See [Brocolib Development](/src/README.md)
