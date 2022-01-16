@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.27'
+VERSION = '0.0.28'
 DESCRIPTION = 'Utils Brocoli Library'
 LONG_DESCRIPTION = 'Brocoli Collection of high level APIs'
 
@@ -22,7 +22,11 @@ setup(
             "ruamel.yaml",
             "google-api-python-client",
             "google-cloud-storage"
-        ]
+        ],
+        include_package_data=True,
+        package_data={
+            "brocolib_utils":["catalog_gen/base_index.html"]
+        }
         
         # keywords=['python', 'first package'],
         # classifiers= [
