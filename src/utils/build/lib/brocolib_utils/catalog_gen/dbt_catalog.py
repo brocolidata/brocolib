@@ -10,6 +10,32 @@ GCP_PROJECT = os.environ.get('FRONT_PROJECT_ID')
 DBT_DOCS_READ_GROUP = os.environ.get('DBT_DOCS_READ_GROUP')
 DBT_PROJECT_DIR = os.environ.get('DBT_PATH')
 
+MAPPING_DICT = {
+    "num_rows": {
+        "id": "num_rows",
+        "label": "# Lignes",
+        "description": "Nombre approximatif de lignes dans la table"
+    },
+    "num_bytes": {
+        "id": "num_bytes",
+        "label": "Taille",
+        "description": "Taille de la table (en bytes)"
+    }
+}
+
+def translate_catalog(catalog_data):
+    for element_type in ['nodes', 'sources']:  # navigate into catalog
+        for node in catalog_data[element_type]:
+            if catalog_data[element_type][node]["stats"].get('num_rows'):
+                catalog_data[element_type][node]["stats"]["num_rows"]["label"] = MAPPING_DICT["num_rows"]["label"]
+                catalog_data[element_type][node]["stats"]["num_rows"]["description"] = MAPPING_DICT["num_rows"]["description"]
+
+            if catalog_data[element_type][node]["stats"].get('num_bytes'):
+                catalog_data[element_type][node]["stats"]["num_bytes"]["label"] = MAPPING_DICT["num_bytes"]["label"]
+                catalog_data[element_type][node]["stats"]["num_bytes"]["description"] = MAPPING_DICT["num_bytes"]["description"]
+
+    return catalog_data
+
 def get_dbt_populated_index(target_folder):
 
     print('Populating index.html ...')
@@ -37,6 +63,7 @@ def get_dbt_populated_index(target_folder):
 
     with open(catalog_path, 'r') as f:
         json_catalog = json.loads(f.read())
+    json_catalog = translate_catalog(json_catalog)
         
     # Write manifest & catalog jsons in index.html
     new_str = "o=[{label: 'manifest', data: "+json.dumps(json_manifest)+"},{label: 'catalog', data: "+json.dumps(json_catalog)+"}]"
