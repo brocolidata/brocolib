@@ -14,11 +14,12 @@ def get_dbt_populated_index(target_folder):
 
     print('Populating index.html ...')
     index_path = os.path.join(target_folder, 'index.html')
+    base_index_path = os.path.join('.','base_index.html')
     manifest_path = os.path.join(target_folder, 'manifest.json')
     catalog_path = os.path.join(target_folder, 'catalog.json')
     search_str = 'o=[i("manifest","manifest.json"+t),i("catalog","catalog.json"+t)]'
 
-    with open(index_path, 'r') as f:
+    with open(base_index_path, 'r') as f:
         content_index = f.read()
 
     with open(manifest_path, 'r') as f:
@@ -43,8 +44,8 @@ def get_dbt_populated_index(target_folder):
     new_content = content_index.replace(search_str, new_str)
     
     # Select "Database" tab by default & Hide "Project" tab
-    new_content = new_content.replace('{e.nav_selected="project"}', '{e.nav_selected="database"}')
-    new_content = new_content.replace('<div class="switch ">', '<div class="switch " hidden>')
+    # new_content = new_content.replace('{e.nav_selected="project"}', '{e.nav_selected="database"}')
+    # new_content = new_content.replace('<div class="switch ">', '<div class="switch " hidden>')
     print('Successfully populated index.html')
     return new_content
 
