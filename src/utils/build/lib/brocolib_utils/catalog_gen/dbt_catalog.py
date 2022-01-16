@@ -13,7 +13,6 @@ DBT_PROJECT_DIR = os.environ.get('DBT_PATH')
 def get_dbt_populated_index(target_folder):
 
     print('Populating index.html ...')
-    index_path = os.path.join(target_folder, 'index.html')
     base_index_path = os.path.join(os.path.dirname(__file__), 'base_index.html')
     manifest_path = os.path.join(target_folder, 'manifest.json')
     catalog_path = os.path.join(target_folder, 'catalog.json')
