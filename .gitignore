@@ -1,4 +1,9 @@
-**/__pycache__
-**.pyc
 
 .env
+
+# pytest
+**/__pycache__
+**/.pytest_cache
+**.pyc
+
+.vscode
