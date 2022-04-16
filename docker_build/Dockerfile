@@ -12,6 +12,8 @@ RUN apt-get -y update && apt-get -y upgrade \
         make \
         libffi-dev \
         jq \
+        libpq-dev\
+        gcc \
     && pip install --upgrade pip
 
 ENV PYTHONPATH "/src"
