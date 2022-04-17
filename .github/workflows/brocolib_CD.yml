@@ -1,0 +1,113 @@
+## Useful links : 
+# - https://github.community/t/run-job-only-if-folder-changed/118292/2
+name: Brocolib CD
+
+on:
+  pull_request: 
+    types:
+      - closed
+
+jobs:
+  changes:
+    name: Check files for changes
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    outputs:
+      extract_load: ${{ steps.filter.outputs.extract_load }}
+      transform: ${{ steps.filter.outputs.transform }}
+      utils: ${{ steps.filter.outputs.utils }}
+    steps:
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            extract_load:
+              - 'src/extract_load/**'
+            transform:
+              - 'src/transform/**'
+            utils:
+              - 'src/utils/**'
+
+  brocolib_extract_load_tests:
+    name: Job for 'brocolib_extract_load' package
+    needs: changes
+    if: ${{ needs.changes.outputs.extract_load == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Git Checkout'
+        uses: actions/checkout@v2
+      - name: 'Setup Python'
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+      - name: 'Install dependencies'
+        working-directory: ${{ github.workspace }}/src/extract_load
+        run: |
+          pip install pytest 
+          echo "PYTHONPATH=${{ github.workspace }}/src/extract_load" >> $GITHUB_ENV
+          python setup.py install --user
+      - name: Build wheel for brocolib_extract_load
+        run: |
+          ${GITHUB_WORKSPACE}/src/build.sh extract_load
+      - name: Create comment 
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.number }}
+          body: |
+            Successfully rebuilt brocolib_extract_load package !
+  
+  brocolib_transform_tests:
+    name: Job for 'brocolib_transform' package
+    needs: changes
+    if: ${{ needs.changes.outputs.transform == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Git Checkout'
+        uses: actions/checkout@v2
+      - name: 'Setup Python'
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+      - name: 'Install dependencies'
+        working-directory: ${{ github.workspace }}/src/transform
+        run: |
+          pip install pytest 
+          echo "PYTHONPATH=${{ github.workspace }}/src/transform" >> $GITHUB_ENV
+          python setup.py install --user
+      - name: Build wheel for brocolib_extract_load
+        run: |
+          ${GITHUB_WORKSPACE}/src/build.sh transform
+      - name: Create comment 
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.number }}
+          body: |
+            Successfully rebuilt brocolib_transform package !
+
+  brocolib_utils_tests:
+    name: Job for 'brocolib_utils' package
+    needs: changes
+    if: ${{ needs.changes.outputs.utils == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Git Checkout'
+        uses: actions/checkout@v2
+      - name: 'Setup Python'
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+      - name: 'Install dependencies'
+        working-directory: ${{ github.workspace }}/src/utils
+        run: |
+          pip install pytest 
+          echo "PYTHONPATH=${{ github.workspace }}/src/utils" >> $GITHUB_ENV
+          python setup.py install --user
+      - name: Build wheel for brocolib_extract_load
+        run: |
+          ${GITHUB_WORKSPACE}/src/build.sh utils
+      - name: Create comment 
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: ${{ github.event.number }}
+          body: |
+            Successfully rebuilt brocolib_utils package !
