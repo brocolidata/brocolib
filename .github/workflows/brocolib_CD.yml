@@ -49,12 +49,33 @@ jobs:
       - name: Build wheel for brocolib_extract_load
         run: |
           ${GITHUB_WORKSPACE}/src/build.sh extract_load
+      - name: Create commits
+        run: |
+          git config user.name 'github-actions-bot'
+          git config user.email 'contact.brocoli@gmail.com'
+          git add -A
+          git commit -m "deploys ${{ github.base_ref }}"
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: '[Deploy] extract_load from ${{ github.base_ref }}'
+          branch: 'deploy/brocolib_extract_load'
+          delete-branch: true
+          body: ${{ github.event.pull_request.body }}
+          labels: |
+            CD
+          assignees: ${{ github.actor }}
+          team-reviewers: |
+            owners
+            maintainers
       - name: Create comment 
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.number }}
           body: |
-            Successfully rebuilt brocolib_extract_load package !
+            New PR to deploy to master : 
+            ${{ steps.cpr.outputs.pull-request-number }}"
   
   brocolib_transform_tests:
     name: Job for 'brocolib_transform' package
@@ -77,12 +98,33 @@ jobs:
       - name: Build wheel for brocolib_extract_load
         run: |
           ${GITHUB_WORKSPACE}/src/build.sh transform
+      - name: Create commits
+        run: |
+          git config user.name 'github-actions-bot'
+          git config user.email 'contact.brocoli@gmail.com'
+          git add -A
+          git commit -m "deploys ${{ github.base_ref }}"
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: '[Deploy] transform from ${{ github.base_ref }}'
+          branch: 'deploy/brocolib_transform'
+          delete-branch: true
+          body: ${{ github.event.pull_request.body }}
+          labels: |
+            CD
+          assignees: ${{ github.actor }}
+          team-reviewers: |
+            owners
+            maintainers
       - name: Create comment 
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.number }}
           body: |
-            Successfully rebuilt brocolib_transform package !
+            New PR to deploy to master : 
+            ${{ steps.cpr.outputs.pull-request-number }}"
 
   brocolib_utils_tests:
     name: Job for 'brocolib_utils' package
@@ -105,9 +147,30 @@ jobs:
       - name: Build wheel for brocolib_extract_load
         run: |
           ${GITHUB_WORKSPACE}/src/build.sh utils
+      - name: Create commits
+        run: |
+          git config user.name 'github-actions-bot'
+          git config user.email 'contact.brocoli@gmail.com'
+          git add -A
+          git commit -m "deploys ${{ github.base_ref }}"
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: '[Deploy] utils from ${{ github.base_ref }}'
+          branch: 'deploy/brocolib_utils'
+          delete-branch: true
+          body: ${{ github.event.pull_request.body }}
+          labels: |
+            CD
+          assignees: ${{ github.actor }}
+          team-reviewers: |
+            owners
+            maintainers
       - name: Create comment 
         uses: peter-evans/create-or-update-comment@v2
         with:
           issue-number: ${{ github.event.number }}
           body: |
-            Successfully rebuilt brocolib_utils package !
+            New PR to deploy to master : 
+            ${{ steps.cpr.outputs.pull-request-number }}"
