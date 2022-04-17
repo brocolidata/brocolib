@@ -31,14 +31,14 @@ jobs:
     if: ${{ needs.changes.outputs.extract_load == 'true' }}
     runs-on: ubuntu-latest
     env:
-      tests_directory: ${{ github.workspace }}/src/tests
+      tests_directory: src/tests
     steps:
       - name: 'Setup Python'
         uses: actions/setup-python@v3
         with:
           python-version: '3.7'
       - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/extract_load
+        working-directory: src/extract_load
         run: python setup.py install
 
       - name: Run tests for 'brocolib_extract_load' folder
