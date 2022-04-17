@@ -38,7 +38,7 @@ jobs:
         with:
           python-version: '3.9'
       - name: 'Install dependencies'
-        # working-directory: ${{ github.workspace }}/src/extract_load
+        working-directory: ${{ github.workspace }}/src/extract_load
         run: |
           pip install pytest 
           python setup.py install --user
