@@ -42,7 +42,7 @@ jobs:
         run: |
           pip install pytest 
           python setup.py install --user
-          echo "${{ github.workspace }}/src/extract_load" >> $GITHUB_PATH
+          echo "${{ github.workspace }}/src" >> $GITHUB_PATH
           pip list
       - name: Run tests for 'brocolib_extract_load' folder
         working-directory: ${{ github.workspace }}/src/tests/extract_load
