@@ -111,7 +111,7 @@ jobs:
 
   publish-test-results:
     name: "Publish Unit Tests Results"
-    needs: [brocolib_tests]
+    needs: [brocolib_extract_load_tests,brocolib_transform_tests,brocolib_utils_tests]
     runs-on: ubuntu-latest
     if: always()
 
