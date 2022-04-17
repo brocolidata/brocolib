@@ -35,7 +35,7 @@ jobs:
         id: changed-files-for-subfolder
         uses: tj-actions/changed-files@v18.7
         with:
-          path: ${{ github.workspace }}/src/tests/${{ matrix.sub_folder }}
+          path: src/tests/${{ matrix.sub_folder }}
 
       - name: List all added files in subfolder
         run: |
