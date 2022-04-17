@@ -36,7 +36,7 @@ jobs:
       - name: 'Setup Python'
         uses: actions/setup-python@v3
         with:
-          python-version: '3.9'
+          python-version: '3.8'
       - name: 'Install dependencies'
         working-directory: ${{ github.workspace }}/src/extract_load
         run: |
@@ -65,7 +65,7 @@ jobs:
       - name: 'Setup Python'
         uses: actions/setup-python@v3
         with:
-          python-version: '3.9'
+          python-version: '3.8'
       - name: 'Install dependencies'
         working-directory: ${{ github.workspace }}/src/transform
         run: python setup.py install
@@ -92,7 +92,7 @@ jobs:
       - name: 'Setup Python'
         uses: actions/setup-python@v3
         with:
-          python-version: '3.9'
+          python-version: '3.8'
       - name: 'Install dependencies'
         working-directory: ${{ github.workspace }}/src/utils
         run: python setup.py install
