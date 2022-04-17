@@ -39,7 +39,7 @@ jobs:
           python-version: '3.7'
       - name: 'Install dependencies'
         working-directory: ${{ github.workspace }}/src/extract_load
-        run: python setup.py install --user
+        run: pip install numpy && python setup.py install --user
       - name: Run tests for 'brocolib_extract_load' folder
         working-directory: ${{ github.workspace }}/src/tests/extract_load
         run: python -m pytest --junit-xml pytest_extract_load.xml
