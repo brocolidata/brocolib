@@ -25,7 +25,7 @@ jobs:
 
   brocolib_extract_load_tests:
     name: Job for 'brocolib_extract_load' package
-    needs: check
+    needs: changes
     if: ${{ needs.changes.outputs.extract_load == 'true' }}
     runs-on: ubuntu-latest
     env:
@@ -52,7 +52,7 @@ jobs:
 
   brocolib_transform_tests:
     name: Job for 'brocolib_transform' package
-    needs: check
+    needs: changes
     if: ${{ needs.changes.outputs.transform == 'true' }}
     runs-on: ubuntu-latest
     env:
@@ -79,7 +79,7 @@ jobs:
 
   brocolib_utils_tests:
     name: Job for 'brocolib_utils' package
-    needs: check
+    needs: changes
     if: ${{ needs.changes.outputs.utils == 'true' }}
     runs-on: ubuntu-latest
     env:
