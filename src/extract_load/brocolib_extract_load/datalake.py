@@ -23,21 +23,17 @@ def dataframe_to_bucket(dataframe, bucket_name, blob_name, file_type, logger=Non
     gcs_path_temp = f"gs://{bucket_name}/{blob_name}.{{file_extension}}"
     if file_type.lower() == 'csv':
         gcs_path = gcs_path_temp.format(file_extension="csv")
-        if logger:
-            logger.info(f'Load Destination : {gcs_path}')
         dataframe.to_csv(gcs_path,index=False)
     elif file_type.lower() == 'parquet':
         gcs_path = gcs_path_temp.format(file_extension="parquet")
-        if logger:
-            logger.info(f'Load Destination : {gcs_path}')
         dataframe.to_parquet(gcs_path,index=False)
     elif file_type.lower() == 'json':
         gcs_path = gcs_path_temp.format(file_extension="json")
-        if logger:
-            logger.info(f'Load Destination : {gcs_path}')
         dataframe.to_json(gcs_path,index=False)
     else:
-        return NotImplementedError(f"{file_type} is not implemented.")
+        raise NotImplementedError(f"{file_type} is not implemented.")
+    if logger:
+            logger.info(f'Load Destination : {gcs_path}')
     return gcs_path
 
 
