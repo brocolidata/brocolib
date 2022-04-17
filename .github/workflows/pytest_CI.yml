@@ -8,6 +8,12 @@ on:
 jobs:
   check:
     name: Check files
+    strategy:
+      matrix:
+        sub_folder: 
+          - extract_load
+          - transform
+          - utils
     outputs:
       run_extract_load_tests: ${{ steps.check_files.outputs.run_extract_load_tests }}
       run_transform_tests: ${{ steps.check_files.outputs.run_transform_tests }}
@@ -19,33 +25,24 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: check modified files
-        id: check_files
+      - name: Checkout into ${{ matrix.sub_folder }}
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          path: ${{ github.workspace }}/src/tests/${{ matrix.test-sub_folder }}
+
+      - name: Run changed-files with defaults on the ${{ matrix.sub_folder }}
+        id: changed-files-for-${{ matrix.sub_folder }}
+        uses: tj-actions/changed-files@v18.7
+        with:
+          path: ${{ github.workspace }}/src/tests/${{ matrix.sub_folder }}
+
+      - name: List all added files in ${{ matrix.sub_folder }}
         run: |
-          echo "=============== list modified files ==============="
-          git diff --name-only HEAD^ HEAD
-          
-          echo "========== check paths of modified files =========="
-          git diff --name-only HEAD^ HEAD > files.txt
-          while IFS= read -r file
-          echo "::set-output name=run_extract_load_tests::false"
-          echo "::set-output name=run_transform_tests::false"
-          echo "::set-output name=run_utils_tests::false"
-          do
-            echo $file
-            if [[ $file != src/extract_load/* ]]; then
-              echo "This commit is related to brocolib_extract_load."
-              echo "::set-output name=run_extract_load_tests::true"
-            fi
-            if [[ $file != src/transform/* ]]; then
-              echo "This commit is related to brocolib_transform."
-              echo "::set-output name=run_transform_tests::true"
-            fi
-            if [[ $file != src/utils/* ]]; then
-              echo "This commit is related to brocolib_utils."
-              echo "::set-output name=run_utils_tests::true"
-            fi
-          done < files.txt
+          for file in ${{ steps.changed-files-for-${{ matrix.sub_folder }}.outputs.added_files }}; do
+            echo "::set-output name=run_${{ matrix.sub_folder }}_tests::true"
+            break
+          done
 
   brocolib_extract_load_tests:
     name: Job for 'brocolib_extract_load' package
