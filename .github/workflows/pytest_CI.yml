@@ -25,21 +25,21 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Checkout into ${{ matrix.sub_folder }}
+      - name: Checkout into subfolders
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
           path: ${{ github.workspace }}/src/tests/${{ matrix.test-sub_folder }}
 
-      - name: Run changed-files with defaults on the ${{ matrix.sub_folder }}
-        id: changed-files-for-${{ matrix.sub_folder }}
+      - name: Run changed-files with defaults on the subfolders
+        id: changed-files-for-subfolder
         uses: tj-actions/changed-files@v18.7
         with:
           path: ${{ github.workspace }}/src/tests/${{ matrix.sub_folder }}
 
-      - name: List all added files in ${{ matrix.sub_folder }}
+      - name: List all added files in subfolder
         run: |
-          for file in ${{ steps.changed-files-for-${{ matrix.sub_folder }}.outputs.added_files }}; do
+          for file in ${{ steps.changed-files-for-subfolder.outputs.added_files }}; do
             echo "::set-output name=run_${{ matrix.sub_folder }}_tests::true"
             break
           done
