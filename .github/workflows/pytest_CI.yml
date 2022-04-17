@@ -121,7 +121,7 @@ jobs:
           - utils
     name: Run tests ${{ matrix.test_folder }}
     needs: changes
-    if: format('needs.changes.outputs.{0}', matrix.test_folder) == 'true'
+    if: needs.changes.outputs.${{ matrix.test_folder }} == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: 'Git Checkout'
