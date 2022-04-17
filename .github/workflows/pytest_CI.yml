@@ -41,7 +41,7 @@ jobs:
         working-directory: ${{ github.workspace }}/src/extract_load
         run: |
           pip install pytest 
-          ${{ github.workspace }}/src/extract_load
+          echo "PYTHONPATH=${{ github.workspace }}/src/transform" >> $GITHUB_ENV
           # python setup.py install --user
           # echo "${{ github.workspace }}/src" >> $GITHUB_PATH
           # pip list
