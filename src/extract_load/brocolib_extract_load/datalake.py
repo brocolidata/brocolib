@@ -1,5 +1,5 @@
 import pandas as pd
-from .pubsub import publish_message
+from .pubsub import publish_sources
 from datetime import datetime
 
 
@@ -141,7 +141,7 @@ class ExternalTable:
         )
 
     def publish_message(self):
-        publish_message(
+        publish_sources(
             sources=[self.source_name],
             dbt_topic=self.dbt_topic,
             gcp_project=self.gcp_project,
