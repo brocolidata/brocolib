@@ -16,7 +16,7 @@ RUN apt-get -y update && apt-get -y upgrade \
         libpq-dev\
         gcc
 
-ENV PYTHONPATH "/src"
+# ENV PYTHONPATH "/src"
 ENV PYTHONPATH "${PYTHONPATH}:/src/extract_load"
 ENV PYTHONPATH "${PYTHONPATH}:/src/transform"
 ENV PYTHONPATH "${PYTHONPATH}:/src/utils:/src/utils/brocolib_utils"

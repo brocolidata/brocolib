@@ -1,10 +1,10 @@
-from google.cloud import pubsub_v1
+from google.cloud import pubsub
 import json
 
 
 def publish_message_toPubSub(project_id, topic_id, message, logger):
 
-    publisher = pubsub_v1.PublisherClient()
+    publisher = pubsub.PublisherClient()
     topic_path = publisher.topic_path(project_id, topic_id)
     future = publisher.publish(topic_path, message)
     if logger:
