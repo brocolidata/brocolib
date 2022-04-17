@@ -33,6 +33,7 @@ def mock_pandas(monkeypatch):
 
     monkeypatch.setattr(pd.DataFrame, "to_csv", mock_get)
     monkeypatch.setattr(pd.DataFrame, "to_parquet", mock_get)
+    monkeypatch.setattr(pd.DataFrame, "to_json", mock_get)
 
 
 @pytest.fixture(params=["get_dummy_df", "get_empty_df"])
@@ -40,7 +41,7 @@ def matrix_df(request):
     df_fixture = request.getfixturevalue(request.param)
     return df_fixture
 
-@pytest.fixture(params=["csv", "parquet"])
+@pytest.fixture(params=["csv", "parquet", "json"])
 def matrix_format(request):
     return request.param
 

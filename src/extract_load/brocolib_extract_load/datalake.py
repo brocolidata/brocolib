@@ -31,6 +31,11 @@ def dataframe_to_bucket(dataframe, bucket_name, blob_name, file_type, logger=Non
         if logger:
             logger.info(f'Load Destination : {gcs_path}')
         dataframe.to_parquet(gcs_path,index=False)
+    elif file_type.lower() == 'json':
+        gcs_path = gcs_path_temp.format(file_extension="json")
+        if logger:
+            logger.info(f'Load Destination : {gcs_path}')
+        dataframe.to_json(gcs_path,index=False)
     else:
         return NotImplementedError(f"{file_type} is not implemented.")
     return gcs_path
