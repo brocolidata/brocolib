@@ -25,10 +25,103 @@ jobs:
             utils:
               - 'src/utils/**'
 
-  brocolib_extract_load_tests:
-    name: Job for 'brocolib_extract_load' package
+  # brocolib_extract_load_tests:
+  #   name: Job for 'brocolib_extract_load' package
+  #   needs: changes
+  #   if: ${{ needs.changes.outputs.extract_load == 'true' }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: 'Git Checkout'
+  #       uses: actions/checkout@v2
+  #     - name: 'Setup Python'
+  #       uses: actions/setup-python@v3
+  #       with:
+  #         python-version: '3.8'
+  #     - name: 'Install dependencies'
+  #       working-directory: ${{ github.workspace }}/src/extract_load
+  #       run: |
+  #         pip install pytest 
+  #         echo "PYTHONPATH=${{ github.workspace }}/src/extract_load" >> $GITHUB_ENV
+  #         python setup.py install --user
+  #     - name: Run tests for 'brocolib_extract_load' folder
+  #       working-directory: ${{ github.workspace }}/src/tests/extract_load
+  #       run: python -m pytest --junit-xml pytest_extract_load.xml
+  #     - name: Upload Unit Test Results
+  #       if: always()
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: Unit Test Results
+  #         path: pytest_extract_load.xml
+
+  # brocolib_transform_tests:
+  #   name: Job for 'brocolib_transform' package
+  #   needs: changes
+  #   if: ${{ needs.changes.outputs.transform == 'true' }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: 'Git Checkout'
+  #       uses: actions/checkout@v2
+  #     - name: 'Setup Python'
+  #       uses: actions/setup-python@v3
+  #       with:
+  #         python-version: '3.8'
+  #     - name: 'Install dependencies'
+  #       working-directory: ${{ github.workspace }}/src/transform
+  #       run: |
+  #         pip install pytest 
+  #         echo "PYTHONPATH=${{ github.workspace }}/src/transform" >> $GITHUB_ENV
+  #         python setup.py install --user
+  #     - name: Run tests for 'transform' folder
+  #       working-directory: ${{ github.workspace }}/src/tests/transform
+  #       run: python -m pytest --junit-xml pytest_transform.xml
+  #     - name: Upload Unit Test Results
+  #       if: always()
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: Unit Test Results
+  #         path: pytest_transform.xml
+
+  # brocolib_utils_tests:
+  #   name: Job for 'brocolib_utils' package
+  #   needs: changes
+  #   if: ${{ needs.changes.outputs.utils == 'true' }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: 'Git Checkout'
+  #       uses: actions/checkout@v2
+  #     - name: 'Setup Python'
+  #       uses: actions/setup-python@v3
+  #       with:
+  #         python-version: '3.8'
+  #     - name: 'Install dependencies'
+  #       working-directory: ${{ github.workspace }}/src/utils
+  #       run: |
+  #         pip install pytest 
+  #         echo "PYTHONPATH=${{ github.workspace }}/src/utils" >> $GITHUB_ENV
+  #         python setup.py install --user
+  #         # echo "${{ github.workspace }}/src" >> $GITHUB_PATH
+  #         # pip list
+          
+  #     - name: Run tests for 'utils' folder
+  #       working-directory: ${{ github.workspace }}/src/tests/utils
+  #       run: python -m pytest --junit-xml pytest_utils.xml
+  #     - name: Upload Unit Test Results
+  #       if: always()
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: Unit Test Results
+  #         path: pytest_utils.xml
+
+  brocolib_tests:
+    strategy:
+      matrix:
+        test_folder:
+          - extract_load
+          - transform
+          - utils
+    name: ${{ format('Run tests for {0}', matrix.test_folder) }}
     needs: changes
-    if: ${{ needs.changes.outputs.extract_load == 'true' }}
+    if: ${{ format('needs.changes.outputs.{0}', matrix.test_folder) == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Git Checkout'
@@ -38,83 +131,24 @@ jobs:
         with:
           python-version: '3.8'
       - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/extract_load
+        working-directory: ${{ github.workspace }}/src/${{ matrix.test_folder }}
         run: |
           pip install pytest 
-          echo "PYTHONPATH=${{ github.workspace }}/src/extract_load" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/src/${{ matrix.test_folder }}" >> $GITHUB_ENV
           python setup.py install --user
-          # echo "${{ github.workspace }}/src" >> $GITHUB_PATH
-          # pip list
-          
-      - name: Run tests for 'brocolib_extract_load' folder
-        working-directory: ${{ github.workspace }}/src/tests/extract_load
-        run: python -m pytest --junit-xml pytest_extract_load.xml
+      - name: Run tests
+        working-directory: ${{ github.workspace }}/src/tests/${{ matrix.test_folder }}
+        run: python -m pytest --junit-xml pytest_${{ matrix.test_folder }}.xml
       - name: Upload Unit Test Results
         if: always()
         uses: actions/upload-artifact@v2
         with:
           name: Unit Test Results
-          path: pytest_extract_load.xml
-
-  brocolib_transform_tests:
-    name: Job for 'brocolib_transform' package
-    needs: changes
-    if: ${{ needs.changes.outputs.transform == 'true' }}
-    runs-on: ubuntu-latest
-    env:
-      tests_directory: ${{ github.workspace }}/src/tests
-    steps:
-      - name: 'Setup Python'
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.8'
-      - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/transform
-        # run: python setup.py install
-        # run: echo "::set-env name=PYTHONPATH::${{ github.workspace }}/src/transform"
-        run: echo "PYTHONPATH=${{ github.workspace }}/src/transform" >> $GITHUB_ENV
-
-      - name: Run tests for 'brocolib_transform' folder
-        working-directory: ${{ github.workspace }}/src/tests/transform
-        run: python -m pytest --junit-xml pytest_transform.xml
-
-      - name: Upload Unit Test Results
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: Unit Test Results
-          path: pytest_transform.xml
-
-  brocolib_utils_tests:
-    name: Job for 'brocolib_utils' package
-    needs: changes
-    if: ${{ needs.changes.outputs.utils == 'true' }}
-    runs-on: ubuntu-latest
-    env:
-      tests_directory: ${{ github.workspace }}/src/tests
-    steps:
-      - name: 'Setup Python'
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.8'
-      - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/utils
-        run: python setup.py install
-
-      - name: Run tests for 'brocolib_utils' folder
-        working-directory: ${{ github.workspace }}/src/tests/utils
-        run: python -m pytest --junit-xml pytest_utils.xml
-
-      - name: Upload Unit Test Results
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: Unit Test Results
-          path: pytest_utils.xml
+          path: pytest_${{ matrix.test_folder }}.xml
 
   publish-test-results:
     name: "Publish Unit Tests Results"
-    needs: [brocolib_extract_load_tests, brocolib_transform_tests, brocolib_utils_tests]
+    needs: [brocolib_tests]
     runs-on: ubuntu-latest
     if: always()
 
