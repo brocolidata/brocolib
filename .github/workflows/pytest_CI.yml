@@ -119,9 +119,9 @@ jobs:
           - extract_load
           - transform
           - utils
-    name: ${{ format('Run tests for {0}', matrix.test_folder) }}
+    name: Run tests ${{ matrix.test_folder }}
     needs: changes
-    if: ${{ format('needs.changes.outputs.{0}', matrix.test_folder) == 'true' }}
+    if: format('needs.changes.outputs.{0}', matrix.test_folder) == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: 'Git Checkout'
