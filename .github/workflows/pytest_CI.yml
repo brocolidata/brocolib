@@ -9,9 +9,11 @@ jobs:
   changes:
     name: Check files for changes
     runs-on: ubuntu-latest
+    outputs:
+      extract_load: ${{ steps.filter.outputs.extract_load }}
+      transform: ${{ steps.filter.outputs.transform }}
+      utils: ${{ steps.filter.outputs.utils }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
       - uses: dorny/paths-filter@v2
         id: filter
         with:
