@@ -1,53 +1,64 @@
 import pandas as pd
-from .pubsub import publish_message
+from .pubsub import publish_sources
 from datetime import datetime
 
-def dataframe_to_bucket(dataframe, bucket_name, blob_name, file_type, logger=None):
-    '''
-    Function load dataframe to bucket
-        - Create a blob representation of the dataframe
-        - Write dataframe in the blob
 
-    Parameters:
-        dataframe (pandas.DataFrame): A dataframe   
-        bucket_name (str): Name of the bucket 
-        blob_name (str): Name of the blob you want to create
-    
+def dataframe_to_bucket(
+    dataframe: pd.DataFrame, 
+    bucket_name: str, 
+    blob_name: str, 
+    file_type: str, 
+    logger=None
+) -> str:
+    """Loads a DataFrame to a GCS bucket
+
+    Args:
+        dataframe (pd.DataFrame): DataFrame you want to upload to GCS
+        bucket_name (str): Name of the destination bucket
+        blob_name (str): Name of the destination file
+        file_type (str): File format
+        logger (optional): Logging interface. Defaults to None.
+
     Parameters example:
         blob_name= 'folder/subfolder/filename.csv'
         bucket_name = 'PROJECT_ID-landing'
 
+
+    Raises:
+        NotImplementedError: If the file format is not implemented
+
     Returns:
-        gcs_path (str): GCS path where the blob is uploaded
-    '''
+        str: GCS path where the blob is uploaded
+    """
     gcs_path_temp = f"gs://{bucket_name}/{blob_name}.{{file_extension}}"
     if file_type.lower() == 'csv':
         gcs_path = gcs_path_temp.format(file_extension="csv")
-        if logger:
-            logger.info(f'Load Destination : {gcs_path}')
         dataframe.to_csv(gcs_path,index=False)
     elif file_type.lower() == 'parquet':
         gcs_path = gcs_path_temp.format(file_extension="parquet")
-        if logger:
-            logger.info(f'Load Destination : {gcs_path}')
         dataframe.to_parquet(gcs_path,index=False)
+    elif file_type.lower() == 'json':
+        gcs_path = gcs_path_temp.format(file_extension="json")
+        dataframe.to_json(gcs_path,index=False)
     else:
-        return NotImplementedError(f"{file_type} is not implemented.")
+        raise NotImplementedError(f"{file_type} is not implemented.")
+    if logger:
+            logger.info(f'Load Destination : {gcs_path}')
     return gcs_path
 
 
 
-def bucket_to_dataframe(bucket_name, blob_name, file_type):
+def bucket_to_dataframe(bucket_name: str, blob_name: str, file_type: str) -> pd.DataFrame:
     '''
-    Function writes a file into a dataframe     
+    Loads a file located in a GCS bucket into a DataFrame     
 
     Parameters:
-      bucket_name (str): Name of the bucket 
-      blob_name (str): Name of the blob you want to create 
+      bucket_name (str): Name of the source bucket 
+      blob_name (str): Name of the blob in the source bucket
       file_type (str): Type of the file in the bucket
     
     Returns:
-      dataframe (pandas.DataFrame): fetched dataframe
+      pandas.DataFrame: fetched DataFrame
     '''
 
     file_type = file_type.lower()
@@ -60,15 +71,27 @@ def bucket_to_dataframe(bucket_name, blob_name, file_type):
 class ExternalTable:
     def __init__(
         self, 
-        bucket_name,
-        partition_keys,
-        bucket_file,
-        bucket_table_directory,
-        bucket_directory,
-        dbt_topic,
-        gcp_project,
+        bucket_name: str,
+        partition_keys: dict,
+        bucket_file: str,
+        bucket_table_directory: str,
+        bucket_directory: str,
+        dbt_topic: str,
+        gcp_project: str,
         logger=None
     ):
+        """Instanciate a ExternalTable object
+
+        Args:
+            bucket_name (str): Name of the the GCS bucket where the data is located
+            partition_keys (dict): Pairs of partition keys and values
+            bucket_file (str): Name of the file in GCS bucket
+            bucket_table_directory (str): Name of the directory after which the ExternalTable is named
+            bucket_directory (str): Name of the subdirectories under the bucket's root level
+            dbt_topic (str): Name of the Pub/Sub dbt topic
+            gcp_project (str): Namae of the GCP project
+            logger (_type_, optional): Logging interface. Defaults to None.
+        """
         self.bucket_name = bucket_name
         self.partition_keys = partition_keys
         self.subfolders = bucket_directory
@@ -81,7 +104,15 @@ class ExternalTable:
         self.blob_name = self.format_filename()
         self.gcs_path = None
 
-    def add_partition_keys(self, path_prefix):
+    def add_partition_keys(self, path_prefix: str) -> str:
+        """Add partition_keys in Hive Format to a GCS path prefix
+
+        Args:
+            path_prefix (str) : GCS path prefix
+
+        Returns:
+            str: GCS Path prefix appended by partition keys
+        """
         now = datetime.now()
        
         for key, value in self.partition_keys.items():
@@ -110,7 +141,7 @@ class ExternalTable:
         )
 
     def publish_message(self):
-        publish_message(
+        publish_sources(
             sources=[self.source_name],
             dbt_topic=self.dbt_topic,
             gcp_project=self.gcp_project,

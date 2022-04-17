@@ -1,6 +1,6 @@
 portray
 psycopg2-binary
-dbt
+dbt-core
 requests
 pandas
 fsspec
