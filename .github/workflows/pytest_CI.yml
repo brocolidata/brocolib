@@ -71,7 +71,8 @@ jobs:
       - name: 'Install dependencies'
         working-directory: ${{ github.workspace }}/src/transform
         # run: python setup.py install
-        run: echo "::set-env name=PYTHONPATH::${{ github.workspace }}/src/transform"
+        # run: echo "::set-env name=PYTHONPATH::${{ github.workspace }}/src/transform"
+        run: echo "PYTHONPATH=${{ github.workspace }}/src/transform" >> $GITHUB_ENV
 
       - name: Run tests for 'brocolib_transform' folder
         working-directory: ${{ github.workspace }}/src/tests/transform
