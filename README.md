@@ -1,6 +1,6 @@
 ![Brocolib Logo](brocolib_github_banner.png)
-[![Pytest CI](https://github.com/brocolidata/brocolib/actions/workflows/pytest_CI.yml/badge.svg?event=pull_request)](https://github.com/brocolidata/brocolib/actions/workflows/pytest_CI.yml)
-[![Brocolib CD](https://github.com/brocolidata/brocolib/actions/workflows/brocolib_CD.yml/badge.svg)](https://github.com/brocolidata/brocolib/actions/workflows/brocolib_CD.yml)
+[![Pytest CI](https://github.com/brocolidata/brocolib/workflows/Pytest%20CI/badge.svg)](https://github.com/brocolidata/brocolib/actions/workflows/pytest_CI.yml)
+[![Brocolib CD](https://github.com/brocolidata/brocolib/workflows/Brocolib%20CD/badge.svg)](https://github.com/brocolidata/brocolib/actions/workflows/brocolib_CD.yml)
 # **brocolib**
 
 Brocoli Library for Data Processing
