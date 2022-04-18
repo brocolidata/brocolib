@@ -29,7 +29,7 @@ jobs:
               - 'src/tests/utils/**'
 
   brocolib_run_tests:
-    name: Job for 'brocolib_extract_load' package
+    name: Run tests for brocolib packages
     needs: changes
     if: ${{ needs.changes.outputs.extract_load == 'true' }} || ${{ needs.changes.outputs.transform == 'true' }} || ${{ needs.changes.outputs.utils == 'true' }}
     runs-on: ubuntu-latest
@@ -63,7 +63,7 @@ jobs:
           echo "PYTHONPATH=${{ github.workspace }}/src/utils" >> $GITHUB_ENV
           echo "UTILS_PATH=utils" >> $GITHUB_ENV
           python setup.py install --user
-      - name: Run tests for 'brocolib_extract_load' folder
+      - name: Run tests
         working-directory: ${{ github.workspace }}/src/tests
         run: python -m pytest $EXTRACT_LOAD_PATH $TRANSFORM_PATH $UTILS_PATH --junit-xml pytest_brocolib.xml
       - name: Upload Unit Test Results
@@ -71,7 +71,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Unit Test Results
-          path: pytest_brocolib.xml
+          path: ${{ github.workspace }}/src/tests/pytest_brocolib.xml
   
   # brocolib_extract_load_tests:
   #   name: Job for 'brocolib_extract_load' package
