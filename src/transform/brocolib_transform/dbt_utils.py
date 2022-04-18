@@ -3,7 +3,7 @@ import shlex
 import subprocess
 
 
-def run_subprocess(ls_commands, working_dir, logger=None):
+def run_subprocess(ls_commands: list, working_dir: str, logger=None):
     """Run command provided as arg in path provided as arg
 
     Args:
@@ -43,7 +43,7 @@ def run_subprocess(ls_commands, working_dir, logger=None):
     return msg, True
 
 
-def run_dbt_model(sources, project_dir, logger=None):
+def run_dbt_model(sources: list, project_dir: str, logger=None):
     """Run `dbt run` and select child of sources provided as arg
     using `"--select source:stg.SOURCE+`
     See [Using Unions Set Operators for Node Selection](https://docs.getdbt.com/reference/node-selection/set-operators#unions)
@@ -66,7 +66,7 @@ def run_dbt_model(sources, project_dir, logger=None):
         logger.error(f'END dbt run failed for {str(sources)}')
 
 
-def stage_table(sources, project_dir, logger=None):
+def stage_table(sources: list, project_dir: str, logger=None):
     """stage tables from datalake to staging layer in dwh
 
     Args:
