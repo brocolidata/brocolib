@@ -56,12 +56,12 @@ jobs:
           git config user.name 'github-actions-bot'
           git config user.email 'contact.brocoli@gmail.com'
           git add -A
-          git commit -m "deploys ${{ github.base_ref }}"
+          git commit -m "deploys ${{ github.event.pull_request.head.ref }}"
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
         with:
-          title: '[Deploy] extract_load from ${{ github.base_ref }}'
+          title: '[Deploy] extract_load from ${{ github.event.pull_request.head.ref }}'
           branch: 'deploy/brocolib_extract_load'
           delete-branch: true
           body: ${{ github.event.pull_request.body }}
@@ -77,7 +77,7 @@ jobs:
           issue-number: ${{ github.event.number }}
           body: |
             New PR to deploy to master : 
-            ${{ steps.cpr.outputs.pull-request-number }}"
+            ${{ steps.cpr.outputs.pull-request-url }}"
   
   build_brocolib_transform:
     name: Job for 'brocolib_transform' package
@@ -107,12 +107,12 @@ jobs:
           git config user.name 'github-actions-bot'
           git config user.email 'contact.brocoli@gmail.com'
           git add -A
-          git commit -m "deploys ${{ github.base_ref }}"
+          git commit -m "deploys ${{ github.event.pull_request.head.ref }}"
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
         with:
-          title: '[Deploy] transform from ${{ github.base_ref }}'
+          title: '[Deploy] transform from ${{ github.event.pull_request.head.ref }}'
           branch: 'deploy/brocolib_transform'
           delete-branch: true
           body: ${{ github.event.pull_request.body }}
@@ -128,7 +128,7 @@ jobs:
           issue-number: ${{ github.event.number }}
           body: |
             New PR to deploy to master : 
-            ${{ steps.cpr.outputs.pull-request-number }}"
+            ${{ steps.cpr.outputs.pull-request-url }}"
 
   build_brocolib_utils:
     name: Job for 'brocolib_utils' package
@@ -158,12 +158,12 @@ jobs:
           git config user.name 'github-actions-bot'
           git config user.email 'contact.brocoli@gmail.com'
           git add -A
-          git commit -m "deploys ${{ github.base_ref }}"
+          git commit -m "deploys ${{ github.event.pull_request.head.ref }}"
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
         with:
-          title: '[Deploy] utils from ${{ github.base_ref }}'
+          title: '[Deploy] utils from ${{ github.event.pull_request.head.ref }}'
           branch: 'deploy/brocolib_utils'
           delete-branch: true
           body: ${{ github.event.pull_request.body }}
@@ -179,4 +179,4 @@ jobs:
           issue-number: ${{ github.event.number }}
           body: |
             New PR to deploy to master : 
-            ${{ steps.cpr.outputs.pull-request-number }}"
+            ${{ steps.cpr.outputs.pull-request-url }}"
