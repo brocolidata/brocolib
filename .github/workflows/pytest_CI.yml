@@ -4,6 +4,9 @@ name: Pytest CI
 
 on:
   pull_request:
+    types:
+      - "opened"
+      - "edited"
 
 jobs:
   changes:
