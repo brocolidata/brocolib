@@ -125,7 +125,7 @@ class ExternalTable:
         return path_prefix
 
 
-    def format_filename(self):
+    def format_filename(self) -> str:
         now = datetime.now()
         path_prefix=self.add_partition_keys(f"{self.subfolders}/{self.bucket_table_directory}")
         
