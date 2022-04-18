@@ -47,8 +47,10 @@ jobs:
           echo "PYTHONPATH=${{ github.workspace }}/src/extract_load" >> $GITHUB_ENV
           python setup.py install --user
       - name: Build wheel for brocolib_extract_load
+        working-directory: ${{ github.workspace }}/src/extract_load
         run: |
-          ${GITHUB_WORKSPACE}/src/build.sh extract_load
+          rm -rf dist 
+          python setup.py sdist bdist_wheel
       - name: Create commits
         run: |
           git config user.name 'github-actions-bot'
@@ -90,14 +92,16 @@ jobs:
         with:
           python-version: '3.8'
       - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/transform
+        working-directory: ${{ github.workspace }}/src
         run: |
           pip install pytest 
           echo "PYTHONPATH=${{ github.workspace }}/src/transform" >> $GITHUB_ENV
           python setup.py install --user
-      - name: Build wheel for brocolib_extract_load
+      - name: Build wheel for transform
+        working-directory: ${{ github.workspace }}/src/transform
         run: |
-          ${GITHUB_WORKSPACE}/src/build.sh transform
+          rm -rf dist 
+          python setup.py sdist bdist_wheel
       - name: Create commits
         run: |
           git config user.name 'github-actions-bot'
@@ -144,9 +148,11 @@ jobs:
           pip install pytest 
           echo "PYTHONPATH=${{ github.workspace }}/src/utils" >> $GITHUB_ENV
           python setup.py install --user
-      - name: Build wheel for brocolib_extract_load
+      - name: Build wheel for brocolib_utils
+        working-directory: ${{ github.workspace }}/src/utils
         run: |
-          ${GITHUB_WORKSPACE}/src/build.sh utils
+          rm -rf dist 
+          python setup.py sdist bdist_wheel
       - name: Create commits
         run: |
           git config user.name 'github-actions-bot'
