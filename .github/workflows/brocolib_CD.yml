@@ -43,7 +43,7 @@ jobs:
       - name: 'Install dependencies'
         working-directory: ${{ github.workspace }}/src/extract_load
         run: |
-          pip install pytest 
+          pip install wheel 
           echo "PYTHONPATH=${{ github.workspace }}/src/extract_load" >> $GITHUB_ENV
           python setup.py install --user
       - name: Build wheel for brocolib_extract_load
@@ -94,7 +94,7 @@ jobs:
       - name: 'Install dependencies'
         working-directory: ${{ github.workspace }}/src/transform
         run: |
-          pip install pytest 
+          pip install wheel
           echo "PYTHONPATH=${{ github.workspace }}/src/transform" >> $GITHUB_ENV
           python setup.py install --user
       - name: Build wheel for transform
@@ -145,7 +145,7 @@ jobs:
       - name: 'Install dependencies'
         working-directory: ${{ github.workspace }}/src/utils
         run: |
-          pip install pytest 
+          pip install wheel 
           echo "PYTHONPATH=${{ github.workspace }}/src/utils" >> $GITHUB_ENV
           python setup.py install --user
       - name: Build wheel for brocolib_utils
