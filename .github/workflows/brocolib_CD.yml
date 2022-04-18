@@ -28,7 +28,7 @@ jobs:
             utils:
               - 'src/utils/**'
 
-  brocolib_extract_load_tests:
+  build_brocolib_extract_load:
     name: Job for 'brocolib_extract_load' package
     needs: changes
     if: ${{ needs.changes.outputs.extract_load == 'true' }}
@@ -79,7 +79,7 @@ jobs:
             New PR to deploy to master : 
             ${{ steps.cpr.outputs.pull-request-number }}"
   
-  brocolib_transform_tests:
+  build_brocolib_transform:
     name: Job for 'brocolib_transform' package
     needs: changes
     if: ${{ needs.changes.outputs.transform == 'true' }}
@@ -92,7 +92,7 @@ jobs:
         with:
           python-version: '3.8'
       - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src
+        working-directory: ${{ github.workspace }}/src/transform
         run: |
           pip install pytest 
           echo "PYTHONPATH=${{ github.workspace }}/src/transform" >> $GITHUB_ENV
@@ -130,7 +130,7 @@ jobs:
             New PR to deploy to master : 
             ${{ steps.cpr.outputs.pull-request-number }}"
 
-  brocolib_utils_tests:
+  build_brocolib_utils:
     name: Job for 'brocolib_utils' package
     needs: changes
     if: ${{ needs.changes.outputs.utils == 'true' }}
