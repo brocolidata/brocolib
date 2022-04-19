@@ -1,0 +1,6 @@
+setup.py
+brocolib_factory_utils.egg-info/PKG-INFO
+brocolib_factory_utils.egg-info/SOURCES.txt
+brocolib_factory_utils.egg-info/dependency_links.txt
+brocolib_factory_utils.egg-info/requires.txt
+brocolib_factory_utils.egg-info/top_level.txt
