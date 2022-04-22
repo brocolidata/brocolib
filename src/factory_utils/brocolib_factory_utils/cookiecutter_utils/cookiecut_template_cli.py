@@ -40,6 +40,7 @@ if env_variables:
             env_variables_dic[key.lower()] = val
     cookiecut_template.cookiec_from_temp(templ_repo=cookiecut_temp_repo, jason_dict=env_variables_dic)
 else:
+    cookiecut_template.cookiec_from_temp(templ_repo=cookiecut_temp_repo)
     
 
 
