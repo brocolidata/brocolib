@@ -16,6 +16,7 @@ jobs:
       extract_load: ${{ steps.filter.outputs.extract_load }}
       transform: ${{ steps.filter.outputs.transform }}
       utils: ${{ steps.filter.outputs.utils }}
+      factory_utils: ${{ steps.filter.outputs.factory_utils }}
     steps:
       - uses: dorny/paths-filter@v2
         id: filter
@@ -30,11 +31,14 @@ jobs:
             utils:
               - 'src/utils/**'
               - 'src/tests/utils/**'
+            factory_utils:
+              - 'src/factory_utils/**'
+              - 'src/tests/factory_utils/**'
 
   brocolib_run_tests:
     name: Run tests for brocolib packages
     needs: changes
-    if: ${{ needs.changes.outputs.extract_load == 'true' }} || ${{ needs.changes.outputs.transform == 'true' }} || ${{ needs.changes.outputs.utils == 'true' }}
+    if: ${{ needs.changes.outputs.extract_load == 'true' }} || ${{ needs.changes.outputs.transform == 'true' }} || ${{ needs.changes.outputs.utils == 'true' }} || ${{ needs.changes.outputs.factory_utils == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Git Checkout'
@@ -66,9 +70,16 @@ jobs:
           echo "PYTHONPATH=${{ github.workspace }}/src/utils" >> $GITHUB_ENV
           echo "UTILS_PATH=utils" >> $GITHUB_ENV
           python setup.py install --user
+      - name: 'Install dependencies for factory_utils'
+        if: ${{ needs.changes.outputs.factory_utils == 'true' }}
+        working-directory: ${{ github.workspace }}/src/factory_utils
+        run: |
+          echo "PYTHONPATH=${{ github.workspace }}/src/factory_utils" >> $GITHUB_ENV
+          echo "FACTORY_UTILS_PATH=factory_utils" >> $GITHUB_ENV
+          python setup.py install --user
       - name: Run tests
         working-directory: ${{ github.workspace }}/src/tests
-        run: python -m pytest $EXTRACT_LOAD_PATH $TRANSFORM_PATH $UTILS_PATH --junit-xml pytest_brocolib.xml
+        run: python -m pytest $EXTRACT_LOAD_PATH $TRANSFORM_PATH $UTILS_PATH $FACTORY_UTILS_PATH --junit-xml pytest_brocolib.xml
       - name: Upload Unit Test Results
         if: always()
         uses: actions/upload-artifact@v2
