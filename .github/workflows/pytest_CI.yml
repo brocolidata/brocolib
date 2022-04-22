@@ -34,7 +34,7 @@ jobs:
   brocolib_run_tests:
     name: Run tests for brocolib packages
     needs: changes
-    if: ${{ needs.changes.outputs.extract_load == 'true' }} || ${{ needs.changes.outputs.transform == 'true' }} || ${{ needs.changes.outputs.utils == 'true' }}
+    if: ${{ needs.changes.outputs.extract_load == 'true' }} || ${{ needs.changes.outputs.transform == 'true' }} || ${{ needs.changes.outputs.utils == 'true' }} || ${{ needs.changes.outputs.factory_utils == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Git Checkout'
@@ -65,6 +65,13 @@ jobs:
         run: |
           echo "PYTHONPATH=${{ github.workspace }}/src/utils" >> $GITHUB_ENV
           echo "UTILS_PATH=utils" >> $GITHUB_ENV
+          python setup.py install --user
+      - name: 'Install dependencies for factory_utils'
+        if: ${{ needs.changes.outputs.factory_utils == 'true' }}
+        working-directory: ${{ github.workspace }}/src/factory_utils
+        run: |
+          echo "PYTHONPATH=${{ github.workspace }}/src/factory_utils" >> $GITHUB_ENV
+          echo "FACTORY_UTILS_PATH=factory_utils" >> $GITHUB_ENV
           python setup.py install --user
       - name: Run tests
         working-directory: ${{ github.workspace }}/src/tests

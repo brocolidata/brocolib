@@ -38,6 +38,10 @@ if env_variables:
         if key not in env_variables_dic:
             val = os.getenv(key)
             env_variables_dic[key.lower()] = val
+    cookiecut_template.cookiec_from_temp(templ_repo=cookiecut_temp_repo, jason_dict=env_variables_dic)
+else:
+    
+
 
 # adding secrets to dict
 
@@ -66,7 +70,7 @@ cookiecut_template.create_gith_repo()
 
 cookiecut_template.clone_locally()
 
-cookiecut_template.cookiec_from_temp(templ_repo=cookiecut_temp_repo, jason_dict=env_variables_dic)
+
 
 
 
