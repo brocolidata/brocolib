@@ -16,6 +16,7 @@ jobs:
       extract_load: ${{ steps.filter.outputs.extract_load }}
       transform: ${{ steps.filter.outputs.transform }}
       utils: ${{ steps.filter.outputs.utils }}
+      factory_utils: ${{ steps.filter.outputs.factory_utils }}
     steps:
       - uses: dorny/paths-filter@v2
         id: filter
