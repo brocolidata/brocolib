@@ -186,7 +186,7 @@ jobs:
   build_brocolib_factory_utils:
     name: Job for 'brocolib_factory_utils' package
     needs: changes
-    if: ${{ needs.changes.outputs.utils == 'true' }}
+    if: ${{ needs.changes.outputs.factory_utils == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Git Checkout'
