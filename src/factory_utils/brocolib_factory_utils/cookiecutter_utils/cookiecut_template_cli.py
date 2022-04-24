@@ -6,9 +6,14 @@ import cookiecut_template
 # Create the parser
 my_parser = argparse.ArgumentParser(prog='cookie', description='Cookiecuts repo or repo directory template')
 
-my_parser.add_argument('-cookiecut','--template_repo',type=str, help='Cookiecuts template from Github directory or repo')
 
-my_parser.add_argument('-cookiecut','--template_repo',type=str, help='Cookiecuts template from Github directory or repo')
+my_parser.add_argument(dest='cookiecut',
+                       metavar='Cookiecut',
+                       type=str,
+                       help='Cookiecuts template from Github directory or repo'
+                       )
+
+
 
 my_parser.add_argument('-getenvkeys', '--environmentkeys', help='delimited list input to look for in env and pass to cookiecut', type=str)
 
@@ -24,7 +29,15 @@ args = my_parser.parse_args()
 
 cookiecut_temp_repo = args.cookiecut
 
-# adding env variables to dict
+# creating repo and cloning locally
+cookiecut_template.create_gith_repo()
+
+cookiecut_template.clone_locally()
+
+
+
+
+# adding env variables to dict and checking for environment variables
 env_variables = args.envkeys
 
 env_list = [str(item) for item in env_variables.split(',')]
@@ -62,19 +75,6 @@ if secrets:
     
     cookiecut_template.add_gh_secret(secr_dict=secrets_dic)
 
-# print(env_variables_dic)
-# print(secrets_dic)
 
-
-
-cookiecut_template.create_gith_repo()
-
-cookiecut_template.clone_locally()
-
-
-
-
-
-# print(parser.print_help())
 print('Cookiecutting Template Successful')
 
