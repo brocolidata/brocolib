@@ -78,10 +78,19 @@ jobs:
           echo "FACTORY_UTILS_PATH=factory_utils" >> $GITHUB_ENV
           python setup.py install --user
       - name: Run tests
+        if: |
+          ${{ needs.changes.outputs.extract_load == 'true' }} ||
+          ${{ needs.changes.outputs.transform == 'true' }} ||
+          ${{ needs.changes.outputs.utils == 'true' }} ||
+          ${{ needs.changes.outputs.factory_utils == 'true' }}
         working-directory: ${{ github.workspace }}/src/tests
         run: python -m pytest $EXTRACT_LOAD_PATH $TRANSFORM_PATH $UTILS_PATH $FACTORY_UTILS_PATH --junit-xml pytest_brocolib.xml
       - name: Upload Unit Test Results
-        if: always()
+        if: |
+          ${{ needs.changes.outputs.extract_load == 'true' }} ||
+          ${{ needs.changes.outputs.transform == 'true' }} ||
+          ${{ needs.changes.outputs.utils == 'true' }} ||
+          ${{ needs.changes.outputs.factory_utils == 'true' }}
         uses: actions/upload-artifact@v2
         with:
           name: Unit Test Results
@@ -91,7 +100,11 @@ jobs:
     name: "Publish Unit Tests Results"
     needs: brocolib_run_tests
     runs-on: ubuntu-latest
-    if: always()
+    if: |
+          ${{ needs.changes.outputs.extract_load == 'true' }} ||
+          ${{ needs.changes.outputs.transform == 'true' }} ||
+          ${{ needs.changes.outputs.utils == 'true' }} ||
+          ${{ needs.changes.outputs.factory_utils == 'true' }}
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v2
