@@ -1,6 +1,6 @@
 import argparse
 import os
-import cookiecut_template
+from cookiecutter_utils import cookiecut_template
 
 
 # Create the parser
