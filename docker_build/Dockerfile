@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -8,7 +8,7 @@ RUN apt-get -y update && apt-get -y upgrade \
         curl \
         unzip \
         bash \
-        pip \
+        python3-pip \
         git \
         make \
         libffi-dev \
@@ -20,6 +20,8 @@ RUN apt-get -y update && apt-get -y upgrade \
 ENV PYTHONPATH "${PYTHONPATH}:/src/extract_load"
 ENV PYTHONPATH "${PYTHONPATH}:/src/transform"
 ENV PYTHONPATH "${PYTHONPATH}:/src/utils:/src/utils/brocolib_utils"
+ENV PYTHONPATH "${PYTHONPATH}:/src/factory_utils:/src/utils/brocolib_factory_utils"
 
+# Copy & Install the dependencies file
 COPY requirements.txt .
 RUN pip install -r requirements.txt
