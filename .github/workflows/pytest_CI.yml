@@ -50,6 +50,7 @@ jobs:
       - name: 'Install pytest'
         run: pip install pytest
       - name: 'Install dependencies for extract_load'
+        id: install_extract_load
         if: ${{ needs.changes.outputs.extract_load == 'true' }}
         working-directory: ${{ github.workspace }}/src/extract_load
         run: |
@@ -57,6 +58,7 @@ jobs:
           echo "EXTRACT_LOAD_PATH=extract_load" >> $GITHUB_ENV
           python setup.py install --user
       - name: 'Install dependencies for transform'
+        id: install_transform
         if: ${{ needs.changes.outputs.transform == 'true' }}
         working-directory: ${{ github.workspace }}/src/transform
         run: |
@@ -64,6 +66,7 @@ jobs:
           echo "TRANSFORM_PATH=transform" >> $GITHUB_ENV
           python setup.py install --user
       - name: 'Install dependencies for utils'
+        id: install_utils
         if: ${{ needs.changes.outputs.utils == 'true' }}
         working-directory: ${{ github.workspace }}/src/utils
         run: |
@@ -71,6 +74,7 @@ jobs:
           echo "UTILS_PATH=utils" >> $GITHUB_ENV
           python setup.py install --user
       - name: 'Install dependencies for factory_utils'
+        id: install_factory_utils
         if: ${{ needs.changes.outputs.factory_utils == 'true' }}
         working-directory: ${{ github.workspace }}/src/factory_utils
         run: |
@@ -78,19 +82,16 @@ jobs:
           echo "FACTORY_UTILS_PATH=factory_utils" >> $GITHUB_ENV
           python setup.py install --user
       - name: Run tests
+        id: run_tests
         if: |
-          ${{ needs.changes.outputs.extract_load == 'true' }} ||
-          ${{ needs.changes.outputs.transform == 'true' }} ||
-          ${{ needs.changes.outputs.utils == 'true' }} ||
-          ${{ needs.changes.outputs.factory_utils == 'true' }}
+          steps.install_extract_load.outcome == 'success' ||
+          steps.install_transform.outcome == 'success' ||
+          steps.install_utils.outcome == 'success' ||
+          steps.install_factory_utils.outcome == 'success'
         working-directory: ${{ github.workspace }}/src/tests
         run: python -m pytest $EXTRACT_LOAD_PATH $TRANSFORM_PATH $UTILS_PATH $FACTORY_UTILS_PATH --junit-xml pytest_brocolib.xml
       - name: Upload Unit Test Results
-        if: |
-          ${{ needs.changes.outputs.extract_load == 'true' }} ||
-          ${{ needs.changes.outputs.transform == 'true' }} ||
-          ${{ needs.changes.outputs.utils == 'true' }} ||
-          ${{ needs.changes.outputs.factory_utils == 'true' }}
+        if: steps.run_tests.outcome == 'success'
         uses: actions/upload-artifact@v2
         with:
           name: Unit Test Results
