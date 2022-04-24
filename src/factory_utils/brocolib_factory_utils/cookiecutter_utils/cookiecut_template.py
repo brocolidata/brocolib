@@ -14,7 +14,6 @@ def create_gith_repo():
 
 def clone_locally():
     new_repo_url = f"https://{client_gh_token}@github.com/{client_org}/{new_repo}.git"
-
     Repo.clone_from(new_repo_url, local_path)
 
 def add_gh_secret( 
@@ -66,8 +65,15 @@ def cookiec_from_temp(
         directory_name (Union[None, str]): targeted directory/project in the templates repo. Defaults to None.
         jason_dict (Union[None, dict], optional): dict of cookiecutt template variables. Defaults to None.
     """
+    for x in [templ_repo, local_dir, source_token, source_organisation]:
+        if x is None:
+            raise ValueError(f'{x} variable must be set or given')
+
 
     cookiecut_tmp_url = f"https://{source_token}@github.com/{source_organisation}/{templ_repo}.git"
+
+    
+
 
     if jason_dict:
 

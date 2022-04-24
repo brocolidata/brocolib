@@ -20,7 +20,7 @@ RUN apt-get -y update && apt-get -y upgrade \
 ENV PYTHONPATH "${PYTHONPATH}:/src/extract_load"
 ENV PYTHONPATH "${PYTHONPATH}:/src/transform"
 ENV PYTHONPATH "${PYTHONPATH}:/src/utils:/src/utils/brocolib_utils"
-ENV PYTHONPATH "${PYTHONPATH}:/src/factory_utils:/src/utils/brocolib_factory_utils"
+ENV PYTHONPATH "${PYTHONPATH}:/src/factory_utils:/src/factory_utils/brocolib_factory_utils"
 
 # Copy & Install the dependencies file
 COPY requirements.txt .

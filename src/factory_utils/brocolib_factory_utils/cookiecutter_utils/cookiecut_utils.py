@@ -12,6 +12,10 @@ broc_gh_token = os.getenv("BROCOLI_GITHUB_TOKEN")
 broc_temp_repo = os.getenv("BROCOLI_TEMPL_REPO")
 
 
+for x in [client_org, client_gh_token, new_repo, local_path, broc_org, broc_gh_token, broc_temp_repo]:
+        if x is None:
+            raise ValueError(f'{x} variable must be set or given')
+
 
 def gith_connect( 
     token: Union[None , str] = client_gh_token,
