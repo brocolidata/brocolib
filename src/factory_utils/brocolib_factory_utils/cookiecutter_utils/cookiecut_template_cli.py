@@ -46,11 +46,23 @@ env_variables_dic = {}
 
 if env_variables:
 
-    for key in env_list:
+    for key_elem in env_list:
+        for c in [":","="]:
+            if c in key_elem:
+                env_k, env_v= key_elem.split(c)
+                if env_k not in env_variables_dic:
+                    os.environ[env_k.upper()] = env_v
 
-        if key not in env_variables_dic:
-            val = os.getenv(key)
-            env_variables_dic[key.lower()] = val
+                    env_variables_dic[env_k.upper()] = os.getenv(env_k.upper())
+                else:
+                    raise ValueError(f'environment variable {env_k} given twice')
+
+            else: 
+                if key_elem not in env_variables_dic:
+                    val = os.getenv(key_elem.upper())
+                    env_variables_dic[key_elem.upper()] = val
+                else:
+                    raise ValueError(f'environment variable {key_elem} given twice')
     cookiecut_template.cookiec_from_temp(templ_repo=cookiecut_temp_repo, jason_dict=env_variables_dic)
 else:
     cookiecut_template.cookiec_from_temp(templ_repo=cookiecut_temp_repo)
@@ -67,11 +79,20 @@ secrets_dic = {}
 
 if secrets:
 
-    for key in secrets_list:
-
-        if key not in secrets_dic:
-            val = os.getenv(key)
-            secrets_dic[key.lower()] = val
+    for key_elem in secrets_list:
+        for c in [":","="]:
+            if c in key_elem:
+                secr_k, secr_v= key_elem.split(c)
+                if secr_k not in secrets_dic:
+                    os.environ[secr_k.upper()] = secr_v
+                    secrets_dic[secr_k.upper()] = os.getenv(secr_k.upper())
+                else:
+                    raise ValueError(f'secret key {secr_k} given twice')
+            else:    
+                if key_elem not in secrets_dic:
+                    val = os.getenv(key_elem.upper())
+                    secrets_dic[key_elem.upper()] = val
+                
     
     cookiecut_template.add_gh_secret(secr_dict=secrets_dic)
 
