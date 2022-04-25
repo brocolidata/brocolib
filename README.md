@@ -10,7 +10,7 @@ Brocoli Library for Data Processing
 2. Create an environment variable (for example *GIT_TOKEN*)  and fill its value with the token you just created
 3. Then you can use
 ```
-pip install git+https://${GIT_TOKEN}@github.com/brocolidata/brocolib/#subdirectory=src
+pip install git+https://${GIT_TOKEN}@github.com/brocolidata/brocolib/#subdirectory=src/factory_utils
 ```
 
 # Development
