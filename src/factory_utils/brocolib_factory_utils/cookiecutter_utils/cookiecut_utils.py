@@ -15,7 +15,7 @@ brocoli_templ_repo = os.getenv("BROCOLI_TEMPL_REPO")
 for x in [client_organisation, client_github_token, client_repo, gh_workspace, brocoli_organisation, brocoli_github_token, brocoli_templ_repo]:
     if x is None:
         vname = [name for name in globals() if globals()[name] is x and name!='x' and name!='__doc__']
-        raise ValueError(f'{vname} variable must be set or given')
+        raise ValueError(f'This list of variables must be set or given {vname} ')
 
 
 def gith_connect( 
