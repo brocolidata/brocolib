@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.0.3'
+VERSION = '0.0.4'
 DESCRIPTION = 'Factory Utils Brocoli Library'
 LONG_DESCRIPTION = 'Brocoli Library for Factory workflow'
 
@@ -19,14 +19,4 @@ setup(
             "PyGithub",
             "GitPython",
         ]
-        
-        # keywords=['python', 'first package'],
-        # classifiers= [
-        #     "Development Status :: 3 - Alpha",
-        #     "Intended Audience :: Education",
-        #     "Programming Language :: Python :: 2",
-        #     "Programming Language :: Python :: 3",
-        #     "Operating System :: MacOS :: MacOS X",
-        #     "Operating System :: Microsoft :: Windows",
-        # ]
 )
