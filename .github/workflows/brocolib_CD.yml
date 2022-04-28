@@ -6,6 +6,8 @@ on:
   pull_request: 
     types:
       - closed
+  branches-ignore:     
+      - 'deploy/**'
 
 jobs:
   changes:
