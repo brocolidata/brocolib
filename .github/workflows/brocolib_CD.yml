@@ -4,8 +4,6 @@ name: Brocolib CD
 
 on:
   pull_request: 
-    branches-ignore:     
-      - 'deploy/**'
     types:
       - closed
     
