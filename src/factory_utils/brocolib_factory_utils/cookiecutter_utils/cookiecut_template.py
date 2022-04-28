@@ -4,7 +4,7 @@ from github import Github
 from git import Repo
 from cookiecutter.main import cookiecutter
 from typing import Union
-from cookiecutter_utils.cookiecut_utils import *
+from brocolib_factory_utils.cookiecutter_utils.cookiecut_utils import *
 
 
 def create_gith_repo(client_github_token: str,
