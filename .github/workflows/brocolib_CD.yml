@@ -4,10 +4,11 @@ name: Brocolib CD
 
 on:
   pull_request: 
-    types:
-      - closed
     branches-ignore:     
       - 'deploy/**'
+    types:
+      - closed
+    
 
 jobs:
   changes:
@@ -186,9 +187,10 @@ jobs:
             New PR to deploy to master : 
             ${{ steps.cpr.outputs.pull-request-url }}"
   build_brocolib_factory_utils:
+    
     name: Job for 'brocolib_factory_utils' package
     needs: changes
-    if: ${{ needs.changes.outputs.factory_utils == 'true' }}
+    if: ${{ needs.changes.outputs.factory_utils == 'true' }} && startsWith(github.head_ref, 'deploy/') == false
     runs-on: ubuntu-latest
     steps:
       - name: 'Git Checkout'
