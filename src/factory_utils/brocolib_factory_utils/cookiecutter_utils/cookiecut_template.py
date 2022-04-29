@@ -99,7 +99,6 @@ def cookiec_from_temp(
     print("Cookiecut done successfully")
 
 def add_commit_push_all(local_dir: str, message: str):
-    os.chdir(local_dir)
 
     repo = Repo()
     repo.git.add(all=True)
