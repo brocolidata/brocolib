@@ -189,7 +189,7 @@ jobs:
     
     name: Job for 'brocolib_factory_utils' package
     needs: changes
-    if: ${{ needs.changes.outputs.factory_utils == 'true' }} && !contains(github.head_ref, 'deploy/')
+    if: ${{ needs.changes.outputs.factory_utils == 'true' && !contains(github.head_ref, 'deploy/') }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Git Checkout'
