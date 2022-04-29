@@ -72,17 +72,18 @@ def cookiec_from_temp(
         jason_dict (Union[None, dict], optional): dict of cookiecutt template variables. Defaults to None.
     """
 
+    os.chdir(local_dir)
+
     cookiecut_tmp_url = f"https://{source_token}@github.com/{source_organisation}/{templ_repo}.git"
 
     if jason_dict:
 
         if directory_name:
 
-            os.chdir(local_dir)
+            
             cookiecutter(cookiecut_tmp_url, no_input=True,
                          extra_context=jason_dict, directory=directory_name)
         else:
-            os.chdir(local_dir)
             cookiecutter(cookiecut_tmp_url, no_input=True,
                          extra_context=jason_dict)
 
@@ -93,11 +94,11 @@ def cookiec_from_temp(
             cookiecutter(cookiecut_tmp_url, no_input=True,
                          directory=directory_name)
         else:
+
             cookiecutter(cookiecut_tmp_url, no_input=True)
     print("Cookiecut done successfully")
 
 def add_commit_push_all(local_dir: str, message: str):
-    os.chdir(local_dir)
 
     repo = Repo()
     repo.git.add(all=True)
