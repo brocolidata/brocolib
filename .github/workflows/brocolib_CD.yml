@@ -4,11 +4,12 @@ name: Brocolib CD
 
 on:
   pull_request: 
-    types:
-      - closed
     branches:
       - '*/*'
       - '!deploy/**'
+    types:
+      - closed
+    
     
 
 jobs:
