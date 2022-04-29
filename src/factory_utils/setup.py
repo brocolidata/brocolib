@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.1.9'
+VERSION = '0.2.0'
 DESCRIPTION = 'Factory Utils Brocoli Library'
 LONG_DESCRIPTION = 'Brocoli Library for Factory workflow'
 
