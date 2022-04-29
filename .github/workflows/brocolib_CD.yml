@@ -6,6 +6,8 @@ on:
   pull_request: 
     types:
       - closed
+    branches:
+      - '!deploy/**'
     
 
 jobs:
@@ -188,7 +190,7 @@ jobs:
     
     name: Job for 'brocolib_factory_utils' package
     needs: changes
-    if: ${{ needs.changes.outputs.factory_utils == 'true' }} && (startsWith(${{ github.event.pull_request.head.ref }}, 'deploy/') == 'false')
+    if: ${{ needs.changes.outputs.factory_utils == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Git Checkout'
