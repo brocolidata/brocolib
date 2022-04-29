@@ -57,7 +57,7 @@ def cookiec_from_temp(
     local_dir: str,
     source_token: str,
     source_organisation: str,
-    jason_dict: Union[None, dict] = None,
+    jason_dict: str,
     directory_name: Union[None, str] = None,
 ):
     """
