@@ -12,7 +12,7 @@ on:
 jobs:
   changes:
     name: Check files for changes
-    if: github.event.pull_request.merged == true && !contains(github.head_ref, 'deploy/')
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     outputs:
       extract_load: ${{ steps.filter.outputs.extract_load }}
@@ -215,6 +215,7 @@ jobs:
           git config user.email 'contact.brocoli@gmail.com'
           git add -A
           git commit -m "deploys ${{ github.event.pull_request.head.ref }}"
+          git push
       - name: Create Pull Request
         id: cpr
         uses: peter-evans/create-pull-request@v4
