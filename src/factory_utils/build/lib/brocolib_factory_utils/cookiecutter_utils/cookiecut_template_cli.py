@@ -1,6 +1,6 @@
 
 import os
-from cookiecutter_utils import cookiecut_template
+from brocolib_factory_utils.cookiecutter_utils import cookiecut_template
 
 # variables for the cookicut project
 cookie_templ_keys = ["DATALAKE_NAME", "DATALAKE_STORAGE_CLASS", "LANDING_NAME","LANDING_STORAGE_CLASS"] 
