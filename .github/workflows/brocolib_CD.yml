@@ -4,8 +4,6 @@ name: Brocolib CD
 
 on:
   pull_request: 
-    branches-ignore:
-      - 'deploy/**'
     types:
       - closed
     
@@ -14,7 +12,7 @@ on:
 jobs:
   changes:
     name: Check files for changes
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && !contains(github.head_ref, 'deploy/')
     runs-on: ubuntu-latest
     outputs:
       extract_load: ${{ steps.filter.outputs.extract_load }}
