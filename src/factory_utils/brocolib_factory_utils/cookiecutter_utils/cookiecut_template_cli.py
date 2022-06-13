@@ -3,7 +3,7 @@ import os
 from brocolib_factory_utils.cookiecutter_utils import cookiecut_template
 
 # variables for the cookicut project
-cookie_templ_keys = ["DATALAKE_NAME", "DATALAKE_STORAGE_CLASS", "LANDING_NAME","LANDING_STORAGE_CLASS"] 
+cookie_templ_keys = ["PROJECT_SLUG", "SOURCE_NAME", "GCP_BACK_PROJECT","FUNCTIONS_SERVICE_ACCOUNT", "DBT_PUBSUB_TOPIC", "DATALAKE_GCS_BUCKET", "GOBLET_GCP_VERSION"] 
 secrets_keys = []
 
 # client variables for github setup
@@ -17,12 +17,13 @@ brocoli_organisation = os.getenv("BROCOLI_ORGANISATION")
 brocolib_github_token = os.getenv("BROCOLIB_GITHUB_TOKEN")
 brocoli_templ_repo = os.getenv("BROCOLI_TEMPL_REPO")
 
+cookie_temp_directory = os.getenv("COOKIE_TEMP_DIRECTORY")
 
 
 default_message_for_commit = f"created {client_repo} for {client_organisation} + cookicuted the {brocoli_templ_repo} template + added secrets + pushed"
 
 # verify if client and brocoli variables for github are set
-for x in [client_organisation, client_github_token, client_repo, local_dir, brocoli_organisation, brocolib_github_token, brocoli_templ_repo]:
+for x in [client_organisation, client_github_token, client_repo, local_dir, brocoli_organisation, brocolib_github_token, brocoli_templ_repo, cookie_temp_directory]:
     if x is None:
         vname = [name for name in globals() if globals()[name] is x and name!='x' and name!='__doc__']
         raise ValueError(f'This list of variables must be set or given {vname} ')
@@ -54,9 +55,9 @@ for k in cookie_templ_keys:
 
 
 if env_variables_dic:
-    cookiecut_template.cookiec_from_temp(templ_repo=brocoli_templ_repo,local_dir=local_dir,source_token=brocolib_github_token,source_organisation=brocoli_organisation, jason_dict=env_variables_dic)
+    cookiecut_template.cookiec_from_temp(templ_repo=brocoli_templ_repo,local_dir=local_dir,source_token=brocolib_github_token,source_organisation=brocoli_organisation, jason_dict=env_variables_dic, directory_name=cookie_temp_directory)
 else:
-    cookiecut_template.cookiec_from_temp(templ_repo=brocoli_templ_repo,local_dir=local_dir,source_token=brocolib_github_token,source_organisation=brocoli_organisation)
+    cookiecut_template.cookiec_from_temp(templ_repo=brocoli_templ_repo,local_dir=local_dir,source_token=brocolib_github_token,source_organisation=brocoli_organisation, directory_name=cookie_temp_directory)
 
     
 #pushing changes
