@@ -19,20 +19,6 @@ DBT_MODELS_PATH = f"{os.environ.get('DBT_PATH')}/models"
 GOOGLE_SHEETS_API_SCOPES = [
     'https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive'
 ]
-def get_project_settings(sheet_url, settings_worksheet_name="project_settings"):
-    creds = get_creds()
-    
-    # authorize the clientsheet 
-    client = gspread.authorize(creds)
-    sheet = client.open_by_url(sheet_url)
-    for ws in sheet.worksheets():
-        if ws.title == settings_worksheet_name:
-            settings_worksheet = ws
-    settings_dict = {}
-    for dico in settings_worksheet.get_all_records():
-        settings_dict[dico["setting"]] = dico["value"]
-
-    return settings_dict
 
 MAPPING_TYPES = {
     "integer":"integer",
