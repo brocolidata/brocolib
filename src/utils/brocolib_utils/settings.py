@@ -16,6 +16,9 @@ SOURCES_SHEET_NAME = "sources"
 DBT_MODELS_SHEET_NAME = "dbt_models"
 DBT_MODELS_PATH = f"{os.environ.get('DBT_PATH')}/models"
 
+GOOGLE_SHEETS_API_SCOPES = [
+    'https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive'
+]
 def get_project_settings(sheet_url, settings_worksheet_name="project_settings"):
     creds = get_creds()
     

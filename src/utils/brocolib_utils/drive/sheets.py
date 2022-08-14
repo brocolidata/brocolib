@@ -2,11 +2,11 @@
 import gspread
 import pandas as pd
 from credentials import get_creds
-from brocolib_utils.drive.credentials import get_creds
+from settings import GOOGLE_SHEETS_API_SCOPES
 
 def sheet_to_df(sheet_url, sheet_name):
     
-    creds = get_creds()
+    creds = get_creds(GOOGLE_SHEETS_API_SCOPES)
     
     # authorize the clientsheet 
     client = gspread.authorize(creds)
