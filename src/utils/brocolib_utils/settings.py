@@ -1,4 +1,5 @@
 import os
+from typing import Literal
 import gspread
 from credentials import get_creds
 
@@ -19,6 +20,18 @@ DBT_MODELS_PATH = f"{os.environ.get('DBT_PATH')}/models"
 GOOGLE_SHEETS_API_SCOPES = [
     'https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive'
 ]
+
+DATA_STUDIO_API_BASE_URL = "https://datastudio.googleapis.com/v1"
+DATA_STUDIO_API_SCOPE = [
+    'https://www.googleapis.com/auth/datastudio',
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'https://www.googleapis.com/auth/admin.directory.user',
+    'https://www.googleapis.com/auth/admin.directory.group',
+    'openid'
+]
+
+DATA_STUDIO_ASSETS_TYPES = Literal['REPORT', 'DATA_SOURCE']
 
 MAPPING_TYPES = {
     "integer":"integer",
