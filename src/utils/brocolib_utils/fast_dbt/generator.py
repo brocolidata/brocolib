@@ -5,6 +5,7 @@ from brocolib_utils.settings import (TABLE_NAME_COL, FILE_FORMAT_COL,
                                 SOURCE_DATASET_COL, DESCRIPTION_COL, GCS_PREFIX_COL, 
                                 FIELD_NAME_COL, FIELD_DESCRIPTION_COL, DBT_MODELS_PATH,
                                 MAPPING_TYPES)
+from brocolib_utils.datalake.datalake import generate_schema_from_df
 
 def quoted_presenter(dumper, data):
     return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='"')
@@ -59,8 +60,15 @@ def generate_loaded_tables_specs(loaded_sources, init_dbt_sources_dict):
 
         # dc_table["external"]["partitions"] = [{"name":"year","data_type":"integer"}, 
         #                                       {"name":"month","data_type":"integer"}]
-                
+        
+
+        dc_table["columns"] = generate_schema_from_df
+        
+        
+
         init_dbt_sources_dict["sources"][0]["tables"].append(dc_table)
+
+
     return init_dbt_sources_dict
 
 

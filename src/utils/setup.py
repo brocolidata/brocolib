@@ -18,6 +18,7 @@ setup(
             "diagrams",
             "gspread",
             "pandas",
+            "pandas-gbq",
             "oauth2client",
             "ruamel.yaml",
             "google-api-python-client",
