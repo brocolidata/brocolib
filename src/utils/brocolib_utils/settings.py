@@ -1,6 +1,6 @@
 import os
 import gspread
-from brocolib_utils.drive.credentials import get_creds
+from credentials import get_creds
 
 SCOPE = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 ALL_FIELDS_SHEET_NAME = "all_fields"
