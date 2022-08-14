@@ -4,6 +4,9 @@ import argparse
 from ruamel.yaml import YAML
 
 from dbt_parser import update_exposures 
+from ruamel.yaml import YAML
+
+from dbt_parser import update_exposures 
 from brocolib_utils.settings import DBT_MODELS_PATH
 from brocolib_utils.fast_dbt.generator import (init_dbt_sources, 
     generate_loaded_tables_specs, dict_to_yaml)
