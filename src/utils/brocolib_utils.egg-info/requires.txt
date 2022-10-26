@@ -1,7 +1,7 @@
 diagrams
+gspread
+pandas
+oauth2client
+ruamel.yaml
 google-api-python-client
 google-cloud-storage
-gspread
-oauth2client
-pandas
-ruamel.yaml
