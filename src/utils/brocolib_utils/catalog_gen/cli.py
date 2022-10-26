@@ -1,4 +1,3 @@
-from email.policy import default
 import os
 import argparse
 from brocolib_utils.catalog_gen.dbt_catalog import (generate_dbt_docs, get_dbt_populated_index, run_dbt_debug,
