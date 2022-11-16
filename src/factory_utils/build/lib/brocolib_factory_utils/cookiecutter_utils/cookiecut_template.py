@@ -12,7 +12,11 @@ def create_gith_repo(client_github_token: str,
     client_repo: str
 ):
     org = gith_connect(client_github_token, organisation)
-    org.create_repo(client_repo, private=True)
+    org.create_repo(
+        name=client_repo, 
+        private=True,
+        auto_init=True
+    )
 
     print('Created new github repo')
 
