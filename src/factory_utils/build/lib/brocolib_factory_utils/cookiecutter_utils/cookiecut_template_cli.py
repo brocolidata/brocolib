@@ -1,5 +1,6 @@
 
 import os
+from distutils.dir_util import copy_tree
 from brocolib_factory_utils.cookiecutter_utils import cookiecut_template
 
 # variables for the cookicut project
@@ -11,6 +12,7 @@ client_organisation = os.getenv("CLIENT_ORGANISATION")
 client_github_token= os.getenv("CLIENT_GITHUB_TOKEN") # ${{ env.CLIENT_GITHUB_TOKEN }}
 client_repo = os.getenv("CLIENT_REPO")  
 local_dir = os.getenv("LOCAL_DIR") 
+temp_local_dir = f"{local_dir}_cookiecutter"
 
 # brocoli variables for github setup
 brocoli_organisation = os.getenv("BROCOLI_ORGANISATION")
@@ -55,13 +57,18 @@ for k in cookie_templ_keys:
 
 
 if env_variables_dic:
-    cookiecut_template.cookiec_from_temp(templ_repo=brocoli_templ_repo,local_dir=local_dir,source_token=brocolib_github_token,source_organisation=brocoli_organisation, jason_dict=env_variables_dic, directory_name=cookie_temp_directory)
+    cookiecut_template.cookiec_from_temp(templ_repo=brocoli_templ_repo,local_dir=temp_local_dir,source_token=brocolib_github_token,source_organisation=brocoli_organisation, jason_dict=env_variables_dic, directory_name=cookie_temp_directory)
 else:
-    cookiecut_template.cookiec_from_temp(templ_repo=brocoli_templ_repo,local_dir=local_dir,source_token=brocolib_github_token,source_organisation=brocoli_organisation, directory_name=cookie_temp_directory)
+    cookiecut_template.cookiec_from_temp(templ_repo=brocoli_templ_repo,local_dir=temp_local_dir,source_token=brocolib_github_token,source_organisation=brocoli_organisation, directory_name=cookie_temp_directory)
 
     
-#pushing changes
+# Copy files from temp_local_dir to local_dir
+copy_tree(
+    src=os.path.join(temp_local_dir, client_repo),
+    dst=local_dir
+)
 
+#pushing changes
 cookiecut_template.add_commit_push_all(local_dir=local_dir, message=default_message_for_commit)
 
 
