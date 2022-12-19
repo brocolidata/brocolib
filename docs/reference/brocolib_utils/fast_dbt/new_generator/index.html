@@ -1,0 +1,1563 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>New Generator - src</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.2505c338.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4cae4f">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="lightgreen">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-brocolib_utilsfast_dbtnew_generator" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="src" class="md-header__button md-logo" aria-label="src" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            src
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              New Generator
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="src" class="md-nav__button md-logo" aria-label="src" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    src
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Brocolib Extract Load
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Brocolib Extract Load" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Brocolib Extract Load
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_extract_load/datalake/" class="md-nav__link">
+        Datalake
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_extract_load/datawarehouse/" class="md-nav__link">
+        Datawarehouse
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_extract_load/goblet_utils/" class="md-nav__link">
+        Goblet Utils
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_extract_load/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_extract_load/ingest/" class="md-nav__link">
+        Ingest
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_extract_load/processing/" class="md-nav__link">
+        Processing
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_extract_load/pubsub/" class="md-nav__link">
+        Pubsub
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          Brocolib Factory Utils
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Brocolib Factory Utils" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Brocolib Factory Utils
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_factory_utils/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_2" type="checkbox" id="__nav_2_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_2">
+          Cookiecutter Utils
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cookiecutter Utils" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Cookiecutter Utils
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_factory_utils/cookiecutter_utils/cookiecut_template/" class="md-nav__link">
+        Cookiecut Template
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_factory_utils/cookiecutter_utils/cookiecut_template_cli/" class="md-nav__link">
+        Cookiecut Template Cli
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_factory_utils/cookiecutter_utils/cookiecut_utils/" class="md-nav__link">
+        Cookiecut Utils
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_factory_utils/cookiecutter_utils/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Brocolib Transform
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Brocolib Transform" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Brocolib Transform
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_transform/dbt_utils/" class="md-nav__link">
+        Dbt Utils
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../brocolib_transform/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4">
+          Brocolib Utils
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Brocolib Utils" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Brocolib Utils
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cli/" class="md-nav__link">
+        CLI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../credentials/" class="md-nav__link">
+        Credentials
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data_studio/" class="md-nav__link">
+        Data Studio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../settings/" class="md-nav__link">
+        Settings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_6" type="checkbox" id="__nav_2_4_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_6">
+          Catalog Gen
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Catalog Gen" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          Catalog Gen
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../catalog_gen/cli/" class="md-nav__link">
+        CLI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../catalog_gen/dbt_catalog/" class="md-nav__link">
+        Dbt Catalog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../catalog_gen/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_7" type="checkbox" id="__nav_2_4_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_7">
+          Datalake
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Datalake" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Datalake
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datalake/datalake/" class="md-nav__link">
+        Datalake
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datalake/gcs_utils/" class="md-nav__link">
+        Gcs Utils
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../datalake/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_8" type="checkbox" id="__nav_2_4_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_8">
+          Drive
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Drive" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_4_8">
+          <span class="md-nav__icon md-icon"></span>
+          Drive
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drive/" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../drive/sheets/" class="md-nav__link">
+        Sheets
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4_9" type="checkbox" id="__nav_2_4_9" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_4_9">
+          Fast Dbt
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Fast Dbt" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_4_9">
+          <span class="md-nav__icon md-icon"></span>
+          Fast Dbt
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        CLI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dbt_parser/" class="md-nav__link">
+        Dbt Parser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generator/" class="md-nav__link">
+        Generator
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          New Generator
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        New Generator
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate_loaded_tables_specs" class="md-nav__link">
+    generate_loaded_tables_specs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_source_yaml_asdict" class="md-nav__link">
+    generate_source_yaml_asdict
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#init_dbt_sources" class="md-nav__link">
+    init_dbt_sources
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate_loaded_tables_specs" class="md-nav__link">
+    generate_loaded_tables_specs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_source_yaml_asdict" class="md-nav__link">
+    generate_source_yaml_asdict
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#init_dbt_sources" class="md-nav__link">
+    init_dbt_sources
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="module-brocolib_utilsfast_dbtnew_generator">Module brocolib_utils.fast_dbt.new_generator</h1>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">ruamel.yaml.scalarstring</span> <span class="kn">import</span> <span class="n">DoubleQuotedScalarString</span>
+
+<span class="kn">from</span> <span class="nn">brocolib_utils.fast_dbt.ddm</span> <span class="kn">import</span> <span class="n">sources_parser</span><span class="p">,</span> <span class="n">sheet_parser</span>
+
+<span class="kn">from</span> <span class="nn">brocolib_utils.fast_dbt.ddm</span> <span class="kn">import</span> <span class="n">settings</span> <span class="k">as</span> <span class="n">codegen_settings</span>
+
+<span class="kn">from</span> <span class="nn">brocolib_utils.datalake</span> <span class="kn">import</span> <span class="n">datalake</span>
+
+<span class="kn">from</span> <span class="nn">brocolib_utils</span> <span class="kn">import</span> <span class="n">settings</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="k">def</span> <span class="nf">generate_source_yaml_asdict</span><span class="p">(</span>
+
+    <span class="n">source_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
+
+    <span class="n">datalake_bucket</span><span class="p">:</span><span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="p">):</span>
+
+    <span class="n">dc_source_tables</span> <span class="o">=</span> <span class="n">datalake</span><span class="o">.</span><span class="n">get_source</span><span class="p">(</span>
+
+        <span class="n">source_name</span><span class="o">=</span><span class="n">source_name</span><span class="p">,</span>
+
+        <span class="n">datalake_bucket</span><span class="o">=</span><span class="n">datalake_bucket</span>
+
+    <span class="p">)</span>
+
+    <span class="n">all_sources_df</span><span class="p">,</span> <span class="n">spreadsheet</span> <span class="o">=</span> <span class="n">sheet_parser</span><span class="o">.</span><span class="n">ddm_sheet_to_df</span><span class="p">(</span>
+
+        <span class="n">sheet_name</span><span class="o">=</span><span class="n">codegen_settings</span><span class="o">.</span><span class="n">DDM_SHEET_NAMES</span><span class="o">.</span><span class="n">SOURCES</span>
+
+    <span class="p">)</span>
+
+    <span class="n">source_description</span> <span class="o">=</span> <span class="n">all_sources_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;source_name==&#39;</span><span class="si">{</span><span class="n">source_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">or</span> <span class="kc">None</span>
+
+    <span class="n">all_tables_df</span><span class="p">,</span> <span class="n">spreadsheet</span> <span class="o">=</span> <span class="n">sheet_parser</span><span class="o">.</span><span class="n">ddm_sheet_to_df</span><span class="p">(</span>
+
+        <span class="n">sheet_name</span><span class="o">=</span><span class="n">codegen_settings</span><span class="o">.</span><span class="n">DDM_SHEET_NAMES</span><span class="o">.</span><span class="n">SOURCE_TABLES</span>
+
+    <span class="p">)</span>
+
+    <span class="n">all_columns_df</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sheet_parser</span><span class="o">.</span><span class="n">ddm_sheet_to_df</span><span class="p">(</span>
+
+        <span class="n">sheet_name</span><span class="o">=</span><span class="n">codegen_settings</span><span class="o">.</span><span class="n">DDM_SHEET_NAMES</span><span class="o">.</span><span class="n">SOURCE_COLUMNS</span><span class="p">,</span>
+
+        <span class="n">worksheet</span><span class="o">=</span><span class="n">spreadsheet</span>
+
+    <span class="p">)</span>
+
+    <span class="n">init_dbt_sources_dict</span> <span class="o">=</span> <span class="n">init_dbt_sources</span><span class="p">(</span>
+
+        <span class="n">database</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">DATALAKE_PROJECT</span><span class="p">,</span>
+
+        <span class="n">source_name</span><span class="o">=</span><span class="n">source_name</span><span class="p">,</span>
+
+        <span class="n">source_description</span><span class="o">=</span><span class="n">source_description</span>
+
+    <span class="p">)</span>
+
+    <span class="n">dbt_sources_dict</span> <span class="o">=</span> <span class="n">generate_loaded_tables_specs</span><span class="p">(</span>
+
+        <span class="n">loaded_sources</span><span class="o">=</span><span class="n">dc_source_tables</span><span class="p">,</span>
+
+        <span class="n">init_dbt_sources_dict</span><span class="o">=</span><span class="n">init_dbt_sources_dict</span><span class="p">,</span>
+
+        <span class="n">all_tables</span><span class="o">=</span><span class="n">all_tables_df</span><span class="p">,</span>
+
+        <span class="n">all_columns</span><span class="o">=</span><span class="n">all_columns_df</span>
+
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dbt_sources_dict</span>
+
+<span class="k">def</span> <span class="nf">init_dbt_sources</span><span class="p">(</span>
+
+    <span class="n">database</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
+
+    <span class="n">source_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span>
+
+    <span class="n">source_description</span><span class="p">:</span><span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="p">):</span>
+
+    <span class="c1"># dc_dbt_sources = OrderedDict()</span>
+
+    <span class="n">dc_dbt_sources</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">dc_dbt_sources</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;2&quot;</span>
+
+    <span class="n">dc_dbt_sources</span><span class="p">[</span><span class="s2">&quot;sources&quot;</span><span class="p">]</span><span class="o">=</span><span class="p">[]</span>
+
+    <span class="c1"># for source in getattr(sources_dataframe, SOURCE_DATASET_COL).unique():</span>
+
+        <span class="c1"># dc_source = OrderedDict()</span>
+
+    <span class="n">dc_source</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">dc_source</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_name</span>
+
+    <span class="n">dc_source</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">DoubleQuotedScalarString</span><span class="p">(</span><span class="n">source_description</span><span class="p">)</span>
+
+    <span class="n">dc_source</span><span class="p">[</span><span class="s2">&quot;database&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">database</span>
+
+    <span class="n">dc_source</span><span class="p">[</span><span class="s2">&quot;loader&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;gcloud storage&quot;</span>
+
+    <span class="n">dc_source</span><span class="p">[</span><span class="s2">&quot;tables&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">dc_dbt_sources</span><span class="p">[</span><span class="s2">&quot;sources&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">dc_source</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">dc_dbt_sources</span>
+
+<span class="k">def</span> <span class="nf">generate_loaded_tables_specs</span><span class="p">(</span>
+
+    <span class="n">loaded_sources</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span>
+
+    <span class="n">init_dbt_sources_dict</span><span class="p">:</span><span class="nb">dict</span><span class="p">,</span>
+
+    <span class="n">all_tables</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+    <span class="n">all_columns</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+
+<span class="p">):</span>
+
+    <span class="k">for</span> <span class="n">table</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">loaded_sources</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+        <span class="n">table_description</span> <span class="o">=</span> <span class="n">all_tables</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;table_name==&#39;</span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">dc_table</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">table</span>
+
+        <span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">DoubleQuotedScalarString</span><span class="p">(</span><span class="n">table_description</span><span class="p">)</span>
+
+        <span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">DoubleQuotedScalarString</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">*&quot;</span><span class="p">)</span>
+
+        <span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">][</span><span class="s2">&quot;options&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">][</span><span class="s2">&quot;options&quot;</span><span class="p">][</span><span class="s2">&quot;format&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;parquet&quot;</span>
+
+        <span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">][</span><span class="s2">&quot;options&quot;</span><span class="p">][</span><span class="s2">&quot;hive_partition_uri_prefix&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">DoubleQuotedScalarString</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="c1"># dc_table[&quot;external&quot;][&quot;partitions&quot;] = [{&quot;name&quot;:&quot;year&quot;,&quot;data_type&quot;:&quot;integer&quot;},</span>
+
+        <span class="c1">#                                       {&quot;name&quot;:&quot;month&quot;,&quot;data_type&quot;:&quot;integer&quot;}]</span>
+
+        <span class="n">df_table_columns</span> <span class="o">=</span> <span class="n">all_columns</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;table_name==&#39;</span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+        <span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;columns&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_table_columns</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span>
+
+            <span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;columns&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+
+                <span class="p">{</span>
+
+                    <span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="n">col</span><span class="o">.</span><span class="n">column_name</span><span class="p">,</span>
+
+                    <span class="s2">&quot;data_type&quot;</span><span class="p">:</span><span class="n">col</span><span class="o">.</span><span class="n">data_type</span><span class="p">,</span>
+
+                    <span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="n">DoubleQuotedScalarString</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">description</span><span class="p">)</span>
+
+                <span class="p">}</span>
+
+            <span class="p">)</span>
+
+        <span class="n">init_dbt_sources_dict</span><span class="p">[</span><span class="s2">&quot;sources&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;tables&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dc_table</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">init_dbt_sources_dict</span>
+</code></pre></div>
+
+</details>
+<h2 id="functions">Functions</h2>
+<h3 id="generate_loaded_tables_specs">generate_loaded_tables_specs</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_loaded_tables_specs</span><span class="p">(</span>
+    <span class="n">loaded_sources</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">init_dbt_sources_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">all_tables</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">all_columns</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">generate_loaded_tables_specs</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">loaded_sources</span><span class="p">:</span><span class="n">dict</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">init_dbt_sources_dict</span><span class="p">:</span><span class="n">dict</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">all_tables</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">all_columns</span><span class="p">:</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="w"></span>
+
+<span class="p">):</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">table</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">loaded_sources</span><span class="o">.</span><span class="n">items</span><span class="p">():</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">table_description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">all_tables</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;table_name==&#39;{table}&#39;&quot;</span><span class="p">)[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">dc_table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">table</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DoubleQuotedScalarString</span><span class="p">(</span><span class="n">table_description</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">][</span><span class="s2">&quot;location&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DoubleQuotedScalarString</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{path}*&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">][</span><span class="s2">&quot;options&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">][</span><span class="s2">&quot;options&quot;</span><span class="p">][</span><span class="s2">&quot;format&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;parquet&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;external&quot;</span><span class="p">][</span><span class="s2">&quot;options&quot;</span><span class="p">][</span><span class="s2">&quot;hive_partition_uri_prefix&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DoubleQuotedScalarString</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1"># dc_table[&quot;external&quot;][&quot;partitions&quot;] = [{&quot;name&quot;:&quot;year&quot;,&quot;data_type&quot;:&quot;integer&quot;},</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">#                                       {&quot;name&quot;:&quot;month&quot;,&quot;data_type&quot;:&quot;integer&quot;}]</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">df_table_columns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">all_columns</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;table_name==&#39;{table}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;columns&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">df_table_columns</span><span class="o">.</span><span class="n">itertuples</span><span class="p">():</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">dc_table</span><span class="p">[</span><span class="s2">&quot;columns&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">                    </span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="n">col</span><span class="o">.</span><span class="n">column_name</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="s2">&quot;data_type&quot;</span><span class="p">:</span><span class="n">col</span><span class="o">.</span><span class="n">data_type</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="s2">&quot;description&quot;</span><span class="p">:</span><span class="n">DoubleQuotedScalarString</span><span class="p">(</span><span class="n">col</span><span class="o">.</span><span class="n">description</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">init_dbt_sources_dict</span><span class="p">[</span><span class="s2">&quot;sources&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;tables&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dc_table</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">init_dbt_sources_dict</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="generate_source_yaml_asdict">generate_source_yaml_asdict</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_source_yaml_asdict</span><span class="p">(</span>
+    <span class="n">source_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">datalake_bucket</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">generate_source_yaml_asdict</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">source_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">datalake_bucket</span><span class="p">:</span><span class="nb">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">None</span><span class="w"></span>
+
+<span class="p">):</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dc_source_tables</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">datalake</span><span class="o">.</span><span class="n">get_source</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">source_name</span><span class="o">=</span><span class="n">source_name</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">datalake_bucket</span><span class="o">=</span><span class="n">datalake_bucket</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">all_sources_df</span><span class="p">,</span><span class="w"> </span><span class="n">spreadsheet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sheet_parser</span><span class="o">.</span><span class="n">ddm_sheet_to_df</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">sheet_name</span><span class="o">=</span><span class="n">codegen_settings</span><span class="o">.</span><span class="n">DDM_SHEET_NAMES</span><span class="o">.</span><span class="n">SOURCES</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">source_description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">all_sources_df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;source_name==&#39;{source_name}&#39;&quot;</span><span class="p">)[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">None</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">all_tables_df</span><span class="p">,</span><span class="w"> </span><span class="n">spreadsheet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sheet_parser</span><span class="o">.</span><span class="n">ddm_sheet_to_df</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">sheet_name</span><span class="o">=</span><span class="n">codegen_settings</span><span class="o">.</span><span class="n">DDM_SHEET_NAMES</span><span class="o">.</span><span class="n">SOURCE_TABLES</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">all_columns_df</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sheet_parser</span><span class="o">.</span><span class="n">ddm_sheet_to_df</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">sheet_name</span><span class="o">=</span><span class="n">codegen_settings</span><span class="o">.</span><span class="n">DDM_SHEET_NAMES</span><span class="o">.</span><span class="n">SOURCE_COLUMNS</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">worksheet</span><span class="o">=</span><span class="n">spreadsheet</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">init_dbt_sources_dict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">init_dbt_sources</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">database</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">DATALAKE_PROJECT</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">source_name</span><span class="o">=</span><span class="n">source_name</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">source_description</span><span class="o">=</span><span class="n">source_description</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dbt_sources_dict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">generate_loaded_tables_specs</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">loaded_sources</span><span class="o">=</span><span class="n">dc_source_tables</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">init_dbt_sources_dict</span><span class="o">=</span><span class="n">init_dbt_sources_dict</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">all_tables</span><span class="o">=</span><span class="n">all_tables_df</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">all_columns</span><span class="o">=</span><span class="n">all_columns_df</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">dbt_sources_dict</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="init_dbt_sources">init_dbt_sources</h3>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">init_dbt_sources</span><span class="p">(</span>
+    <span class="n">database</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">source_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">source_description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">init_dbt_sources</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">database</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">source_name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">source_description</span><span class="p">:</span><span class="nb">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">None</span><span class="w"></span>
+
+<span class="p">):</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1"># dc_dbt_sources = OrderedDict()</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dc_dbt_sources</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dc_dbt_sources</span><span class="p">[</span><span class="s2">&quot;version&quot;</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dc_dbt_sources</span><span class="p">[</span><span class="s2">&quot;sources&quot;</span><span class="p">]</span><span class="o">=</span><span class="p">[]</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1"># for source in getattr(sources_dataframe, SOURCE_DATASET_COL).unique():</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1"># dc_source = OrderedDict()</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dc_source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dc_source</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">source_name</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dc_source</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DoubleQuotedScalarString</span><span class="p">(</span><span class="n">source_description</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dc_source</span><span class="p">[</span><span class="s2">&quot;database&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">database</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dc_source</span><span class="p">[</span><span class="s2">&quot;loader&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;gcloud storage&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dc_source</span><span class="p">[</span><span class="s2">&quot;tables&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">dc_dbt_sources</span><span class="p">[</span><span class="s2">&quot;sources&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dict</span><span class="p">(</span><span class="n">dc_source</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">dc_dbt_sources</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+    
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Index" rel="prev">
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <div class="md-ellipsis">
+                <span class="md-footer__direction">
+                  Previous
+                </span>
+                Index
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+    <div class="md-footer-meta md-typeset">
+      <div class="md-footer-meta__inner md-grid">
+        <div class="md-footer-copyright">
+            
+            Powered by
+            <a href="http://timothycrosley.github.io/portray">portray.</a>
+            You too can
+            <a href="http://timothycrosley.github.io/portray">
+              portray</a>
+            your Python project well using automatic documentation.
+          </div>
+        
+      </div>
+    </div>
+  </footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "search": "../../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+    
+    
+  </body>
+</html>
