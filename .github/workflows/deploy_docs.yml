@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - feature/docs_github_page
+    paths-ignore:
+      - 'docs/**'
 
 jobs:
   deploy_docs:
@@ -45,6 +47,7 @@ jobs:
         with:
           title: '[Deploy] docs '
           branch: 'deploy/docs'
+          base: 'feature/docs_github_page'
           delete-branch: true
           body: 'Deploying docs for commit: ${{github.event.head_commit.message}}'
           labels: |
