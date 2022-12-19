@@ -1,0 +1,56 @@
+## Useful links : 
+# - https://github.community/t/run-job-only-if-folder-changed/118292/2
+name: Deploy documentation
+
+on:
+  push:
+    branches:
+      - feature/docs_github_page
+
+jobs:
+  deploy_docs:
+    name: Check files for changes
+    if: github.event
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Setup Python'
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+      - name: 'Add brocolib modules to path'
+        run: |
+          echo "PYTHONPATH=$GITHUB_WORKSPACE/src/extract_load" >> $GITHUB_ENV
+          echo "PYTHONPATH=$GITHUB_WORKSPACE/src/transform" >> $GITHUB_ENV
+          echo "PYTHONPATH=$GITHUB_WORKSPACE/src/utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=$GITHUB_WORKSPACE/src/factory_utils" >> $GITHUB_ENV
+      - name: 'Install Python dependencies'
+        run: pip install poetry
+      - name: Build docs
+        run: |
+          portray as_html \
+            -m brocolib_extract_load \
+            -m brocolib_transform \
+            -m brocolib_utils \
+            -m brocolib_factory_utils \
+            -o ${{env.GITHUB_WORKSPACE}}/docs
+      - name: Create commits
+        run: |
+          git config user.name 'github-actions-bot'
+          git config user.email 'contact.brocoli@gmail.com'
+          git add -A
+          git commit -m "update docs for commit : ${{github.event.head_commit.id}}"
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
+        with:
+          title: '[Deploy] docs '
+          branch: 'deploy/docs'
+          delete-branch: true
+          body: 'Deploying docs for commit: ${{github.event.head_commit.message}}'
+          labels: |
+            CD docs
+          assignees: ${{ github.actor }}
+          team-reviewers: |
+            owners
+            maintainers
+    
