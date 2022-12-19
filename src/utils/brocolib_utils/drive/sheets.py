@@ -1,32 +1,45 @@
 # importing the required libraries
+import os
+from functools import lru_cache
 import gspread
+import gspread_pandas
 import pandas as pd
-from credentials import get_creds
-from settings import GOOGLE_SHEETS_API_SCOPES
+from brocolib_utils import credentials
+from brocolib_utils import settings
 
-def sheet_to_df(sheet_url, sheet_name):
-    
-    creds = get_creds(GOOGLE_SHEETS_API_SCOPES)
-    
-    # authorize the clientsheet 
-    client = gspread.authorize(creds)
-    
-    sheet = client.open_by_url(sheet_url)
-    
-    for ws in sheet.worksheets():
-        if ws.title == sheet_name:
-            worksheet = ws
-            
-    if "worksheet" in locals():
-    
-        data = worksheet.get_all_records()
+def get_sheets_credentials():
+    return gspread_pandas.conf.get_creds(
+        config=credentials.get_credential_file_asdict()
+    )
+    # return credentials.get_creds(settings.GOOGLE_SHEETS_API_SCOPES)
 
-        df = pd.DataFrame.from_dict(data)
 
-        return df
-    else:
-        raise Exception(f"Worksheet '{sheet_name}' not found")
-        
+# @lru_cache(maxsize=1)
+# def get_google_sheet(sheet_id:str) -> gspread.Spreadsheet:
+#     creds = get_sheets_credentials()    
+#     client = gspread.authorize(creds)
+#     google_sheet = client.open_by_key(sheet_id)
+#     return google_sheet
+
+# @lru_cache(maxsize=1)
+def get_google_sheet(sheet_id:str) -> gspread_pandas.Spread:
+    creds = get_sheets_credentials()    
+    # client = gspread.authorize(creds)
+    google_sheet = gspread_pandas.Spread(spread=sheet_id, creds=creds)
+    # google_sheet = client.open_by_key(sheet_id)
+    return google_sheet
+
+def get_google_worksheet(
+    sheet_id:str, 
+    worksheet_name:str
+) -> gspread_pandas.Spread:
+    creds = get_sheets_credentials()    
+    google_worksheet = gspread_pandas.Spread(
+        spread=sheet_id, 
+        sheet=worksheet_name,
+        creds=creds
+    )
+    return google_worksheet
 
 
 def clean_columns_name(dataframe):
@@ -44,12 +57,9 @@ def explode_sources(dataframe):
 
 
 def get_sheet_title(sheet_url):
-    creds = get_creds(GOOGLE_SHEETS_API_SCOPES)
-
+    creds = get_sheets_credentials()
     # authorize the clientsheet 
     client = gspread.authorize(creds)
-
     sheet = client.open_by_url(sheet_url)
-    
     return sheet.title.replace(' ','_').lower()
 

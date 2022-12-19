@@ -1,5 +1,4 @@
 
-from . import credentials
 
 
 def test_no_import_error():

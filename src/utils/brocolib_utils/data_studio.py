@@ -1,10 +1,8 @@
-from google.auth import jwt
-import time
 import json
 import requests
-from oauth2client.service_account import ServiceAccountCredentials
-from credentials import get_client_email, get_jwt_signer, get_private_key, scope
-from settings import DATA_STUDIO_API_SCOPE, DATA_STUDIO_API_BASE_URL, DATA_STUDIO_ASSETS_TYPES
+from . import credentials
+from . import settings
+from .settings import DATA_STUDIO_API_BASE_URL, DATA_STUDIO_ASSETS_TYPES
 
 
 def response_helper(**kwargs) -> dict:
@@ -17,45 +15,7 @@ def response_helper(**kwargs) -> dict:
 class DataStudio:
     # This func runs as default when DataStudio class runs.
     def __init__(self, *args, **kwargs):
-
-        self.client_email = get_client_email()
-
-        iat = int(time.time())
-        exp = iat + 3600
-        header = {'alg': 'RS256'}
-        claim_set = {
-            "iss": self.client_email,
-            #  "sub": "test@leanscale.com",
-            "sub": self.client_email,
-            #  "email": "test@leanscale.com",
-            "email": self.client_email,
-            "scope": scope(DATA_STUDIO_API_SCOPE),
-            "aud": "https://oauth2.googleapis.com/token"
-            , "exp": exp, 
-            "iat": iat
-        }
-
-        # s = jwt.encode(header, claim_set, get_private_key())
-        s = jwt.encode(
-            signer=get_jwt_signer(),
-            payload=claim_set,
-            header=header,
-            key_id=get_private_key()
-        )
-        r = requests.post("https://oauth2.googleapis.com/token",
-                params={
-                "grant_type": "urn:ietf:params:oauth:grant-type:jwt-bearer",
-                "assertion": s
-            })
-
-        # Right now you are getting an access token for each time.
-        # If you put this code into a server, you have to control
-        # your token expiration before creating a new token.
-        self.token = r.json()['access_token']
-        headers = {
-            "Authorization": f"Bearer {self.token}",
-        }
-        self.headers = headers
+        self.headers = credentials.get_jwt_header(settings.DATA_STUDIO_API_SCOPE)
 
     # def get_assets(self, asset_id, asset_type) -> dict:
     def get_assets(self, asset_type: DATA_STUDIO_ASSETS_TYPES) -> dict:
@@ -101,8 +61,6 @@ class DataStudio:
             'permissions': permission_dict
         }
         # data = permission_dict
-        print('update body', data)
-        print('asset_id', asset_id)
 
         r = requests.patch(f"{DATA_STUDIO_API_BASE_URL}/assets/{asset_id}/permissions",
             headers=self.headers,

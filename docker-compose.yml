@@ -14,6 +14,7 @@ services:
           - BACK_PROJECT_ID=$BACK_PROJECT_ID
           - FRONT_PROJECT_ID=$FRONT_PROJECT_ID
           - DEFAULT_GCS_PARTITIONNING_KEYS=$DEFAULT_GCS_PARTITIONNING_KEYS
+          - DDM_SHEETS_ID=$DDM_SHEETS_ID
         working_dir: /src
         stdin_open: true
         tty: true

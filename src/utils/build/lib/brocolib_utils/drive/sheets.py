@@ -1,16 +1,16 @@
 # importing the required libraries
 import gspread
 import pandas as pd
-from brocolib_utils.drive.credentials import get_creds
+from brocolib_utils.credentials import get_creds
+from brocolib_utils import settings
 
-def sheet_to_df(sheet_url, sheet_name):
+def sheet_to_df(sheet_id, sheet_name):
     
-    creds = get_creds()
+    creds = get_creds(settings.DRIVE_SCOPE)
     
     # authorize the clientsheet 
     client = gspread.authorize(creds)
-    
-    sheet = client.open_by_url(sheet_url)
+    sheet = client.open_by_id(sheet_id)
     
     for ws in sheet.worksheets():
         if ws.title == sheet_name:

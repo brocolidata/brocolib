@@ -1,7 +1,5 @@
 import os
 from typing import Literal
-import gspread
-from credentials import get_creds
 
 SCOPE = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 ALL_FIELDS_SHEET_NAME = "all_fields"
@@ -16,7 +14,8 @@ GCS_PREFIX_COL = "cloud_storage_prefix"
 SOURCES_SHEET_NAME = "sources"
 DBT_MODELS_SHEET_NAME = "dbt_models"
 DBT_MODELS_PATH = f"{os.environ.get('DBT_PATH')}/models"
-
+DATALAKE_PROJECT = os.environ.get('BACK_PROJECT_ID')
+DATALAKE_BUCKET = os.environ.get('DATALAKE_BUCKET')
 GOOGLE_SHEETS_API_SCOPES = [
     'https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive'
 ]
@@ -33,7 +32,7 @@ DATA_STUDIO_API_SCOPE = [
 
 DATA_STUDIO_ASSETS_TYPES = Literal['REPORT', 'DATA_SOURCE']
 
-MAPPING_TYPES = {
+BIGQUERY_MAPPING_TYPES = {
     "integer":"integer",
     "timestamp without time zone":"timestamp",
     "boolean":"bool",
