@@ -40,6 +40,13 @@ jobs:
     needs: changes
     if: ${{ needs.changes.outputs.extract_load == 'true' }} || ${{ needs.changes.outputs.transform == 'true' }} || ${{ needs.changes.outputs.utils == 'true' }} || ${{ needs.changes.outputs.factory_utils == 'true' }}
     runs-on: ubuntu-latest
+    env:
+      DATALAKE_BUCKET: ${{ secrets.DATALAKE_BUCKET }}
+      DBT_DOCS_BUCKET: ${{ secrets.DBT_DOCS_BUCKET }}
+      BACK_PROJECT_ID: ${{ secrets.FRONT_PROJECT_ID }}
+      FRONT_PROJECT_ID: ${{ secrets.FRONT_PROJECT_ID }}
+      DDM_SHEETS_ID: ${{ secrets.TEST_DDM_SHEETS_ID }}
+      DEFAULT_GCS_PARTITIONNING_KEYS: '["year","month"]'
     steps:
       - name: 'Git Checkout'
         uses: actions/checkout@v2
