@@ -5,8 +5,15 @@
   "workspaceFolder": "/brocolib",
   "shutdownAction": "stopCompose",
   "extensions": [
-	"ms-python.python",
+	  "ms-python.python",
     "njpwerner.autodocstring",
     "bungcip.better-toml"
-  ]
+  ],
+  "settings": {
+    "python.testing.pytestArgs": [
+      "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+  }
 }
