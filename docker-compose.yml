@@ -16,6 +16,7 @@ services:
           - FRONT_PROJECT_ID=$FRONT_PROJECT_ID
           - DEFAULT_GCS_PARTITIONNING_KEYS=$DEFAULT_GCS_PARTITIONNING_KEYS
           - DDM_SHEETS_ID=$DDM_SHEETS_ID
+          - DBT_DOCS_READ_GROUP=$DBT_DOCS_READ_GROUP
         working_dir: /brocolib
         stdin_open: true
         tty: true
