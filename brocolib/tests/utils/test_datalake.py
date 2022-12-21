@@ -49,7 +49,6 @@ def test_get_all_columns_for_tables(populate_bucket):
     source_columns = sources_parser.get_source_columns(
         source_name="test_source",
         table_name="test_table",
-        table_gcs_url="gs://brocolib_utils-test-bucket/test_source/test_table/",
         datalake_bucket=TEST_BUCKET_NAME
     )
 
