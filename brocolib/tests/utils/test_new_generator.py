@@ -46,7 +46,7 @@ def test_generate_source_yaml_asdict(load_demo_data, populate_bucket):
         source_name="test_source",
         datalake_bucket=bucket.name
     )
-    with open('/src/tests/utils/dbt_manifests_demo/sources.yaml') as ff:
+    with open('/brocolib/tests/utils/dbt_manifests_demo/sources.yaml') as ff:
         test_dict = yaml.safe_load(ff)
     assert sources_dict["sources"][0]["name"] == test_dict["sources"][0]["name"] 
     assert sources_dict["sources"][0]["tables"][0]["name"] == test_dict["sources"][0]["tables"][0]["name"]

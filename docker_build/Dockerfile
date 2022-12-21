@@ -16,11 +16,11 @@ RUN apt-get -y update && apt-get -y upgrade \
         libpq-dev\
         gcc
 
-# ENV PYTHONPATH "/src"
-ENV PYTHONPATH "${PYTHONPATH}:/src/extract_load"
-ENV PYTHONPATH "${PYTHONPATH}:/src/transform"
-ENV PYTHONPATH "${PYTHONPATH}:/src/utils:/src/utils/brocolib_utils"
-ENV PYTHONPATH "${PYTHONPATH}:/src/factory_utils:/src/factory_utils/brocolib_factory_utils"
+# ENV PYTHONPATH "/brocolib"
+ENV PYTHONPATH "${PYTHONPATH}:/brocolib/extract_load"
+ENV PYTHONPATH "${PYTHONPATH}:/brocolib/transform"
+ENV PYTHONPATH "${PYTHONPATH}:/brocolib/utils:/brocolib/utils/brocolib_utils"
+ENV PYTHONPATH "${PYTHONPATH}:/brocolib/factory_utils:/brocolib/factory_utils/brocolib_factory_utils"
 
 # Copy & Install the dependencies file
 COPY requirements.txt .

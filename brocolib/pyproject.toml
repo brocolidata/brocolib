@@ -1,0 +1,18 @@
+[tool.portray]
+output_dir = "documentation_website"
+site_name = "brocolib"
+modules = [
+  "brocolib_extract_load",
+  "brocolib_transform",
+  "brocolib_utils",
+  "brocolib_factory_utils"
+]
+
+[tool.portray.mkdocs]
+repo_name = "brocolidata/brocolib"
+repo_url = "https://github.com/brocolidata/brocolib"
+  
+[tool.portray.mkdocs.theme]
+name = "material"
+favicon = "https://drive.google.com/uc?export=view&id=17D4-wOVGuvSftfnuBP1QeCa5RYH6Xy1t"
+logo = "https://drive.google.com/uc?export=view&id=17D4-wOVGuvSftfnuBP1QeCa5RYH6Xy1t"

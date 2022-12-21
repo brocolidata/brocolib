@@ -25,13 +25,13 @@ jobs:
         with:
           filters: |
             extract_load:
-              - 'src/extract_load/**'
+              - 'brocolib/extract_load/**'
             transform:
-              - 'src/transform/**'
+              - 'brocolib/transform/**'
             utils:
-              - 'src/utils/**'
+              - 'brocolib/utils/**'
             factory_utils:
-              - 'src/factory_utils/**'
+              - 'brocolib/factory_utils/**'
 
   build_brocolib_extract_load:
     name: Job for 'brocolib_extract_load' package
@@ -46,13 +46,13 @@ jobs:
         with:
           python-version: '3.8'
       - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/extract_load
+        working-directory: ${{ github.workspace }}/brocolib/extract_load
         run: |
           pip install wheel 
-          echo "PYTHONPATH=${{ github.workspace }}/src/extract_load" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/extract_load" >> $GITHUB_ENV
           python setup.py install --user
       - name: Build wheel for brocolib_extract_load
-        working-directory: ${{ github.workspace }}/src/extract_load
+        working-directory: ${{ github.workspace }}/brocolib/extract_load
         run: |
           rm -rf dist 
           python setup.py sdist bdist_wheel
@@ -97,13 +97,13 @@ jobs:
         with:
           python-version: '3.8'
       - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/transform
+        working-directory: ${{ github.workspace }}/brocolib/transform
         run: |
           pip install wheel
-          echo "PYTHONPATH=${{ github.workspace }}/src/transform" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/transform" >> $GITHUB_ENV
           python setup.py install --user
       - name: Build wheel for transform
-        working-directory: ${{ github.workspace }}/src/transform
+        working-directory: ${{ github.workspace }}/brocolib/transform
         run: |
           rm -rf dist 
           python setup.py sdist bdist_wheel
@@ -148,13 +148,13 @@ jobs:
         with:
           python-version: '3.8'
       - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/utils
+        working-directory: ${{ github.workspace }}/brocolib/utils
         run: |
           pip install wheel 
-          echo "PYTHONPATH=${{ github.workspace }}/src/utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/utils" >> $GITHUB_ENV
           python setup.py install --user
       - name: Build wheel for brocolib_utils
-        working-directory: ${{ github.workspace }}/src/utils
+        working-directory: ${{ github.workspace }}/brocolib/utils
         run: |
           rm -rf dist 
           python setup.py sdist bdist_wheel
@@ -199,13 +199,13 @@ jobs:
         with:
           python-version: '3.8'
       - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/factory_utils
+        working-directory: ${{ github.workspace }}/brocolib/factory_utils
         run: |
           pip install wheel 
-          echo "PYTHONPATH=${{ github.workspace }}/src/factory_utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/factory_utils" >> $GITHUB_ENV
           python setup.py install --user
       - name: Build wheel for brocolib_factory__utils
-        working-directory: ${{ github.workspace }}/src/factory_utils
+        working-directory: ${{ github.workspace }}/sbrocolibrc/factory_utils
         run: |
           rm -rf dist build
           python setup.py sdist bdist_wheel
