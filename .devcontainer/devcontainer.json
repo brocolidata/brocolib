@@ -2,10 +2,11 @@
   "name": "Brocolib",
   "dockerComposeFile": "../docker-compose.yml",
   "service": "brocolib",
-  "workspaceFolder": "/src",
+  "workspaceFolder": "/brocolib",
   "shutdownAction": "stopCompose",
   "extensions": [
-	  "ms-python.python",
-	  "njpwerner.autodocstring"
+	"ms-python.python",
+    "njpwerner.autodocstring",
+    "bungcip.better-toml"
   ]
 }
