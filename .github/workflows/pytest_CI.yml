@@ -23,23 +23,30 @@ jobs:
         with:
           filters: |
             extract_load:
-              - 'src/extract_load/**'
-              - 'src/tests/extract_load/**'
+              - 'brocolib/extract_load/**'
+              - 'brocolib/tests/extract_load/**'
             transform:
-              - 'src/transform/**'
-              - 'src/tests/transform/**'
+              - 'brocolib/transform/**'
+              - 'brocolib/tests/transform/**'
             utils:
-              - 'src/utils/**'
-              - 'src/tests/utils/**'
+              - 'brocolib/utils/**'
+              - 'brocolib/tests/utils/**'
             factory_utils:
-              - 'src/factory_utils/**'
-              - 'src/tests/factory_utils/**'
+              - 'brocolib/factory_utils/**'
+              - 'brocolib/tests/factory_utils/**'
 
   brocolib_run_tests:
     name: Run tests for brocolib packages
     needs: changes
     if: ${{ needs.changes.outputs.extract_load == 'true' }} || ${{ needs.changes.outputs.transform == 'true' }} || ${{ needs.changes.outputs.utils == 'true' }} || ${{ needs.changes.outputs.factory_utils == 'true' }}
     runs-on: ubuntu-latest
+    env:
+      DATALAKE_BUCKET: ${{ secrets.DATALAKE_BUCKET }}
+      DBT_DOCS_BUCKET: ${{ secrets.DBT_DOCS_BUCKET }}
+      BACK_PROJECT_ID: ${{ secrets.FRONT_PROJECT_ID }}
+      FRONT_PROJECT_ID: ${{ secrets.FRONT_PROJECT_ID }}
+      DDM_SHEETS_ID: ${{ secrets.TEST_DDM_SHEETS_ID }}
+      DEFAULT_GCS_PARTITIONNING_KEYS: '["year","month"]'
     steps:
       - name: 'Git Checkout'
         uses: actions/checkout@v2
@@ -47,38 +54,42 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '3.8'
+      - name: 'Authenticate gcloud'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GOOGLE_SECRETS_ACCESS_SA }}'
       - name: 'Install pytest'
         run: pip install pytest
       - name: 'Install dependencies for extract_load'
         id: install_extract_load
         if: ${{ needs.changes.outputs.extract_load == 'true' }}
-        working-directory: ${{ github.workspace }}/src/extract_load
+        working-directory: ${{ github.workspace }}/brocolib/extract_load
         run: |
-          echo "PYTHONPATH=${{ github.workspace }}/src/extract_load" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/extract_load" >> $GITHUB_ENV
           echo "EXTRACT_LOAD_PATH=extract_load" >> $GITHUB_ENV
           python setup.py install --user
       - name: 'Install dependencies for transform'
         id: install_transform
         if: ${{ needs.changes.outputs.transform == 'true' }}
-        working-directory: ${{ github.workspace }}/src/transform
+        working-directory: ${{ github.workspace }}/brocolib/transform
         run: |
-          echo "PYTHONPATH=${{ github.workspace }}/src/transform" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/transform" >> $GITHUB_ENV
           echo "TRANSFORM_PATH=transform" >> $GITHUB_ENV
           python setup.py install --user
       - name: 'Install dependencies for utils'
         id: install_utils
         if: ${{ needs.changes.outputs.utils == 'true' }}
-        working-directory: ${{ github.workspace }}/src/utils
+        working-directory: ${{ github.workspace }}/brocolib/utils
         run: |
-          echo "PYTHONPATH=${{ github.workspace }}/src/utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/utils" >> $GITHUB_ENV
           echo "UTILS_PATH=utils" >> $GITHUB_ENV
           python setup.py install --user
       - name: 'Install dependencies for factory_utils'
         id: install_factory_utils
         if: ${{ needs.changes.outputs.factory_utils == 'true' }}
-        working-directory: ${{ github.workspace }}/src/factory_utils
+        working-directory: ${{ github.workspace }}/brocolib/factory_utils
         run: |
-          echo "PYTHONPATH=${{ github.workspace }}/src/factory_utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/factory_utils" >> $GITHUB_ENV
           echo "FACTORY_UTILS_PATH=factory_utils" >> $GITHUB_ENV
           python setup.py install --user
       - name: Run tests
@@ -88,14 +99,14 @@ jobs:
           steps.install_transform.outcome == 'success' ||
           steps.install_utils.outcome == 'success' ||
           steps.install_factory_utils.outcome == 'success'
-        working-directory: ${{ github.workspace }}/src/tests
+        working-directory: ${{ github.workspace }}/brocolib/tests
         run: python -m pytest $EXTRACT_LOAD_PATH $TRANSFORM_PATH $UTILS_PATH $FACTORY_UTILS_PATH --junit-xml pytest_brocolib.xml
       - name: Upload Unit Test Results
         if: steps.run_tests.outcome == 'success'
         uses: actions/upload-artifact@v2
         with:
           name: Unit Test Results
-          path: ${{ github.workspace }}/src/tests/pytest_brocolib.xml
+          path: ${{ github.workspace }}/brocolib/tests/pytest_brocolib.xml
 
   publish-test-results:
     name: "Publish Unit Tests Results"
