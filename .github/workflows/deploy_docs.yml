@@ -1,14 +1,9 @@
-## Useful links : 
-# - https://github.community/t/run-job-only-if-folder-changed/118292/2
-name: Deploy documentation
+name: 'Deploy documentation'
 
 on:
   push:
     branches:
-      - feature/docs_github_page
-    paths-ignore:
-      - 'docs/**'
-
+      - main
 jobs:
   deploy_docs:
     name: Check files for changes
@@ -21,13 +16,13 @@ jobs:
           python-version: '3.8'
       - name: 'Add brocolib modules to path'
         run: |
-          echo "PYTHONPATH=$GITHUB_WORKSPACE/src/extract_load" >> $GITHUB_ENV
-          echo "PYTHONPATH=$GITHUB_WORKSPACE/src/transform" >> $GITHUB_ENV
-          echo "PYTHONPATH=$GITHUB_WORKSPACE/src/utils" >> $GITHUB_ENV
-          echo "PYTHONPATH=$GITHUB_WORKSPACE/src/factory_utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=$GITHUB_WORKSPACE/brocolib/extract_load" >> $GITHUB_ENV
+          echo "PYTHONPATH=$GITHUB_WORKSPACE/brocolib/transform" >> $GITHUB_ENV
+          echo "PYTHONPATH=$GITHUB_WORKSPACE/brocolib/utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=$GITHUB_WORKSPACE/brocolib/factory_utils" >> $GITHUB_ENV
       - name: 'Install Python dependencies'
         run: pip install poetry
-      - name: Build docs
+      - name: 'Build docs'
         run: |
           portray as_html \
             -m brocolib_extract_load \
@@ -35,25 +30,9 @@ jobs:
             -m brocolib_utils \
             -m brocolib_factory_utils \
             -o ${{env.GITHUB_WORKSPACE}}/docs
-      - name: Create commits
-        run: |
-          git config user.name 'github-actions-bot'
-          git config user.email 'contact.brocoli@gmail.com'
-          git add -A
-          git commit -m "update docs for commit : ${{github.event.head_commit.id}}"
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v4
+      - name: 'Upload GitHub Pages artifact'
+        uses: actions/upload-pages-artifact@v1.0.7
         with:
-          title: '[Deploy] docs '
-          branch: 'deploy/docs'
-          base: 'feature/docs_github_page'
-          delete-branch: true
-          body: 'Deploying docs for commit: ${{github.event.head_commit.message}}'
-          labels: |
-            CD docs
-          assignees: ${{ github.actor }}
-          team-reviewers: |
-            owners
-            maintainers
-    
+          path: '${{env.GITHUB_WORKSPACE}}/docs'
+      - name: 'Deploy GitHub Pages site'
+        uses: actions/deploy-pages@v1.2.3
