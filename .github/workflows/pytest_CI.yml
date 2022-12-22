@@ -1,6 +1,4 @@
-## Useful links : 
-# - https://github.community/t/run-job-only-if-folder-changed/118292/2
-name: Pytest CI
+name: 'Pytest CI'
 
 on:
   pull_request:
@@ -10,7 +8,7 @@ on:
 
 jobs:
   changes:
-    name: Check files for changes
+    name: 'Check files for changes'
     runs-on: ubuntu-latest
     outputs:
       extract_load: ${{ steps.filter.outputs.extract_load }}
@@ -18,7 +16,8 @@ jobs:
       utils: ${{ steps.filter.outputs.utils }}
       factory_utils: ${{ steps.filter.outputs.factory_utils }}
     steps:
-      - uses: dorny/paths-filter@v2
+      - name: 'Filter changes'
+        uses: dorny/paths-filter@v2
         id: filter
         with:
           filters: |
@@ -36,7 +35,7 @@ jobs:
               - 'brocolib/tests/factory_utils/**'
 
   brocolib_run_tests:
-    name: Run tests for brocolib packages
+    name: 'Run tests for brocolib packages'
     needs: changes
     if: ${{ needs.changes.outputs.extract_load == 'true' }} || ${{ needs.changes.outputs.transform == 'true' }} || ${{ needs.changes.outputs.utils == 'true' }} || ${{ needs.changes.outputs.factory_utils == 'true' }}
     runs-on: ubuntu-latest
@@ -92,7 +91,7 @@ jobs:
           echo "PYTHONPATH=${{ github.workspace }}/brocolib/factory_utils" >> $GITHUB_ENV
           echo "FACTORY_UTILS_PATH=factory_utils" >> $GITHUB_ENV
           python setup.py install --user
-      - name: Run tests
+      - name: 'Run tests'
         id: run_tests
         if: |
           steps.install_extract_load.outcome == 'success' ||
@@ -101,7 +100,7 @@ jobs:
           steps.install_factory_utils.outcome == 'success'
         working-directory: ${{ github.workspace }}/brocolib/tests
         run: python -m pytest $EXTRACT_LOAD_PATH $TRANSFORM_PATH $UTILS_PATH $FACTORY_UTILS_PATH --junit-xml pytest_brocolib.xml
-      - name: Upload Unit Test Results
+      - name: 'Upload unit test results'
         if: steps.run_tests.outcome == 'success'
         uses: actions/upload-artifact@v2
         with:
@@ -109,7 +108,7 @@ jobs:
           path: ${{ github.workspace }}/brocolib/tests/pytest_brocolib.xml
 
   publish-test-results:
-    name: "Publish Unit Tests Results"
+    name: 'Publish tests results'
     needs: brocolib_run_tests
     runs-on: ubuntu-latest
     if: |
@@ -118,11 +117,11 @@ jobs:
           ${{ needs.changes.outputs.utils == 'true' }} ||
           ${{ needs.changes.outputs.factory_utils == 'true' }}
     steps:
-      - name: Download Artifacts
+      - name: 'Download artifacts'
         uses: actions/download-artifact@v2
         with:
           path: artifacts
-      - name: Publish Unit Test Results
+      - name: 'Publish unit test results'
         uses: EnricoMi/publish-unit-test-result-action@v1
         with:
           files: "artifacts/**/*.xml"
