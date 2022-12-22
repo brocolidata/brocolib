@@ -43,9 +43,10 @@ jobs:
     env:
       DATALAKE_BUCKET: ${{ secrets.DATALAKE_BUCKET }}
       DBT_DOCS_BUCKET: ${{ secrets.DBT_DOCS_BUCKET }}
-      BACK_PROJECT_ID: ${{ secrets.FRONT_PROJECT_ID }}
+      BACK_PROJECT_ID: ${{ secrets.BACK_PROJECT_ID }}
       FRONT_PROJECT_ID: ${{ secrets.FRONT_PROJECT_ID }}
       DDM_SHEETS_ID: ${{ secrets.TEST_DDM_SHEETS_ID }}
+      DBT_DOCS_READ_GROUP: ${{ secrets.DBT_DOCS_READ_GROUP }}
       DEFAULT_GCS_PARTITIONNING_KEYS: '["year","month"]'
     steps:
       - name: 'Git Checkout'
