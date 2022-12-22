@@ -69,7 +69,9 @@ jobs:
           packages: gcc
           version: 1.0
       - name: 'Install test dependencies'
-        run: pip install pytest protobuf>=4.21.6
+        run: |
+          pip install pytest protobuf>=4.21.6
+          pip list
       - name: 'Install ${{ matrix.changed_project }} dependencies'
         id: install_dependencies
         working-directory: ${{ github.workspace }}/brocolib/${{ matrix.changed_project }}
