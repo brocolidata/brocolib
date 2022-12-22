@@ -15,7 +15,8 @@ setup(
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
         install_requires=[
-            "dbt-bigquery"
+            "dbt-bigquery==1.3.0",
+            "dbt-core==1.3.1"
         ]
         
         # keywords=['python', 'first package'],

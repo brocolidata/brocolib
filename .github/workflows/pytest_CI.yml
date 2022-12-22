@@ -78,7 +78,7 @@ jobs:
         run: |
           echo "PYTHONPATH=${{ github.workspace }}/brocolib/${{ matrix.changed_project }}" >> $GITHUB_ENV
           echo "TESTS_PATH=${{ matrix.changed_project }}" >> $GITHUB_ENV
-          python setup.py install --user
+          python setup.py install
       - name: 'Run ${{ matrix.changed_project }} tests'
         id: run_tests
         if: steps.install_dependencies.outcome == 'success'
