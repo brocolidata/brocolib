@@ -1,7 +1,7 @@
-import typer
+# import typer
 
-app = typer.Typer()
+# app = typer.Typer()
 
 
-if __name__ == "__main__":
-    app()
+# if __name__ == "__main__":
+#     app()

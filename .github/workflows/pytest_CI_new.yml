@@ -1,4 +1,4 @@
-name: 'Pytest CI'
+name: 'Pytest CI new'
 
 on:
   pull_request:
@@ -11,9 +11,6 @@ jobs:
     name: 'Check files for changes'
     runs-on: ubuntu-latest
     outputs:
-      extract_load: ${{ steps.filter.outputs.extract_load }}
-      transform: ${{ steps.filter.outputs.transform }}
-      factory_utils: ${{ steps.filter.outputs.factory_utils }}
       changed_projects: ${{ steps.filter.outputs.changes }}
     steps:
       - name: 'Filter changes'
@@ -21,16 +18,10 @@ jobs:
         id: filter
         with:
           filters: |
-            extract_load:
-              - 'brocolib/extract_load/**'
-              - 'brocolib/tests/extract_load/**'
-            transform:
-              - 'brocolib/transform/**'
-              - 'brocolib/tests/transform/**'
-            factory_utils:
-              - 'brocolib/factory_utils/**'
-              - 'brocolib/tests/factory_utils/**'
-
+            utils:
+              - 'brocolib/utils/**'
+              - 'brocolib/tests/utils/**'
+            
   brocolib_run_tests:
     name: 'Test ${{ matrix.changed_project }}'
     needs: changes
@@ -66,7 +57,7 @@ jobs:
           version: 1.0
       - name: 'Install test dependencies'
         run: |
-          pip install pytest protobuf>=4.21.6
+          pip install pytest poetry
           pip list
       - name: 'Install ${{ matrix.changed_project }} dependencies'
         id: install_dependencies
@@ -74,7 +65,7 @@ jobs:
         run: |
           echo "PYTHONPATH=${{ github.workspace }}/brocolib/${{ matrix.changed_project }}" >> $GITHUB_ENV
           echo "TESTS_PATH=${{ matrix.changed_project }}" >> $GITHUB_ENV
-          python setup.py install
+          poetry install 
       - name: 'Run ${{ matrix.changed_project }} tests'
         id: run_tests
         if: steps.install_dependencies.outcome == 'success'

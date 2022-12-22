@@ -23,5 +23,8 @@ ENV PYTHONPATH "${PYTHONPATH}:/brocolib/utils:/brocolib/utils/brocolib_utils"
 ENV PYTHONPATH "${PYTHONPATH}:/brocolib/factory_utils:/brocolib/factory_utils/brocolib_factory_utils"
 
 # Copy & Install the dependencies file
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+# COPY requirements.txt .
+# RUN pip install -r requirements.txt
+
+RUN curl -sSL https://install.python-poetry.org | python3 -
+ENV PATH "${PATH}:~/.local/bin"
