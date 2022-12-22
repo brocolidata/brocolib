@@ -63,9 +63,14 @@ jobs:
         uses: 'google-github-actions/auth@v0'
         with:
           credentials_json: '${{ secrets.GOOGLE_SECRETS_ACCESS_SA }}'
-      - name: 'Install pytest'
+      - name: 'Install apt dependencies'
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: gcc
+          version: 1.0
+      - name: 'Install test dependencies'
         run: pip install pytest
-      - name: 'Install dependencies for extract_load'
+      - name: 'Install ${{ matrix.changed_project }} dependencies'
         id: install_dependencies
         working-directory: ${{ github.workspace }}/brocolib/${{ matrix.changed_project }}
         run: |
