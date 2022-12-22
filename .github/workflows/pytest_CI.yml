@@ -38,6 +38,7 @@ jobs:
   brocolib_run_tests:
     name: 'Test ${{ matrix.changed_project }}'
     needs: changes
+    continue-on-error: true
     strategy:
       matrix:
         changed_project: ${{ fromJSON(needs.changes.outputs.changed_projects) }}
