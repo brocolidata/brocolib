@@ -31,7 +31,7 @@ jobs:
               - 'brocolib/factory_utils/**'
 
   build_brocolib:
-    name: Release brocolib packages
+    name: 'Release ${{ matrix.changed_project }}'
     needs: changes
     strategy:
       matrix:

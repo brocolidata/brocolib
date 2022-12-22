@@ -36,7 +36,7 @@ jobs:
               - 'brocolib/tests/factory_utils/**'
 
   brocolib_run_tests:
-    name: 'Run tests for brocolib packages'
+    name: 'Test ${{ matrix.changed_project }}'
     needs: changes
     strategy:
       matrix:
