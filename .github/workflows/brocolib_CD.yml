@@ -47,20 +47,21 @@ jobs:
       - name: 'Install dependencies'
         working-directory: ${{ github.workspace }}/brocolib/${{ matrix.changed_project }}
         run: |
-          pip install wheel 
+          pip install poetry 
           echo "PYTHONPATH=${{ github.workspace }}/brocolib/${{ matrix.changed_project }}" >> $GITHUB_ENV
-          python setup.py install --user
+          poetry install --no-interaction --no-root
       - name: Build ${{ matrix.changed_project }} distribution
         id: build_distribution
         working-directory: ${{ github.workspace }}/brocolib/${{ matrix.changed_project }}
         run: |
-          python setup.py sdist bdist_wheel
-          echo "BROCOLIB_PACKAGE_VERSION=$(python setup.py --version)" >> $GITHUB_ENV
+          poetry build --no-interaction
+          echo "BROCOLIB_PACKAGE_VERSION=$(poetry version --no-interaction -s)" >> $GITHUB_ENV
+          echo "BROCOLIB_PACKAGE_NAME=$(poetry version --no-interaction)" >> $GITHUB_ENV
       - name: 'Create ${{ matrix.changed_project }} release'
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          name: '${{ matrix.changed_project }} v${{ env.BROCOLIB_PACKAGE_VERSION }}'
+          name: ${{ env.BROCOLIB_PACKAGE_NAME }}
           tag_name: '${{ matrix.changed_project }}_v_${{ env.BROCOLIB_PACKAGE_VERSION }}'
           generate_release_notes: true
           files: |
