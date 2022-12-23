@@ -9,6 +9,9 @@ jobs:
     name: Check files for changes
     if: github.event
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write 
     steps:
       - name: 'Git Checkout'
         uses: actions/checkout@v2
