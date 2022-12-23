@@ -16,21 +16,21 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '3.8'
-      - name: 'Add brocolib modules to path'
-        run: |
-          echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/brocolib/extract_load" >> $GITHUB_ENV
-          echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/brocolib/transform" >> $GITHUB_ENV
-          echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/brocolib/utils" >> $GITHUB_ENV
-          echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/brocolib/factory_utils" >> $GITHUB_ENV
-          echo $PYTHONPATH
       - name: 'Install Python dependencies'
         run: pip install -r ${{ github.workspace }}/docker_build/requirements.txt
       - name: 'Build docs'
         working-directory: ${{ github.workspace }}/brocolib
-        run: portray as_html -o ${{env.GITHUB_WORKSPACE}}/docs
+        run: |
+          echo "PYTHONPATH=${{env.PYTHONPATH}}:${{ github.workspace }}/brocolib/extract_load" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{env.PYTHONPATH}}:${{ github.workspace }}/brocolib/transform" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{env.PYTHONPATH}}:${{ github.workspace }}/brocolib/utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{env.PYTHONPATH}}:${{ github.workspace }}/brocolib/factory_utils" >> $GITHUB_ENV
+          portray as_html -o ${{ github.workspace }}/docs
+      - name: 'Build docs'
+        run: 
       - name: 'Upload GitHub Pages artifact'
         uses: actions/upload-pages-artifact@v1.0.7
         with:
-          path: '${{env.GITHUB_WORKSPACE}}/docs'
+          path: '${{ github.workspace }}/docs'
       - name: 'Deploy GitHub Pages site'
         uses: actions/deploy-pages@v1.2.3
