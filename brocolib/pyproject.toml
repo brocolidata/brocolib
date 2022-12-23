@@ -2,10 +2,10 @@
 output_dir = "documentation_website"
 site_name = "brocolib"
 modules = [
-  "brocolib_extract_load",
-  "brocolib_transform",
-  "brocolib_utils",
-  "brocolib_factory_utils"
+  "extract_load",
+  "transform",
+  "utils",
+  "factory_utils"
 ]
 
 [tool.portray.mkdocs]
