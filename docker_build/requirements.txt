@@ -3,6 +3,7 @@ psycopg2-binary
 dbt-core
 requests
 pandas
+pandas-gbq
 fsspec
 gcsfs
 google-api-python-client
@@ -12,9 +13,11 @@ google-cloud-pubsub
 SQLAlchemy
 diagrams
 gspread
+gspread-pandas
 oauth2client
 ruamel.yaml
 pytest-mock
 cookiecutter
 PyGithub
 GitPython
+typer[all]

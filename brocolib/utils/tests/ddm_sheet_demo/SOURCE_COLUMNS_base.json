@@ -1,0 +1,98 @@
+[
+    {
+        "nom table": "currencies_exchange_rate",
+        "nom colonne": "upload_date",
+        "nom fonctionnel colonne": "date_de_chargement",
+        "type donnee": "datetime",
+        "description": "Date de chargement de l'enregistrement",
+        "tags": ""
+    },
+    {
+        "nom table": "currencies_exchange_rate",
+        "nom colonne": "price_date",
+        "nom fonctionnel colonne": "date_du_taux",
+        "type donnee": "date",
+        "description": "Date d'enregistrement des valeurs",
+        "tags": ""
+    },
+    {
+        "nom table": "currencies_exchange_rate",
+        "nom colonne": "usd_rate",
+        "nom fonctionnel colonne": "taux_dollars",
+        "type donnee": "NUMERIC",
+        "description": "Valeur du Dollars americain par rapport à la devise de référence",
+        "tags": "contains_pii"
+    },
+    {
+        "nom table": "currencies_exchange_rate",
+        "nom colonne": "gbp_rate",
+        "nom fonctionnel colonne": "taux_livre_sterling",
+        "type donnee": "NUMERIC",
+        "description": "Valeur de la Livre sterling par rapport à la devise de référence",
+        "tags": ""
+    },
+    {
+        "nom table": "currencies_exchange_rate",
+        "nom colonne": "euro_rate",
+        "nom fonctionnel colonne": "taux_euro",
+        "type donnee": "NUMERIC",
+        "description": "Valeur de l'Euro par rapport à la devise de référence",
+        "tags": ""
+    },
+    {
+        "nom table": "currencies_exchange_rate",
+        "nom colonne": "mad_base",
+        "nom fonctionnel colonne": "base_dirham",
+        "type donnee": "NUMERIC",
+        "description": "La devise de référence",
+        "tags": ""
+    },
+    {
+        "nom table": "sample_table",
+        "nom colonne": "upload_date",
+        "nom fonctionnel colonne": "date_de_chargement_odoo",
+        "type donnee": "datetime",
+        "description": "Date de chargement de l'enregistrement",
+        "tags": "contains_pii, daily, business_critical"
+    },
+    {
+        "nom table": "sample_table",
+        "nom colonne": "price_date",
+        "nom fonctionnel colonne": "date_du_taux_odoo",
+        "type donnee": "date",
+        "description": "Date d'enregistrement des valeurs",
+        "tags": ""
+    },
+    {
+        "nom table": "sample_table",
+        "nom colonne": "usd_rate_odoo",
+        "nom fonctionnel colonne": "taux_dollars_odoo",
+        "type donnee": "NUMERIC",
+        "description": "Valeur du Dollars americain par rapport à la devise de référence",
+        "tags": ""
+    },
+    {
+        "nom table": "sample_table",
+        "nom colonne": "gbp_rate_odoo",
+        "nom fonctionnel colonne": "taux_livre_sterling_odoo",
+        "type donnee": "NUMERIC",
+        "description": "Valeur de la Livre sterling par rapport à la devise de référence",
+        "tags": ""
+    },
+    {
+        "nom table": "sample_table",
+        "nom colonne": "euro_rate_odoo",
+        "nom fonctionnel colonne": "taux_euro_odoo",
+        "type donnee": "NUMERIC",
+        "description": "Valeur de l'Euro par rapport à la devise de référence",
+        "tags": ""
+    },
+    {
+        "nom table": "sample_table",
+        "nom colonne": "mad_base_odoo",
+        "nom fonctionnel colonne": "base_dirham_odoo",
+        "type donnee": "NUMERIC",
+        "description": "La devise de référence",
+        "tags": ""
+    }
+]

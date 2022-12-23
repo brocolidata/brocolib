@@ -1,0 +1,57 @@
+version: '2'
+sources:
+- name: test_source
+  description: "Source utilisée pour les tests"
+  database: brocolitest-internal-back
+  loader: gcloud storage
+  tables:
+  - name: test_table
+    description: "table utilisée pour les tests"
+    external:
+      location: "gs://brocolib_utils-test-bucket/test_source/test_table/*"
+      options:
+        format: parquet
+        hive_partition_uri_prefix: "gs://brocolib_utils-test-bucket/test_source/test_table/"
+    columns:
+    - name: registration_dttm
+      data_type: TIMESTAMP
+      description: "Heure et date de l'enregistrement"
+    - name: id
+      data_type: FLOAT
+      description: "ID unique de la ligne"
+    - name: first_name
+      data_type: STRING
+      description: "Prénom de l'utilisateur"
+    - name: last_name
+      data_type: STRING
+      description: "Nom de famille de l'utilisateur"
+    - name: email
+      data_type: STRING
+      description: "email de l'utilisateur"
+    - name: gender
+      data_type: STRING
+      description: "Sexe de l'utilisateur"
+    - name: ip_address
+      data_type: STRING
+      description: "Adresse IP de l'utilisateur"
+    - name: cc
+      data_type: STRING
+      description: "Commentaire de l'utilisateur"
+    - name: country
+      data_type: STRING
+      description: "Pays de l'utilisateur"
+    - name: birthdate
+      data_type: STRING
+      description: "Date de naissance de l'utilisateur"
+    - name: salary
+      data_type: FLOAT
+      description: "Salaire de l'utilisateur"
+    - name: title
+      data_type: STRING
+      description: "Métier de l'utilisateur"
+    - name: comments
+      data_type: STRING
+      description: "Commentaire de l'utilsateur"
+    - name: month
+      data_type: STRING
+      description: "Mois de l'enregistrement. Clé de partition."

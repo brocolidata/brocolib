@@ -1,13 +1,9 @@
-## Useful links : 
-# - https://github.community/t/run-job-only-if-folder-changed/118292/2
 name: Brocolib CD
 
 on:
   pull_request: 
     types:
-      - closed
-    
-    
+      - closed 
 
 jobs:
   changes:
@@ -19,24 +15,27 @@ jobs:
       transform: ${{ steps.filter.outputs.transform }}
       utils: ${{ steps.filter.outputs.utils }}
       factory_utils: ${{ steps.filter.outputs.factory_utils }}
+      changed_projects: ${{ steps.filter.outputs.changes }}
     steps:
       - uses: dorny/paths-filter@v2
         id: filter
         with:
           filters: |
             extract_load:
-              - 'src/extract_load/**'
+              - 'brocolib/extract_load/**'
             transform:
-              - 'src/transform/**'
+              - 'brocolib/transform/**'
             utils:
-              - 'src/utils/**'
+              - 'brocolib/utils/**'
             factory_utils:
-              - 'src/factory_utils/**'
+              - 'brocolib/factory_utils/**'
 
-  build_brocolib_extract_load:
-    name: Job for 'brocolib_extract_load' package
+  build_brocolib:
+    name: 'Release ${{ matrix.changed_project }}'
     needs: changes
-    if: ${{ needs.changes.outputs.extract_load == 'true' }}
+    strategy:
+      matrix:
+        changed_project: ${{ fromJSON(needs.changes.outputs.changed_projects) }}
     runs-on: ubuntu-latest
     steps:
       - name: 'Git Checkout'
@@ -46,193 +45,32 @@ jobs:
         with:
           python-version: '3.8'
       - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/extract_load
+        working-directory: ${{ github.workspace }}/brocolib/${{ matrix.changed_project }}
         run: |
-          pip install wheel 
-          echo "PYTHONPATH=${{ github.workspace }}/src/extract_load" >> $GITHUB_ENV
-          python setup.py install --user
-      - name: Build wheel for brocolib_extract_load
-        working-directory: ${{ github.workspace }}/src/extract_load
+          pip install poetry 
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/${{ matrix.changed_project }}" >> $GITHUB_ENV
+          poetry install --no-interaction --no-root
+      - name: Build ${{ matrix.changed_project }} distribution
+        id: build_distribution
+        working-directory: ${{ github.workspace }}/brocolib/${{ matrix.changed_project }}
         run: |
-          rm -rf dist 
-          python setup.py sdist bdist_wheel
-      - name: Create commits
-        run: |
-          git config user.name 'github-actions-bot'
-          git config user.email 'contact.brocoli@gmail.com'
-          git add -A
-          git commit -m "deploys ${{ github.event.pull_request.head.ref }}"
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v4
+          poetry build --no-interaction
+          echo "BROCOLIB_PACKAGE_VERSION=$(poetry version --no-interaction -s)" >> $GITHUB_ENV
+          echo "BROCOLIB_PACKAGE_NAME=$(poetry version --no-interaction)" >> $GITHUB_ENV
+      - name: 'Create ${{ matrix.changed_project }} release'
+        id: create_release
+        uses: softprops/action-gh-release@v1
         with:
-          title: '[Deploy] extract_load from ${{ github.event.pull_request.head.ref }}'
-          branch: 'deploy/brocolib_extract_load'
-          delete-branch: true
-          body: ${{ github.event.pull_request.body }}
-          labels: |
-            CD
-          assignees: ${{ github.actor }}
-          team-reviewers: |
-            owners
-            maintainers
-      - name: Create comment 
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          issue-number: ${{ github.event.number }}
-          body: |
-            New PR to deploy to master : 
-            ${{ steps.cpr.outputs.pull-request-url }}"
-  
-  build_brocolib_transform:
-    name: Job for 'brocolib_transform' package
-    needs: changes
-    if: ${{ needs.changes.outputs.transform == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Git Checkout'
-        uses: actions/checkout@v2
-      - name: 'Setup Python'
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.8'
-      - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/transform
-        run: |
-          pip install wheel
-          echo "PYTHONPATH=${{ github.workspace }}/src/transform" >> $GITHUB_ENV
-          python setup.py install --user
-      - name: Build wheel for transform
-        working-directory: ${{ github.workspace }}/src/transform
-        run: |
-          rm -rf dist 
-          python setup.py sdist bdist_wheel
-      - name: Create commits
-        run: |
-          git config user.name 'github-actions-bot'
-          git config user.email 'contact.brocoli@gmail.com'
-          git add -A
-          git commit -m "deploys ${{ github.event.pull_request.head.ref }}"
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v4
-        with:
-          title: '[Deploy] transform from ${{ github.event.pull_request.head.ref }}'
-          branch: 'deploy/brocolib_transform'
-          delete-branch: true
-          body: ${{ github.event.pull_request.body }}
-          labels: |
-            CD
-          assignees: ${{ github.actor }}
-          team-reviewers: |
-            owners
-            maintainers
-      - name: Create comment 
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          issue-number: ${{ github.event.number }}
-          body: |
-            New PR to deploy to master : 
-            ${{ steps.cpr.outputs.pull-request-url }}"
+          name: ${{ env.BROCOLIB_PACKAGE_NAME }}
+          tag_name: '${{ matrix.changed_project }}_v_${{ env.BROCOLIB_PACKAGE_VERSION }}'
+          generate_release_notes: true
+          files: |
+            ${{ github.workspace }}/brocolib/${{ matrix.changed_project }}/dist/**
 
-  build_brocolib_utils:
-    name: Job for 'brocolib_utils' package
-    needs: changes
-    if: ${{ needs.changes.outputs.utils == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Git Checkout'
-        uses: actions/checkout@v2
-      - name: 'Setup Python'
-        uses: actions/setup-python@v3
+      - name: 'Publish release'
+        uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          python-version: '3.8'
-      - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/utils
-        run: |
-          pip install wheel 
-          echo "PYTHONPATH=${{ github.workspace }}/src/utils" >> $GITHUB_ENV
-          python setup.py install --user
-      - name: Build wheel for brocolib_utils
-        working-directory: ${{ github.workspace }}/src/utils
-        run: |
-          rm -rf dist 
-          python setup.py sdist bdist_wheel
-      - name: Create commits
-        run: |
-          git config user.name 'github-actions-bot'
-          git config user.email 'contact.brocoli@gmail.com'
-          git add -A
-          git commit -m "deploys ${{ github.event.pull_request.head.ref }}"
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v4
-        with:
-          title: '[Deploy] utils from ${{ github.event.pull_request.head.ref }}'
-          branch: 'deploy/brocolib_utils'
-          delete-branch: true
-          body: ${{ github.event.pull_request.body }}
-          labels: |
-            CD
-          assignees: ${{ github.actor }}
-          team-reviewers: |
-            owners
-            maintainers
-      - name: Create comment 
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          issue-number: ${{ github.event.number }}
-          body: |
-            New PR to deploy to master : 
-            ${{ steps.cpr.outputs.pull-request-url }}"
-  build_brocolib_factory_utils:
-    
-    name: Job for 'brocolib_factory_utils' package
-    needs: changes
-    if: ${{ needs.changes.outputs.factory_utils == 'true' && !contains(github.head_ref, 'deploy/') }} 
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Git Checkout'
-        uses: actions/checkout@v2
-      - name: 'Setup Python'
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.8'
-      - name: 'Install dependencies'
-        working-directory: ${{ github.workspace }}/src/factory_utils
-        run: |
-          pip install wheel 
-          echo "PYTHONPATH=${{ github.workspace }}/src/factory_utils" >> $GITHUB_ENV
-          python setup.py install --user
-      - name: Build wheel for brocolib_factory__utils
-        working-directory: ${{ github.workspace }}/src/factory_utils
-        run: |
-          rm -rf dist build
-          python setup.py sdist bdist_wheel
-      - name: Create commits
-        run: |
-          git config user.name 'github-actions-bot'
-          git config user.email 'contact.brocoli@gmail.com'
-          git add -A
-          git commit -m "deploys ${{ github.event.pull_request.head.ref }}"
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v4
-        with:
-          title: '[Deploy] factory_utils from ${{ github.event.pull_request.head.ref }}'
-          branch: 'deploy/brocolib_factory_utils'
-          delete-branch: true
-          body: ${{ github.event.pull_request.body }}
-          labels: |
-            CD
-          assignees: ${{ github.actor }}
-          team-reviewers: |
-            owners
-            maintainers
-      - name: Create comment 
-        uses: peter-evans/create-or-update-comment@v2
-        with:
-          issue-number: ${{ github.event.number }}
-          body: |
-            New PR to deploy to master : 
-            ${{ steps.cpr.outputs.pull-request-url }}"
+          release_id: ${{ steps.create_release.outputs.id }}
+      

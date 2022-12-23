@@ -1,9 +1,18 @@
-![Brocolib Logo](brocolib_github_banner.png)
+![Brocolib Logo](https://drive.google.com/uc?export=view&id=1NcTPDHMy35vJfAeZowYeD00byWlHhXrs)
 [![Pytest CI](https://github.com/brocolidata/brocolib/workflows/Pytest%20CI/badge.svg)](https://github.com/brocolidata/brocolib/actions/workflows/pytest_CI.yml)
 [![Brocolib CD](https://github.com/brocolidata/brocolib/workflows/Brocolib%20CD/badge.svg)](https://github.com/brocolidata/brocolib/actions/workflows/brocolib_CD.yml)
 # **brocolib**
 
 Brocoli Library for Data Processing
+
+# List of packages
+
+| Package                                            | Description                                                 |
+|----------------------------------------------------|-------------------------------------------------------------|
+| [brocolib_extract_load](./brocolib/extract_load)   | **E**xtract (**T**ransform) **L**oad data in a pythonic way |
+| [brocolib_transform](./brocolib/transform)         | Wrapper around dbt as a transformation layer                |
+| [brocolib_utils](./brocolib/utils)                 | Utilities to use Brocoli Data Platform                      |
+| [brocolib_factory_utils](./brocolib/factory_utils) | Utilities to deploy Brocoli Data Platform                   |
 
 # Installation
 1. Create a GitHub [token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
@@ -54,4 +63,4 @@ docker compose run --rm  brocolib bash build.sh DIRECTORY
 
 
 ## Brocolib Development
-See [Brocolib Development](/src/README.md)
+See [Brocolib Development](/src/develop.md)

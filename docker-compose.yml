@@ -6,14 +6,17 @@ services:
         image: brocolidata/brocolib
         container_name: brocolib
         volumes:
-            - ./src:/src
+            - ./brocolib:/brocolib
             - ./credentials:/credentials
         environment:
           - GOOGLE_APPLICATION_CREDENTIALS=$GOOGLE_APPLICATION_CREDENTIALS
           - DATALAKE_BUCKET=$DATALAKE_BUCKET
+          - DBT_DOCS_BUCKET=$DBT_DOCS_BUCKET
           - BACK_PROJECT_ID=$BACK_PROJECT_ID
           - FRONT_PROJECT_ID=$FRONT_PROJECT_ID
           - DEFAULT_GCS_PARTITIONNING_KEYS=$DEFAULT_GCS_PARTITIONNING_KEYS
-        working_dir: /src
+          - DDM_SHEETS_ID=$DDM_SHEETS_ID
+          - DBT_DOCS_READ_GROUP=$DBT_DOCS_READ_GROUP
+        working_dir: /brocolib
         stdin_open: true
         tty: true
