@@ -1,0 +1,26 @@
+[
+    {
+        "nom source": "adventure_works_full",
+        "nom table": "currencies_exchange_rate",
+        "nom fonctionnel table": "Taux de change des devises adv",
+        "description": "Description for currencies_exchange_rate",
+        "tags": "contains_pii, daily",
+        "periode actualisation": "",
+        "importer": "FALSE",
+        "stage_external_table": "TRUE",
+        "frequence": "0 8 * * *",
+        "specs": ""
+    },
+    {
+        "nom source": "odoo",
+        "nom table": "sample_table",
+        "nom fonctionnel table": "Taux de change des devises odoo",
+        "description": "Some table description",
+        "tags": "contains_pii, daily, business_critical",
+        "periode actualisation": "",
+        "importer": "FALSE",
+        "stage_external_table": "FALSE",
+        "frequence": "0 9 3 * *",
+        "specs": ""
+    }
+]

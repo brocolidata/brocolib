@@ -65,13 +65,13 @@ jobs:
         run: |
           echo "PYTHONPATH=${{ github.workspace }}/brocolib/${{ matrix.changed_project }}" >> $GITHUB_ENV
           echo "TESTS_PATH=${{ matrix.changed_project }}" >> $GITHUB_ENV
-          poetry install
+          poetry install --no-root
           poetry show
       - name: 'Run ${{ matrix.changed_project }} tests'
         id: run_tests
         if: steps.install_dependencies.outcome == 'success'
         working-directory: ${{ github.workspace }}/brocolib/tests
-        run: python -m pytest $TESTS_PATH --junit-xml pytest_brocolib_${{ matrix.changed_project }}.xml
+        run: poetry run pytest $TESTS_PATH --junit-xml pytest_brocolib_${{ matrix.changed_project }}.xml
       - name: 'Upload tests ${{ matrix.changed_project }} test results'
         if: steps.run_tests.outcome == 'success'
         uses: actions/upload-artifact@v2
