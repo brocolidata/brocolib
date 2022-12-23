@@ -59,11 +59,6 @@ jobs:
         uses: 'google-github-actions/auth@v0'
         with:
           credentials_json: '${{ secrets.GOOGLE_SECRETS_ACCESS_SA }}'
-      - name: 'Install apt dependencies'
-        uses: awalsh128/cache-apt-pkgs-action@latest
-        with:
-          packages: gcc
-          version: 1.0
       - name: 'Install test dependencies'
         run: |
           pip install pytest poetry
@@ -73,13 +68,13 @@ jobs:
         working-directory: ${{ github.workspace }}/brocolib/${{ matrix.changed_project }}
         run: |
           echo "PYTHONPATH=${{ github.workspace }}/brocolib/${{ matrix.changed_project }}" >> $GITHUB_ENV
-          poetry install --no-root
-          poetry show
+          poetry install --no-interaction --no-root
+          poetry show --no-interaction
       - name: 'Run ${{ matrix.changed_project }} tests'
         id: run_tests
         if: steps.install_dependencies.outcome == 'success'
         working-directory: ${{ github.workspace }}/brocolib/${{ matrix.changed_project }}/tests
-        run: poetry run pytest --junit-xml pytest_brocolib_${{ matrix.changed_project }}.xml
+        run: poetry run --no-interaction pytest --junit-xml pytest_brocolib_${{ matrix.changed_project }}.xml
       - name: 'Upload tests ${{ matrix.changed_project }} test results'
         if: steps.run_tests.outcome == 'success'
         uses: actions/upload-artifact@v2
