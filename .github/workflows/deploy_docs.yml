@@ -18,10 +18,10 @@ jobs:
           python-version: '3.8'
       - name: 'Add brocolib modules to path'
         run: |
-          echo "PYTHONPATH=$GITHUB_WORKSPACE/brocolib/extract_load" >> $GITHUB_ENV
-          echo "PYTHONPATH=$GITHUB_WORKSPACE/brocolib/transform" >> $GITHUB_ENV
-          echo "PYTHONPATH=$GITHUB_WORKSPACE/brocolib/utils" >> $GITHUB_ENV
-          echo "PYTHONPATH=$GITHUB_WORKSPACE/brocolib/factory_utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/brocolib/extract_load" >> $GITHUB_ENV
+          echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/brocolib/transform" >> $GITHUB_ENV
+          echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/brocolib/utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE/brocolib/factory_utils" >> $GITHUB_ENV
       - name: 'Install Python dependencies'
         run: pip install -r ${{ github.workspace }}/docker_build/requirements.txt
       - name: 'Build docs'
