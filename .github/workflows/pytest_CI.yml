@@ -33,7 +33,7 @@ jobs:
             
   brocolib_run_tests:
     name: 'Test ${{ matrix.changed_project }}'
-    if: needs.changes.outputs.changed_projects != ''
+    if: needs.changes.outputs.changed_projects
     needs: changes
     continue-on-error: true
     strategy:
