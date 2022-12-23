@@ -32,7 +32,7 @@ jobs:
 
   build_brocolib:
     name: 'Release ${{ matrix.changed_project }}'
-    if: needs.changes.outputs.changed_projects
+    if: ${{ needs.changes.outputs.changed_projects != '[]' && needs.changes.outputs.changed_projects != '' }}
     needs: changes
     strategy:
       matrix:
