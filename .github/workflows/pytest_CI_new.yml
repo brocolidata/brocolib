@@ -18,6 +18,9 @@ jobs:
         id: filter
         with:
           filters: |
+            extract_load:
+              - 'brocolib/extract_load/**'
+              - 'brocolib/tests/extract_load/**'
             transform:
               - 'brocolib/transform/**'
               - 'brocolib/tests/transform/**'

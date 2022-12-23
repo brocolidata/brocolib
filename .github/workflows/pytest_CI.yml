@@ -20,9 +20,6 @@ jobs:
         id: filter
         with:
           filters: |
-            extract_load:
-              - 'brocolib/extract_load/**'
-              - 'brocolib/tests/extract_load/**'
             factory_utils:
               - 'brocolib/factory_utils/**'
               - 'brocolib/tests/factory_utils/**'
