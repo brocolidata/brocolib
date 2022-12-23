@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "brocolib-utils"
 version = "0.0.34"
-description = "Utils Brocoli Library"
-authors = ["Amir B. <amir.boutayeb@gmail.com>"]
+description = "Utilities to use Brocoli Data Platform"
+authors = ["Brocoli Data, <contact.brocoli@gmail.com>"]
 readme = "README.md"
 packages = [{include = "brocolib_utils"}]
 
