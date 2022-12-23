@@ -18,6 +18,9 @@ jobs:
         id: filter
         with:
           filters: |
+            transform:
+              - 'brocolib/transform/**'
+              - 'brocolib/tests/transform/**'
             utils:
               - 'brocolib/utils/**'
               - 'brocolib/tests/utils/**'

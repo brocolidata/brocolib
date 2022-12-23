@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       extract_load: ${{ steps.filter.outputs.extract_load }}
-      transform: ${{ steps.filter.outputs.transform }}
       factory_utils: ${{ steps.filter.outputs.factory_utils }}
       changed_projects: ${{ steps.filter.outputs.changes }}
     steps:
@@ -24,9 +23,6 @@ jobs:
             extract_load:
               - 'brocolib/extract_load/**'
               - 'brocolib/tests/extract_load/**'
-            transform:
-              - 'brocolib/transform/**'
-              - 'brocolib/tests/transform/**'
             factory_utils:
               - 'brocolib/factory_utils/**'
               - 'brocolib/tests/factory_utils/**'
