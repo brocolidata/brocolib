@@ -1,7 +1,7 @@
 import json
 import os
 import pytest
-from brocolib_extract_load import goblet_utils
+from ..brocolib_extract_load import goblet_utils
 import base64
 
 @pytest.fixture

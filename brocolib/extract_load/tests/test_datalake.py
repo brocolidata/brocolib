@@ -3,7 +3,7 @@ from datetime import datetime
 import pytest
 import pandas as pd
 from requests import get
-from brocolib_extract_load import datalake
+from ..brocolib_extract_load import datalake
 
 DEFAULT_BUCKET = "test-bucket"
 DEFAULT_FILE = "test_file"
