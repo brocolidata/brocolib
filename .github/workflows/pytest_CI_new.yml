@@ -27,6 +27,9 @@ jobs:
             utils:
               - 'brocolib/utils/**'
               - 'brocolib/tests/utils/**'
+            factory_utils:
+              - 'brocolib/factory_utils/**'
+              - 'brocolib/tests/factory_utils/**'
             
   brocolib_run_tests:
     name: 'Test ${{ matrix.changed_project }}'
