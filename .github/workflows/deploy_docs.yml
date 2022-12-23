@@ -21,10 +21,10 @@ jobs:
       - name: 'Build docs'
         working-directory: ${{ github.workspace }}/brocolib
         run: |
-          echo "PYTHONPATH=${{env.PYTHONPATH}}:${{ github.workspace }}/brocolib/extract_load" >> $GITHUB_ENV
-          echo "PYTHONPATH=${{env.PYTHONPATH}}:${{ github.workspace }}/brocolib/transform" >> $GITHUB_ENV
-          echo "PYTHONPATH=${{env.PYTHONPATH}}:${{ github.workspace }}/brocolib/utils" >> $GITHUB_ENV
-          echo "PYTHONPATH=${{env.PYTHONPATH}}:${{ github.workspace }}/brocolib/factory_utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/extract_load" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/transform" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/utils" >> $GITHUB_ENV
+          echo "PYTHONPATH=${{ github.workspace }}/brocolib/factory_utils" >> $GITHUB_ENV
           portray as_html -o ${{ github.workspace }}/docs 
       - name: 'Upload GitHub Pages artifact'
         uses: actions/upload-pages-artifact@v1.0.7
