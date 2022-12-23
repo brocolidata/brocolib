@@ -21,7 +21,7 @@ jobs:
           echo "PYTHONPATH=$GITHUB_WORKSPACE/brocolib/utils" >> $GITHUB_ENV
           echo "PYTHONPATH=$GITHUB_WORKSPACE/brocolib/factory_utils" >> $GITHUB_ENV
       - name: 'Install Python dependencies'
-        run: pip install poetry
+        run: pip install portray
       - name: 'Build docs'
         run: |
           portray as_html \
