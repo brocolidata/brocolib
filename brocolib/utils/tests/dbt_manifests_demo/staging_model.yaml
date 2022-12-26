@@ -1,0 +1,33 @@
+version: 2
+models:
+- name: test_table
+  description: "table utilisée pour les tests"
+  columns:
+  - name: horodatage_enregistrement
+    description: "Heure et date de l'enregistrement"
+  - name: ID
+    description: "ID unique de la ligne"
+  - name: prenom
+    description: "Prénom de l'utilisateur"
+  - name: nom
+    description: "Nom de famille de l'utilisateur"
+  - name: email
+    description: "email de l'utilisateur"
+  - name: sexe
+    description: "Sexe de l'utilisateur"
+  - name: adresse_IP
+    description: "Adresse IP de l'utilisateur"
+  - name: commentaire
+    description: "Commentaire de l'utilisateur"
+  - name: pays
+    description: "Pays de l'utilisateur"
+  - name: date_de_naissance
+    description: "Date de naissance de l'utilisateur"
+  - name: salaire
+    description: "Salaire de l'utilisateur"
+  - name: metier
+    description: "Métier de l'utilisateur"
+  - name: commentaire
+    description: "Commentaire de l'utilsateur"
+  - name: mois
+    description: "Mois de l'enregistrement. Clé de partition."

@@ -19,6 +19,7 @@ pyyaml = "^6.0"
 gspread-pandas = "^3.2.2"
 fsspec = "^2022.11.0"
 gcsfs = "^2022.11.0"
+typer = {extras = ["all"], version = "^0.7.0"}
 
 
 [tool.poetry.group.dev.dependencies]
@@ -27,3 +28,7 @@ pytest = "^7.2.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+ddm = "brocolib_utils.ddm.cli:app"
+fast_dbt = "brocolib_utils.fast_dbt.cli:app"

@@ -45,3 +45,95 @@
 #             update_exposures(data)
 
 
+import sys
+import typer
+from collections import OrderedDict
+from pprint import pprint
+from typing import Optional
+# from ruamel import yaml
+from ruamel.yaml import YAML
+from brocolib_utils.fast_dbt import new_generator
+
+app = typer.Typer()
+
+@app.callback()
+def fast_dbt():
+    """
+    Domain Data Management Sheets Parser & Generator
+    """
+
+
+@app.command()
+def generate_source_yaml(
+    source_name: Optional[str] = typer.Argument(None, help="dbt source name"),
+    datalake_bucket: Optional[str] = typer.Argument(None, help="datalake bucket name where the data is located")
+):
+    """
+    Filling Source Tables & Source Columns worksheets in the DDM Google Sheets
+    """
+
+    
+    source_name = source_name or typer.prompt("Name of the source ?")
+    if not source_name:
+        typer.echo('You must provide a source_name. Exiting.')
+        raise typer.Exit(code=1)
+    
+
+    typer.echo(f"Generating YAML for source : {source_name} ..")
+    dc_source = new_generator.generate_source_yaml_asdict(
+        source_name=source_name,
+        datalake_bucket=datalake_bucket
+    )
+    new_generator.yaml_to_stdout(dc_source)
+
+
+@app.command()
+def generate_staging_sql(
+    source_name: Optional[str] = typer.Argument(None, help="dbt source name"),
+    table_name: Optional[str] = typer.Argument(None, help="name of the table")
+):
+    """
+    Generates SQL code for a staging model
+    """
+    source_name = source_name or typer.prompt("Name of the source ?")
+    if not source_name:
+        typer.echo('You must provide a source_name. Exiting.')
+        raise typer.Exit(code=1)
+    
+    table_name = table_name or typer.prompt("Name of the table ?")
+    if not table_name:
+        typer.echo('You must provide a table_name. Exiting.')
+        raise typer.Exit(code=1)
+    
+    query = new_generator.generate_staging_model_sql(
+        source_name=source_name,
+        table=table_name
+    )
+
+    print(query)
+
+
+@app.command()
+def generate_staging_yaml(
+    source_name: Optional[str] = typer.Argument(None, help="dbt source name"),
+    tables: str = typer.Argument(None, help="name of the table")
+):
+    """
+    Generate YAML for staging models
+    """
+    source_name = source_name or typer.prompt("Name of the source ?")
+    if not source_name:
+        typer.echo('You must provide a source_name. Exiting.')
+        raise typer.Exit(code=1)
+    
+    tables = tables or typer.prompt("Coma-separated list of tables (table1,table2) ? ")
+    if not tables:
+        typer.echo('You must provide tables. Exiting.')
+        raise typer.Exit(code=1)
+    tables = tables.split(',')
+    
+    dc_yaml = new_generator.generate_staging_model_yaml(
+        source_name=source_name,
+        tables=tables
+    )
+    new_generator.yaml_to_stdout(dc_yaml)

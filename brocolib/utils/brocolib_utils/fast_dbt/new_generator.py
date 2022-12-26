@@ -1,9 +1,29 @@
+import sys
+from collections import OrderedDict
 from ruamel.yaml.scalarstring import DoubleQuotedScalarString 
-from brocolib_utils.fast_dbt.ddm import sources_parser, sheet_parser
-from brocolib_utils.fast_dbt.ddm import settings as codegen_settings
-from brocolib_utils.datalake import datalake
+from ruamel.yaml import YAML
+from brocolib_utils.ddm import sheet_parser, sources_parser
+from brocolib_utils.ddm import ddm_settings
+from brocolib_utils.utils import datalake
 from brocolib_utils import settings
 import pandas as pd
+
+RAW_SOURCE_SQL = """with source as (
+    select * from {{{{ source('{source_name}', '{table_name}') }}}}
+),
+"""
+RAW_PREPARED_SOURCE_SQL = """
+prepared_source as (
+    select 
+        {columns_cast}
+    from source
+)
+
+select * from prepared_source
+"""
+COL_CAST_INTERLINES = """,
+        """
+COL_CAST_FIRST_LINE = ""
 
 def generate_source_yaml_asdict(
     source_name:str,
@@ -15,16 +35,16 @@ def generate_source_yaml_asdict(
     )
 
     all_sources_df, spreadsheet = sheet_parser.ddm_sheet_to_df(
-        sheet_name=codegen_settings.DDM_SHEET_NAMES.SOURCES
+        sheet_name=ddm_settings.DDM_SHEET_NAMES.SOURCES
     )
     source_description = all_sources_df.query(f"source_name=='{source_name}'")["description"].iloc[0] or None
     
     all_tables_df, spreadsheet = sheet_parser.ddm_sheet_to_df(
-        sheet_name=codegen_settings.DDM_SHEET_NAMES.SOURCE_TABLES
+        sheet_name=ddm_settings.DDM_SHEET_NAMES.SOURCE_TABLES
     )
 
     all_columns_df, _ = sheet_parser.ddm_sheet_to_df(
-        sheet_name=codegen_settings.DDM_SHEET_NAMES.SOURCE_COLUMNS,
+        sheet_name=ddm_settings.DDM_SHEET_NAMES.SOURCE_COLUMNS,
         worksheet=spreadsheet
     )
     
@@ -45,7 +65,6 @@ def generate_source_yaml_asdict(
 
     
 
-
 def init_dbt_sources(
     database:str, 
     source_name:str,
@@ -53,7 +72,7 @@ def init_dbt_sources(
 ):
     # dc_dbt_sources = OrderedDict()
     dc_dbt_sources = {}
-    dc_dbt_sources["version"]="2"
+    # dc_dbt_sources["version"]="2"
     dc_dbt_sources["sources"]=[]
     
     # for source in getattr(sources_dataframe, SOURCE_DATASET_COL).unique():
@@ -70,6 +89,13 @@ def init_dbt_sources(
     return dc_dbt_sources
 
 
+def init_dbt_staging():
+    dc = OrderedDict()
+    # return {"models":[]}
+    # return {"version":2, "models":[]}
+    dc["version"] = 2
+    dc["models"] = []
+    return dc
 
 
 def generate_loaded_tables_specs(
@@ -111,3 +137,48 @@ def generate_loaded_tables_specs(
 
 
     return init_dbt_sources_dict
+
+
+def generate_staging_model_sql(source_name:str, table:str):
+    dc_columns = sources_parser.get_all_columns_of_tables(
+        tables=[table]
+    )
+    source_sql = RAW_SOURCE_SQL.format(source_name=source_name, table_name=table)
+    
+    columns_cast = ""
+    for x, col in enumerate(dc_columns[table]):
+        endline_coma = COL_CAST_FIRST_LINE if x == 0 else COL_CAST_INTERLINES
+        columns_cast += endline_coma + f"cast({col['column_name']} as {col['data_type']}) as {col['column_functional_name']}"
+    prepared_source_sql = RAW_PREPARED_SOURCE_SQL.format(columns_cast=columns_cast)
+    staging_sql = source_sql + prepared_source_sql
+    return staging_sql
+        
+
+def generate_staging_model_yaml(source_name:str, tables:list) -> dict:
+    dc_columns = sources_parser.get_all_columns_of_tables(
+        tables=tables
+    )
+    all_source_tables_df, spreadsheet = sheet_parser.ddm_sheet_to_df(
+        sheet_name=ddm_settings.DDM_SHEET_NAMES.SOURCE_TABLES
+    )
+    staging_dc = init_dbt_staging()
+
+    for table, columns in dc_columns.items():
+        table_description = all_source_tables_df.query(f"table_name=='{table}'")["description"].iloc[0] or None
+        dc_table = OrderedDict()
+        dc_table["name"] = table
+        dc_table["description"] = DoubleQuotedScalarString(table_description)
+        dc_table["columns"] = []
+        for col in columns:
+            dc_col = OrderedDict()
+            dc_col["name"] = col["column_functional_name"]
+            dc_col["description"] = DoubleQuotedScalarString(col["description"])
+            dc_table["columns"].append(dc_col)
+        staging_dc["models"].append(dc_table)
+    return staging_dc
+
+
+def yaml_to_stdout(dc:dict):
+    yaml = YAML()
+    yaml.Representer.add_representer(OrderedDict, yaml.Representer.represent_dict)
+    yaml.dump(dc, sys.stdout)

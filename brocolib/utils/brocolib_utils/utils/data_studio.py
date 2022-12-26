@@ -2,7 +2,7 @@ import json
 import requests
 from . import credentials
 from . import settings
-from .settings import DATA_STUDIO_API_BASE_URL, DATA_STUDIO_ASSETS_TYPES
+from brocolib_utils.settings import DATA_STUDIO_API_BASE_URL, DATA_STUDIO_ASSETS_TYPES
 
 
 def response_helper(**kwargs) -> dict:
