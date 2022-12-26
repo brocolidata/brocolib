@@ -1,19 +1,25 @@
 # **brocolib** Development
 
-## Rebuild brocolib source distribution+wheel.
-**Prerequisites** : Make sure all packages mentioned in *brocolib/\*/setup.py* (in `install_requires`) are also in *docker_build/requirements.txt* and that the Docker image is fresh.
+## Create a new brocolib package
+We are using [Poetry](https://python-poetry.org/docs/) to package the libaries and manage their dependencies. In order to create a library (Make sure you are in a running VSCode remote container (step 4 of [Quickstart](/README.md#quickstart) and with a terminal located in `/brocolib`) :
+- Run `poetry new --name brocolib_YOUR_LIB YOUR_LIB` (replace `YOUR_LIB` by the name of the library you wish to create) and follow the process to package your code
+- Your folder should be structured like the following if you run `poetry new --name brocolib_transform transform`
+```
+├── README.md                   # Instructions and information about the package 
+├── __init__.py
+├── brocolib_transform          # Where the code is located
+│   ├── __init__.py
+│   └── dbt_utils.py
+├── poetry.lock                 # This is generated when you install dependencies
+├── pyproject.toml              # Settings of the project
+└── tests                       # Where tests are located
+    ├── __init__.py
+    └── test_dbt_utils.py
+```
 
-Open a terminal inside the container and run 
-```
-python3 setup.py sdist bdist_wheel
-```
 
 ## Run documentation website
-*(does not work for brocolib_utils yet)*
+Make sure you are in `/brocolib` and run 
 ```
-portray server -m brocolib_extract_load
-```
-**or**
-```
-portray server -m brocolib_transform
+portray server
 ```
