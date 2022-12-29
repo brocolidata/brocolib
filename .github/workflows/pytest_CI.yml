@@ -20,16 +20,12 @@ jobs:
           filters: |
             extract_load:
               - 'brocolib/extract_load/**'
-              - 'brocolib/tests/extract_load/**'
             transform:
               - 'brocolib/transform/**'
-              - 'brocolib/tests/transform/**'
             utils:
               - 'brocolib/utils/**'
-              - 'brocolib/tests/utils/**'
             factory_utils:
               - 'brocolib/factory_utils/**'
-              - 'brocolib/tests/factory_utils/**'
             
   brocolib_run_tests:
     name: 'Test ${{ matrix.changed_project }}'
@@ -81,7 +77,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ matrix.changed_project }} unit test results
-          path: ${{ github.workspace }}/brocolib/tests/pytest_brocolib_${{ matrix.changed_project }}.xml
+          path: ${{ github.workspace }}/brocolib/${{ matrix.changed_project }}/tests/pytest_brocolib_${{ matrix.changed_project }}.xml
 
   publish-test-results:
     name: 'Publish tests results'

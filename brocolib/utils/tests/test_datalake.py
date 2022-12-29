@@ -1,8 +1,8 @@
 import pandas as pd
 from .conftest import TEST_BUCKET_NAME, populate_bucket
-from brocolib_utils.datalake import datalake, gcs_utils
+from brocolib_utils.utils import datalake, gcs
 from brocolib_utils import settings
-from brocolib_utils.fast_dbt.ddm import sources_parser
+from brocolib_utils.ddm import sources_parser
 
 # def test_no_import_error():
 #     from brocolib_utils.datalake import datalake
@@ -22,7 +22,7 @@ from brocolib_utils.fast_dbt.ddm import sources_parser
 
 def test_setup_ok(populate_bucket):
     bucket = populate_bucket
-    storage_client = gcs_utils.get_storage_client()
+    storage_client = gcs.get_storage_client()
     raw_blobs = storage_client.list_blobs(bucket.name, prefix="test_source/")
     blobs = [blob.name for blob in raw_blobs]
     assert blobs == [

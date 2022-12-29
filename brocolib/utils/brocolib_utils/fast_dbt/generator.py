@@ -43,8 +43,6 @@ def init_dbt_sources(database, loader=None, version=2):
     return dc_dbt_sources
 
 
-
-
 def dict_to_yaml(yaml_dict, yaml_file_path="./stg.yml"):
     yaml=YAML()
     yaml.default_flow_style = False

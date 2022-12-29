@@ -59,6 +59,37 @@ SOURCES_MAPPING = {
     "description":"description"
 }
 
+METRICS_MAPPING = {
+    "nom metric":"metric_name",
+    "label":"label",
+    "description":"description",
+    "formule":"formula",
+    "info":"info",
+    "model":"model",
+    "method_calcul":"calculation_method",
+    "expression":"expression",
+    "timestamp":"timestamp",
+    "time_grains":"time_grains",
+    "dimensions":"dimensions",
+    "filters":"filters",
+    "window":"window",
+    "treat_null_values_as_zero":"treat_null_values_as_zero",
+    "enabled":"enabled"
+}
+
+DASHBOARDS_MAPPING = {
+    "nom exposure":"exposure_name",
+    "label exposure":"exposure_label",
+    "type exposure":"exposure_type",
+    "maturite":"maturity",
+    "url":"url",
+    "description":"description",
+    "depend de":"depends_on",
+    "nom responsable ":"owner_name",
+    "email responsable ":"owner_email",
+    "acces":"access"
+}
+
 def format_DDM_dataframe(
     in_df:pd.DataFrame,
     sheet: DDM_SHEET_NAMES, 

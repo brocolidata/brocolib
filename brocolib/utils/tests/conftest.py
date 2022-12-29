@@ -1,7 +1,7 @@
 # Fixtures shared for all utils tests
 import pytest
 import pandas as pd
-from brocolib_utils.datalake import gcs_utils
+from brocolib_utils.utils import gcs
 import logging
 
 TEST_BUCKET_NAME = "brocolib_utils-test-bucket"
@@ -11,7 +11,7 @@ DEMO_DATA_URL = "https://github.com/Teradata/kylo/blob/master/samples/sample-dat
 
 @pytest.fixture(scope='session')
 def create_test_bucket():
-    bucket, bucket_exists = gcs_utils.create_bucket(TEST_BUCKET_NAME)
+    bucket, bucket_exists = gcs.create_bucket(TEST_BUCKET_NAME)
     msg = f"{bucket.name} already exists" if bucket_exists else f"Created {bucket.name}"
     logging.info(msg)
     yield bucket, bucket_exists

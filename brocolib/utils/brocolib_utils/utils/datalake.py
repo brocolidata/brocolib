@@ -3,7 +3,7 @@ import pandas as pd
 from google.cloud import storage
 from pandas_gbq.schema import generate_bq_schema
 from brocolib_utils import credentials, settings
-from brocolib_utils.datalake import gcs_utils
+from . import gcs
 
 
 def get_storage_client(gcp_project):
@@ -82,7 +82,7 @@ def get_raw_source(
     Returns:
         dict: _description_
     """
-    client = gcs_utils.get_storage_client(gcp_project)
+    client = gcs.get_storage_client(gcp_project)
     source_dict=add_to_source_list(
         client=client,
         datalake_bucket=datalake_bucket,

@@ -3,9 +3,8 @@ import pathlib
 import os
 import pandas as pd
 import pytest
-from brocolib_utils.drive import sheets
-from brocolib_utils.fast_dbt.ddm import sources_parser, sheet_parser
-from brocolib_utils.fast_dbt.ddm import settings as codegen_settings
+from brocolib_utils.ddm import sources_parser, sheet_parser
+from brocolib_utils.ddm import ddm_settings
 # from .conftest import populate_bucket
 
 def test_no_import_error():
@@ -40,9 +39,9 @@ def load_demo_data():
         base_file_path = os.path.join(parent_dir, DATA_FILES_FOLDER, f"{str_sheet_name}_base.json")
         with open(base_file_path) as f:
             base_data = json.load(f)
-        sheet_name = codegen_settings.get_sheet_enum(str_sheet_name)
+        sheet_name = ddm_settings.get_sheet_enum(str_sheet_name)
         df_raw_base = pd.DataFrame(base_data)
-        df_base = codegen_settings.format_DDM_dataframe(
+        df_base = ddm_settings.format_DDM_dataframe(
                 in_df=df_raw_base,
                 sheet=sheet_name, 
                 format_mode="import"
@@ -60,17 +59,17 @@ def load_demo_data():
 def test_format_DDM_dataframe(load_demo_data):
     dc_sheets = load_demo_data
     for str_sheet_name, df in dc_sheets.items():
-        sheet = codegen_settings.get_sheet_enum(str_sheet_name)
-        import_format_df = codegen_settings.format_DDM_dataframe(
+        sheet = ddm_settings.get_sheet_enum(str_sheet_name)
+        import_format_df = ddm_settings.format_DDM_dataframe(
             in_df=df,
             sheet = sheet,
             format_mode="import"
         )
 
-        mapping = getattr(codegen_settings, f"{sheet.name}_MAPPING")
+        mapping = getattr(ddm_settings, f"{sheet.name}_MAPPING")
         assert import_format_df.columns.tolist() == list(mapping.values())
 
-        export_format_df = codegen_settings.format_DDM_dataframe(
+        export_format_df = ddm_settings.format_DDM_dataframe(
             in_df=import_format_df,
             sheet = sheet,
             format_mode="export"
@@ -87,12 +86,12 @@ def test_fill_source_tables(populate_bucket, load_demo_data, get_expectated_data
         datalake_bucket=bucket.name
     )
     for str_sheet_name in dc_sheet:
-        sheet_name = codegen_settings.get_sheet_enum(str_sheet_name)
+        sheet_name = ddm_settings.get_sheet_enum(str_sheet_name)
         df_test, _ = sheet_parser.ddm_sheet_to_df(
             sheet_name=sheet_name
         )
 
-        df_test_formated = codegen_settings.format_DDM_dataframe(
+        df_test_formated = ddm_settings.format_DDM_dataframe(
             in_df=df_test,
             sheet=sheet_name,
             format_mode="export"

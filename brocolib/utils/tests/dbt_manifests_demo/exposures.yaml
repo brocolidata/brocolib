@@ -1,0 +1,14 @@
+version: 2
+exposures:
+- name: MAC03
+  label: "Evolution de la valeur du MAD par rapport au USD, EUR et Livre"
+  maturity: high
+
+  url: https://datastudio.google.com/reporting/92c47f6e-e0a3-4a9e-9245-2ade3ea1900f
+  description: "Evolution quotidienne des prix du Dirham Marocain par rapport au Dollars\
+    \ Americain, l'Euro et la Livre sterling"
+  depends_on:
+  - currencies_index
+  owner:
+    name: un_responsable
+    email: responsable@gmail.com
