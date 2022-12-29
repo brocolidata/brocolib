@@ -51,6 +51,8 @@ from collections import OrderedDict
 from pprint import pprint
 from typing import Optional
 # from ruamel import yaml
+from rich.prompt import Prompt
+from rich import print as rich_print
 from ruamel.yaml import YAML
 from brocolib_utils.fast_dbt import new_generator
 
@@ -73,7 +75,7 @@ def generate_source_yaml(
     """
 
     
-    source_name = source_name or typer.prompt("Name of the source ?")
+    source_name = source_name or Prompt.ask("Name of the source :file_cabinet: ")
     if not source_name:
         typer.echo('You must provide a source_name. Exiting.')
         raise typer.Exit(code=1)
@@ -84,7 +86,10 @@ def generate_source_yaml(
         source_name=source_name,
         datalake_bucket=datalake_bucket
     )
-    new_generator.yaml_to_stdout(dc_source)
+    # new_generator.yaml_to_stdout(dc_source)
+    str_sources = new_generator.object_to_yaml_str(dc_source)
+    rich_print(str_sources)
+    
 
 
 @app.command()
@@ -95,12 +100,12 @@ def generate_staging_sql(
     """
     Generates SQL code for a staging model
     """
-    source_name = source_name or typer.prompt("Name of the source ?")
+    source_name = source_name or Prompt.ask("Name of the source :file_cabinet: ")
     if not source_name:
         typer.echo('You must provide a source_name. Exiting.')
         raise typer.Exit(code=1)
     
-    table_name = table_name or typer.prompt("Name of the table ?")
+    table_name = table_name or Prompt.ask("Name of the table :card_file_box: ")
     if not table_name:
         typer.echo('You must provide a table_name. Exiting.')
         raise typer.Exit(code=1)
@@ -110,7 +115,7 @@ def generate_staging_sql(
         table=table_name
     )
 
-    print(query)
+    rich_print(query)
 
 
 @app.command()
@@ -121,12 +126,12 @@ def generate_staging_yaml(
     """
     Generate YAML for staging models
     """
-    source_name = source_name or typer.prompt("Name of the source ?")
+    source_name = source_name or Prompt.ask("Name of the source :file_cabinet: ")
     if not source_name:
         typer.echo('You must provide a source_name. Exiting.')
         raise typer.Exit(code=1)
     
-    tables = tables or typer.prompt("Coma-separated list of tables (table1,table2) ? ")
+    tables = tables or Prompt.ask("Coma-separated list of tables (table1,table2) :card_file_box: ")
     if not tables:
         typer.echo('You must provide tables. Exiting.')
         raise typer.Exit(code=1)
@@ -136,4 +141,42 @@ def generate_staging_yaml(
         source_name=source_name,
         tables=tables
     )
-    new_generator.yaml_to_stdout(dc_yaml)
+    # new_generator.yaml_to_stdout(dc_yaml)
+    str_staging = new_generator.object_to_yaml_str(dc_yaml)
+    rich_print(str_staging)
+
+
+@app.command()
+def generate_metrics_yaml(
+    metrics: str = typer.Argument(None, help="Coma-separated list of metrics (metric_1,metric_2) ")
+):
+    """Generate YAML for metrics"""
+    metrics = metrics or Prompt.ask("Coma-separated list of metrics (metric_1,metric_2) :straight_ruler: ")
+    if not metrics:
+        typer.echo('You must provide metrics. Exiting.')
+        raise typer.Exit(code=1)
+    metrics = metrics.split(',')
+    dc_metrics = new_generator.generate_metrics(
+        metric_list = metrics
+    )
+    # new_generator.yaml_to_stdout(dc_metrics)
+    str_metrics = new_generator.object_to_yaml_str(dc_metrics)
+    rich_print(str_metrics)
+
+
+@app.command()
+def generate_exposures_yaml(
+    exposures: str = typer.Argument(None, help="Coma-separated list of exposures (exposure_1,exposure_2) ")
+):
+    """Generate YAML for exposures"""
+    exposures = exposures or Prompt.ask("Coma-separated list of exposures (exposure_1,exposure_2) :chart_increasing: ")
+    if not exposures:
+        typer.echo('You must provide exposures. Exiting.')
+        raise typer.Exit(code=1)
+    exposures = exposures.split(',')
+    dc_exposures = new_generator.generate_exposures(
+        exposure_list = exposures
+    )
+    # new_generator.yaml_to_stdout(dc_exposures)
+    str_exposures = new_generator.object_to_yaml_str(dc_exposures)
+    rich_print(str_exposures)

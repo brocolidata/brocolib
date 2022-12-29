@@ -82,3 +82,27 @@ def test_generate_staging_model_yaml():
     with open(test_file_path) as ff:
         test_dict = yaml.safe_load(ff)
     assert dc_model == test_dict
+
+
+def test_generate_metrics():
+    dc_metrics = new_generator.generate_metrics(
+        metric_list=["new_customers"]
+    )
+    parent_dir = pathlib.Path(__file__).parent.resolve()
+    test_file_path = os.path.join(parent_dir, DBT_MANIFESTS_FOLDER, "metrics.yaml")
+    with open(test_file_path) as ff:
+        test_dict = yaml.safe_load(ff)
+
+    assert dc_metrics == test_dict
+
+
+def test_generate_exposures():
+    dc_exposures = new_generator.generate_exposures(
+        exposure_list=["MAC03"]
+    )
+    parent_dir = pathlib.Path(__file__).parent.resolve()
+    test_file_path = os.path.join(parent_dir, DBT_MANIFESTS_FOLDER, "exposures.yaml")
+    with open(test_file_path) as ff:
+        test_dict = yaml.safe_load(ff)
+
+    assert dc_exposures == test_dict

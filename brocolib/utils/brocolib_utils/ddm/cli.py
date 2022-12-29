@@ -1,6 +1,6 @@
 import typer
 from typing import Optional
-
+from rich.prompt import Prompt
 from brocolib_utils.ddm import sources_parser
 
 app = typer.Typer()
@@ -20,7 +20,7 @@ def fill_sources(
     """
     Filling Source Tables & Source Columns worksheets in the DDM Google Sheets
     """
-    source_name = source_name or typer.prompt("Name of the source ?")
+    source_name = source_name or Prompt.ask("Name of the source ?")
 
     if not source_name:
         typer.echo('You must provide a source_name. Exiting.')
