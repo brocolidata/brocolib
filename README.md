@@ -34,16 +34,8 @@ docker compose -f ./docker_build/docker-compose.yml build
 3. Duplicate the `.env.example` , rename it to `.env` and replace dummy values with yours
 4. Click on *Open a Remote Window* button (left-down corner) & select **Reopen in Container**
 
-
-## CI/CD
-
-### CI
-Creating a PR will trigger a CI pipeline.When changes located in `/src` are detected by the CI pipeline, it will run `pytest` tests.
-
-
-### CD
-When you merge a PR on `main`, a CD pipeline will be triggered to deploy new GitHub releases for every package subject to change in the PR.
-
-
 ## Brocolib Development
 See [Brocolib Development](/brocolib/develop.md)
+
+## CI/CD
+See [Brocolib CI/CD](.github/workflows/README.md)
