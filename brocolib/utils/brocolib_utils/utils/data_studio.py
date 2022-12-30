@@ -1,8 +1,8 @@
 import json
 import requests
-from . import credentials
-from . import settings
-from brocolib_utils.settings import DATA_STUDIO_API_BASE_URL, DATA_STUDIO_ASSETS_TYPES
+from brocolib_utils import credentials
+from brocolib_utils.settings import (DATA_STUDIO_API_BASE_URL, DATA_STUDIO_ASSETS_TYPES, 
+    DATA_STUDIO_API_SCOPE)
 
 
 def response_helper(**kwargs) -> dict:
@@ -15,7 +15,7 @@ def response_helper(**kwargs) -> dict:
 class DataStudio:
     # This func runs as default when DataStudio class runs.
     def __init__(self, *args, **kwargs):
-        self.headers = credentials.get_jwt_header(settings.DATA_STUDIO_API_SCOPE)
+        self.headers = credentials.get_jwt_header(DATA_STUDIO_API_SCOPE)
 
     # def get_assets(self, asset_id, asset_type) -> dict:
     def get_assets(self, asset_type: DATA_STUDIO_ASSETS_TYPES) -> dict:
