@@ -32,3 +32,4 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 ddm = "brocolib_utils.ddm.cli:app"
 fast_dbt = "brocolib_utils.fast_dbt.cli:app"
+data_catalog = "brocolib_utils.catalog_gen.cli:app"
