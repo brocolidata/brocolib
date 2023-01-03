@@ -41,7 +41,7 @@ def translate_catalog(catalog_data):
 
 def retrieve_data_catalog_index():
     response = rq.get(settings.DATA_CATALOG_RELEASE_INDEX_URL)
-    return response.content
+    return response.content.decode()
 
 
 def get_dbt_populated_index(target_folder):
