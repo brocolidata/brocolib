@@ -3,8 +3,9 @@ name: Brocolib CD
 on:
   pull_request: 
     types:
-      - closed 
-
+      - closed
+    branches:
+      - main
 jobs:
   changes:
     name: Check files for changes
