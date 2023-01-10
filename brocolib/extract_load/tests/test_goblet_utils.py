@@ -1,5 +1,6 @@
 import json
 import os
+import pathlib
 import pytest
 from ..brocolib_extract_load import goblet_utils
 import base64
@@ -45,7 +46,8 @@ def setup_schedule(create_schedule):
 
 
 def test_get_schedules(setup_schedule, schedules_list):
-    ls_schedules = goblet_utils.get_schedules(schedule_filepath=os.getcwd())
+    schedule_file_path = pathlib.Path(os.getcwd(), "schedules.json")
+    ls_schedules = goblet_utils.get_schedules(schedule_file_path)
 
     assert ls_schedules == schedules_list
 
