@@ -2,28 +2,28 @@ from gspread import Spreadsheet
 from typing import Tuple
 from gspread_pandas import Spread
 import pandas as pd
-from brocolib_utils.drive import sheets
-from . import settings as codegen_settings
+from brocolib_utils.utils import sheets
+from . import ddm_settings
 
 def get_ddm_sheet() -> Spread:
     return sheets.get_google_sheet(
-        sheet_id=codegen_settings.DDM_SHEETS_ID
+        sheet_id=ddm_settings.DDM_SHEETS_ID
     )
 
-def get_ddm_worksheet(sheet:codegen_settings.DDM_SHEET_NAMES) -> Spread:
+def get_ddm_worksheet(sheet:ddm_settings.DDM_SHEET_NAMES) -> Spread:
     return sheets.get_google_worksheet(
-        sheet_id=codegen_settings.DDM_SHEETS_ID,
+        sheet_id=ddm_settings.DDM_SHEETS_ID,
         worksheet_name=sheet.value
     )
 
 def ddm_sheet_to_df(
-    sheet_name: codegen_settings.DDM_SHEET_NAMES,
+    sheet_name: ddm_settings.DDM_SHEET_NAMES,
     worksheet:Spread = None
 ) -> Tuple[pd.DataFrame, Spread]:
     """_summary_
 
     Args:
-        sheet_name (codegen_settings.DDM_SHEET_NAMES): _description_
+        sheet_name (ddm_settings.DDM_SHEET_NAMES): _description_
 
     Returns:
         Tuple[pd.DataFrame, Spread]: _description_
@@ -36,7 +36,7 @@ def ddm_sheet_to_df(
     
     raw_df = worksheet.sheet_to_df(index=0)
 
-    formated_df = codegen_settings.format_DDM_dataframe(
+    formated_df = ddm_settings.format_DDM_dataframe(
         in_df=raw_df,
         sheet=sheet_name,
         format_mode='import'
@@ -48,9 +48,9 @@ def ddm_sheet_to_df(
 def df_to_ddm_sheet(
     df:pd.DataFrame,
     sheet: Spread,
-    sheet_name: codegen_settings.DDM_SHEET_NAMES
+    sheet_name: ddm_settings.DDM_SHEET_NAMES
 ):  
-    formated_df = codegen_settings.format_DDM_dataframe(
+    formated_df = ddm_settings.format_DDM_dataframe(
         in_df=df,
         sheet=sheet_name,
         format_mode='export'

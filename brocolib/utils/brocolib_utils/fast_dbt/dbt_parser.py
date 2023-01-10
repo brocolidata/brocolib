@@ -1,5 +1,5 @@
 import logging
-from brocolib_utils.data_studio import DataStudio
+from brocolib_utils.utils.data_studio import DataStudio
 
 
 def update_exposures(data: dict):

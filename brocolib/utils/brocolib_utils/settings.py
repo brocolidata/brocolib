@@ -46,3 +46,4 @@ BIGQUERY_MAPPING_TYPES = {
 }
 
     
+DATA_CATALOG_RELEASE_INDEX_URL = "https://github.com/brocolidata/dbt-docs/releases/latest/download/index.html"

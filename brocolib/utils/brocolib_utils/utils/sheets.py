@@ -5,7 +5,7 @@ import gspread
 import gspread_pandas
 import pandas as pd
 from brocolib_utils import credentials
-from brocolib_utils import settings
+# from brocolib_utils import settings
 
 def get_sheets_credentials():
     return gspread_pandas.conf.get_creds(

@@ -4,6 +4,8 @@ import re
 from google.cloud import storage
 import shlex
 import subprocess
+import requests as rq
+from brocolib_utils import settings
 
 DBT_DOCS_BUCKET = os.environ.get('DBT_DOCS_BUCKET')
 GCP_PROJECT = os.environ.get('FRONT_PROJECT_ID')
@@ -36,16 +38,23 @@ def translate_catalog(catalog_data):
 
     return catalog_data
 
+
+def retrieve_data_catalog_index():
+    response = rq.get(settings.DATA_CATALOG_RELEASE_INDEX_URL)
+    return response.content.decode()
+
+
 def get_dbt_populated_index(target_folder):
 
     print('Populating index.html ...')
-    base_index_path = os.path.join(os.path.dirname(__file__), 'base_index.html')
+    # base_index_path = os.path.join(os.path.dirname(__file__), 'base_index.html')
     manifest_path = os.path.join(target_folder, 'manifest.json')
     catalog_path = os.path.join(target_folder, 'catalog.json')
     search_str = 'o=[i("manifest","manifest.json"+t),i("catalog","catalog.json"+t)]'
 
-    with open(base_index_path, 'r') as f:
-        content_index = f.read()
+    # with open(base_index_path, 'r') as f:
+    #     content_index = f.read()
+    content_index = retrieve_data_catalog_index()
 
     with open(manifest_path, 'r') as f:
         json_manifest = json.loads(f.read())
