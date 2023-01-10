@@ -45,7 +45,7 @@ def setup_schedule(create_schedule):
 
 
 def test_get_schedules(setup_schedule, schedules_list):
-    ls_schedules = goblet_utils.get_schedules()
+    ls_schedules = goblet_utils.get_schedules(schedule_filepath=os.getcwd())
 
     assert ls_schedules == schedules_list
 

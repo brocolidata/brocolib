@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "brocolib-extract-load"
-version = "0.0.20"
+version = "0.1.0"
 description = "Extract (Transform) & Load Data by Brocoli"
 authors = ["Brocoli Data, <contact.brocoli@gmail.com>"]
 readme = "README.md"

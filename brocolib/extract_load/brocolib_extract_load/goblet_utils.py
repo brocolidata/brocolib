@@ -49,29 +49,26 @@ def yad(decoratator_list):
     return decorator
 
 
-def get_schedules():
-    if "schedules.json" in os.listdir('.'):
-        schedules_path = "./schedules.json"
-    else:
-        raise FileNotFoundError("schedules.json")
-    with open(schedules_path) as f:
+def get_schedules(schedule_filepath):
+    with open(schedule_filepath) as f:
         LS_SCHEDULES = json.load(f)
     return LS_SCHEDULES
 
 
-def get_decorator_list(app):
+def get_decorator_list(app, schedule_filepath):
     """For every schedule : 
     - Create a decorator for the schedule
     - Add it to a list of decorators
 
     Args:
-        app (goblet.Goblet): Goblet app
+        app (goblet.Goblet): Goblet app object
+        schedule_filepath (str): path to the schedule json file
 
     Returns:
         goblet_decoratator_list (list): list of decorators
     """
     goblet_decoratator_list = []
-    for schedule in get_schedules():
+    for schedule in get_schedules(schedule_filepath):
         goblet_decoratator_list.append(
             app.schedule(
                 schedule["cron_schedule"], 
@@ -84,15 +81,16 @@ def get_decorator_list(app):
     return goblet_decoratator_list
 
 
-def add_schedules(app):
+def add_schedules(app, schedule_filepath):
     """Decorator that adds all the schedule
     to a Cloud Function handler
 
     Args:
-        app (goblet.Goblet): [description]
+        app (goblet.Goblet): goblet app object
+        schedule_filepath (str): path to the schedule json file
 
     Returns:
         yad: decorator containing all the shedules' decorators
     """
-    goblet_decoratator_list = get_decorator_list(app)
+    goblet_decoratator_list = get_decorator_list(app, schedule_filepath)
     return yad(goblet_decoratator_list)
