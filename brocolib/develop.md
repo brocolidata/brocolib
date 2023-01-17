@@ -25,6 +25,7 @@ Make sure you are in a running VSCode remote container (step 4 of [Quickstart](/
 - It is recommended to reopen the VS Code container inside the folder of the brocolib package you are working on.
 
 ## Manage dependencies
+Make sure you `cd` in the folder of the package.
 
 ### Add a new dependency
 ```
